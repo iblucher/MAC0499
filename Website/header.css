@@ -1,0 +1,14 @@
+.materia {
+	display: block;
+	font-size: 15px;
+}
+
+.aluno, .orientador {
+	display: block;
+	font-size: 18px;
+	text-align: center;
+}
+
+.tema {
+	text-align: center;
+}
