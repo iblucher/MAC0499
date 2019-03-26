@@ -1,0 +1,25 @@
+.menu-horizontal nav {
+	display: block;
+	text-align: center;
+}
+
+.menu-horizontal ul {
+	vertical-align: center;
+}
+
+.menu-horizontal ul li {
+	display: inline;
+	font-size: 20px;
+	list-style-type: none;
+	padding: 15px;
+}
+
+.menu-horizontal ul li a, a:visited {
+	text-decoration-line: none;
+	overflow: hidden;
+	color: blue;
+}
+
+.menu-horizontal ul li a:hover {
+	color: black;
+}

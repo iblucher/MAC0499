@@ -9,6 +9,16 @@
 	text-align: center;
 }
 
+.orientador a, a:visited {
+	text-decoration-line: none;
+	overflow: hidden;
+	color: blue;
+}
+
+.orientador a:hover {
+	color: black;
+}
+
 .tema {
 	text-align: center;
 }
