@@ -5,6 +5,7 @@
 
 .menu-horizontal ul {
 	vertical-align: center;
+	text-align: center;
 }
 
 .menu-horizontal ul li {
@@ -17,9 +18,9 @@
 .menu-horizontal ul li a, a:visited {
 	text-decoration-line: none;
 	overflow: hidden;
-	color: blue;
+	color: #595959;
 }
 
 .menu-horizontal ul li a:hover {
-	color: black;
+	color: #ababab;
 }

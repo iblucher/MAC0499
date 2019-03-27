@@ -12,11 +12,11 @@
 .orientador a, a:visited {
 	text-decoration-line: none;
 	overflow: hidden;
-	color: blue;
+	color: #595959;
 }
 
 .orientador a:hover {
-	color: black;
+	color: #ababab;
 }
 
 .tema {
