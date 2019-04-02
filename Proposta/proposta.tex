@@ -1,0 +1,175 @@
+\documentclass[10pt,twoside,a4paper]{article}
+% ^- openany - open new pages in odd/even page
+
+%packages
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}      % Encoding
+\usepackage[portuguese]{babel}   % Correção
+%\usepackage{caption}             % Legendas
+\usepackage{enumerate}
+% Matemática
+\usepackage{amsmath}             % Matemática
+\usepackage{amsthm, amssymb}     % Matemática
+\newtheorem*{def*}{Definição}
+\newtheorem*{invariant}{Invariante}
+
+% Gráficos
+\usepackage[usenames,dvipsnames]{color}  % Cores
+\usepackage[pdftex]{graphicx}   % usamos arquivos pdf/png como figura
+\usepackage[usenames,svgnames,dvipsnames,table]{xcolor}
+
+% Desenhos
+\usepackage{tikz}
+\usepgfmodule{decorations}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.shapes}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{positioning} % Adjust grid size
+
+% Código-fonte
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithm}
+
+% Configurações da página
+\usepackage{fancyhdr}           % header & footer
+\usepackage{float}
+\usepackage{setspace}           % espaçamento flexível
+\usepackage{indentfirst}        % Identa primeiro parágrafo
+\usepackage{makeidx}
+\usepackage[nottoc]{tocbibind}  % acrescentamos a  bibliografia/indice/
+                                % conteudo no Table of Contents
+                                
+% Fontes
+%\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{type1cm}            % fontes realmente escaláveis
+\usepackage{titletoc}
+\usepackage{pdflscape}          % Páginas em paisagem
+\usepackage{pdfpages}
+
+% Fontes e margens
+\usepackage[fixlanguage]{babelbib}
+\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+\usepackage[a4paper,top=3.0cm,bottom=3.0cm,left=2.0cm,right=2.0cm]{geometry}
+
+% Referências e citações
+\usepackage[
+    pdftex,
+    breaklinks,
+    plainpages=false,
+    pdfpagelabels,
+    pagebackref,
+    colorlinks=true,
+    citecolor=DarkGreen,
+    linkcolor=DarkBlue,
+    urlcolor=DarkRed,
+    filecolor=green,
+    bookmarksopen=true
+]{hyperref} 
+\usepackage[all]{hypcap} % Soluciona o problema com o hyperref e capitulos
+%\usepackage[round,sort,nonamebreak]{natbib} % Citação bibliográfica plainnat-ime
+\usepackage{cite}
+%\bibpunct{(}{)}{;}{a}{\hspace{-0.7ex},}{,}  % Estilo de citação
+%\bibpunct{(}{)}{;}{a}{,}{,}
+
+
+% Info
+%\title{}
+\begin{document}
+\begin{center}
+  \vspace*{3cm}
+  
+  \Huge
+  \textbf{Filtragem de ruído telúrico em sinais astronômicos}
+
+  \vspace{2.5cm}
+  \LARGE
+  MAC0499 - Trabalho de formatura supervisionado\\
+  \vspace{0.3cm}
+  \LARGE
+  \textit{Proposta de Trabalho}
+
+  
+  \vspace{4.3cm}
+  \includegraphics[height=4cm,width=3cm]{ime.png}
+  \vspace{2cm}
+  
+  Aluna: \textit{Isabela Blucher}
+  
+  %\vfill
+  
+  Orientadores: \textit{Paula Coelho e Marcelo Queiroz}
+  
+  \vspace{0.8cm}
+  
+  \Large
+  %Instituto de Matemática e Estatística\\
+  %Universidade de São Paulo\\
+  
+\end{center}
+
+
+\newpage
+\tableofcontents
+\newpage
+\section{Introdução}
+\doublespacing
+
+
+% Proveniente da área de análise de algoritmos, a geometria computacional é a área da computação que pode ser definida como o estudo sistemático de algoritmos e estruturas de dados para objetos geométricos, com foco em algoritmos exatos que são assintóticamente rápidos \cite{dbvkos}. A geometria computacional tem aplicações em diversas áreas como: computação gráfica, reconhecimento de padrões, processamento de imagens, robótica, metalurgia, manufatura e estatística \cite{cormen}. Tais problemas são tratados com o uso de objetos geométricos primitivos como: pontos, retas, segmentos de reta, polígonos.
+% \par Este trabalho será focado num problema específico da área de geometria computacional classificado como um problema de busca geométrico. Nesses tipos de problemas a entrada é formada por duas partes: o espaço de busca e a consulta que queremos realizar. É comum que seja necessário realizar um pré-processamento no espaço de busca para que possamos responder várias consultas seguidas de forma eficiente. Alguns exemplos de problemas desse tipo são: localização de pontos, localização de vizinhos mais próximos, \textit{ray tracing} e busca em intervalos.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Objetivo}
+\doublespacing
+
+
+% \par Neste trabalho de formatura supervisionado será feita uma implementação para resolver o seguinte problema: dado um conjunto de segmentos no plano, identificar rapidamente todos os segmentos (ou pontos) contidos numa janela retangular de lados paralelos aos eixos. \par O objetivo será escrever uma biblioteca com implementações dos algoritmos e estruturas de dados relacionados a esse problema assim como a análise rigorosa de tempo e espaço dos algoritmos implementados.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Metodologia}
+\doublespacing
+
+% \par Já foi iniciado o estudo do algoritmo implementado em \cite{alvaro}, assim como da literatura associada. A linguagem escolhida para a implementação foi \textit{python}, tanto pela facilidade de escrita quanto de se  mostrar graficamente os resultados obtidos. Será feita uma biblioteca com os algoritmos e estruturas de dados utilizadas que será disponibilizada no \href{http://github.com/mlordx/mac0499}{gitHub}.
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Planejamento}
+\doublespacing
+\subsection{Etapas}
+% \begin{itemize}
+% \item[\textbf{1.}] Implementação das primitivas geométricas.
+% \item[\textbf{2.}] Estudar o problema no caso unidimensional.
+% \item[\textbf{3.}] Implementar o algoritmo para o caso unidimensional com diferentes estruturas de dados e fazer comparações de perfomance e espaço.
+% \item[\textbf{4.}] Estudar o problema no caso bidimensional.
+% \item[\textbf{5.}] Implementar o algoritmo para o caso bidimensional com diferentes estruturas de dados e fazer comparações de perfomance e espaço.
+% \item[\textbf{6.}] Estudar possíveis extensões do problema (pontos em movimento, n-dimensões, etc).
+% \item[\textbf{7.}] Implementar tais extensões e fazer comparações de perfomance e espaço das estruturas de dados utilizadas.
+% \item[\textbf{8.}] Escrever a monografia.
+% \item[\textbf{9.}] Preparar pôster e apresentação.
+% \end{itemize}
+\subsection{Cronograma}
+\begin{table}[H]
+\centering
+\caption{}
+\label{my-label}
+\begin{tabular}{|
+>{\columncolor[HTML]{EFEFEF}}l |l|l|l|l|l|l|l|l|}
+\hline
+\cellcolor[HTML]{9B9B9B}{\color[HTML]{333333} Etapas} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} abr} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} mai} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} jun} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} jul} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} ago} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} set} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} out} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} nov} \\ \hline
+{\color[HTML]{000000} 1}                              &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 2}                              &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 3}                              &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 4}                              &                                                   &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 5}                              &                                                    &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 6}                              &                                                    &                                                   &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 7}                              &                                                    &                                                   &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 8}                              &                                                    &                                                    &                                                   &                                                   &                                                   &                                                   &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 9}                              &                                                    &                                                    &                                                   &                                                   &                                                   &                                                   &                                                   &                                                   \\ \hline
+\end{tabular}
+\end{table}
+\newpage
+\bibliography{bla}{}
+\bibliographystyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

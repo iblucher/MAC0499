@@ -30,6 +30,17 @@ body {
   padding: .55rem 1rem;
 }
 
+a {
+  color: #595959;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:hover {
+  color: #00c;
+  text-decoration: underline;
+}
+
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;
