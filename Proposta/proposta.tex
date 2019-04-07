@@ -1,7 +1,8 @@
-\documentclass[10pt,twoside,a4paper]{article}
+\documentclass[11pt,twoside,a4paper]{article}
 % ^- openany - open new pages in odd/even page
 
 %packages
+\usepackage{url}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}      % Encoding
 \usepackage[portuguese]{babel}   % Correção
@@ -10,8 +11,6 @@
 % Matemática
 \usepackage{amsmath}             % Matemática
 \usepackage{amsthm, amssymb}     % Matemática
-\newtheorem*{def*}{Definição}
-\newtheorem*{invariant}{Invariante}
 
 % Gráficos
 \usepackage[usenames,dvipsnames]{color}  % Cores
@@ -116,13 +115,24 @@
 \section{Introdução}
 \doublespacing
 
+% introduzir astronomia e espectroscopia 
 
-% Proveniente da área de análise de algoritmos, a geometria computacional é a área da computação que pode ser definida como o estudo sistemático de algoritmos e estruturas de dados para objetos geométricos, com foco em algoritmos exatos que são assintóticamente rápidos \cite{dbvkos}. A geometria computacional tem aplicações em diversas áreas como: computação gráfica, reconhecimento de padrões, processamento de imagens, robótica, metalurgia, manufatura e estatística \cite{cormen}. Tais problemas são tratados com o uso de objetos geométricos primitivos como: pontos, retas, segmentos de reta, polígonos.
-% \par Este trabalho será focado num problema específico da área de geometria computacional classificado como um problema de busca geométrico. Nesses tipos de problemas a entrada é formada por duas partes: o espaço de busca e a consulta que queremos realizar. É comum que seja necessário realizar um pré-processamento no espaço de busca para que possamos responder várias consultas seguidas de forma eficiente. Alguns exemplos de problemas desse tipo são: localização de pontos, localização de vizinhos mais próximos, \textit{ray tracing} e busca em intervalos.
+A espectroscopia astronômica é a área da astronomia que tem como objeto de estudo o espectro de radiação eletromagnética proveniente de diversos corpos celestes, como estrelas. Em sua maioria, estrelas emitem luz em todos os comprimentos de onda e possuem linhas de absorção em frequências discretas, devido à presença de elementos químicos em sua atmosfera que absorvem luz nessas frequências. O estudo dos espectros estelares é relevante devido à gama de informações que podem ser obtidas à partir de estudos espectrais, como composição química, distância, idade, luminosidade e taxa de perda de massa da estrela\cite{astro_wiki}.
+
+%mencionar tipos espectrais ??? talvez, verificar com professores
+% O crescente interesse no estudo da espectroscopia estelar no final do século XIX, fez com que os astrô
+
+% falar sobre como observações e pesquisas são ground based e qual é o problema desse método
+% feedback sobre como falar mais da contaminação e o que de fato acontece com o sinal
+
+\par A aquisição de espectros estelares se dá por instrumentos denominados espectrógrafos, que dividem a luz irradiada de um objeto celeste em seus comprimentos de onda componentes \cite{spectrograph_aus}. O problema com a observação desses espectros, é que são feitas a partir do solo. Ao atravessar a atmosfera terrestre, o sinal astronômico capturado interage com gases como vapor de água e oxigênio \cite{astro_sci}. Esta interação resulta na formação de novas linhas espectrais que são registradas de forma conjunta com o espectro estelar original \cite{harvard_atlas}. O espectro resultante desta interação é dito como contamindo pela presença de linhas telúricas. 
+
+% foco do trabalho
+\par Um método comumente usado para remover características telúricas e recuperar o espectro original é a observação de uma estrela padrão, logo antes ou depois da observação da estrela original. Esta estela padrão é normalmente uma estrela quente com poucas características marcantes além de fortes linhas de hidrogênio \cite{astro_sci}. A divisão do espectro original pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela original sem ruído telúrico \cite{model_tel_line}. O grande problema desse método é a falta de eficiência, pois requer uma grande quantidade de tempo de uso de telescópio \cite{astro_sci}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Objetivo}
 \doublespacing
-
+O objetivo deste trabalho de formatura supervisionado é a implementação  de um framework que seja capaz de detectar as linhas telúricas de espectros estelares, remover o ruído telúrico e reconstruir o sinal original, quando possível. 
 
 % \par Neste trabalho de formatura supervisionado será feita uma implementação para resolver o seguinte problema: dado um conjunto de segmentos no plano, identificar rapidamente todos os segmentos (ou pontos) contidos numa janela retangular de lados paralelos aos eixos. \par O objetivo será escrever uma biblioteca com implementações dos algoritmos e estruturas de dados relacionados a esse problema assim como a análise rigorosa de tempo e espaço dos algoritmos implementados.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -169,6 +179,29 @@
 \newpage
 \bibliography{bla}{}
 \bibliographystyle{plain}
+\begin{thebibliography}{1}
+
+    \bibitem{astro_wiki} Astronomical Spectroscopy, \url{https://en.wikipedia.org/wiki/Astronomical_spectroscopy}, 04/04/2019
+    
+    \bibitem{spectrograph_aus} Obtaining Astronomical Spectra - Spectrographs, \url{https://www.atnf.csiro.au/outreach//education/senior/astrophysics/spectrographs.html}, 
+
+    \bibitem{astro_sci} autores {\em Precise Modelling of Telluric Features in Astronomical Spectra},  2010.
+    
+    \bibitem{harvard_atlas} G. Catanzaro, {\em High Resolution Spectral Atlas of Telluric Lines}, 1998.
+    
+    \bibitem{model_tel_line} autores, {\em Modelling telluric line spectra in the optical and infrared with an application to VLT/X-Shooter spectra}, 2015.
+
+%   \bibitem{impj}  The Japan Reader {\em Imperial Japan 1800-1945} 1973:
+%   Random House, N.Y.
+
+%   \bibitem{norman} E. H. Norman {\em Japan's emergence as a modern
+%   state} 1940: International Secretariat, Institute of Pacific
+%   Relations.
+
+%   \bibitem{fo} Bob Tadashi Wakabayashi {\em Anti-Foreignism and Western
+%   Learning in Early-Modern Japan} 1986: Harvard University Press.
+
+  \end{thebibliography}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
