@@ -117,7 +117,11 @@
 
 % introduzir astronomia e espectroscopia 
 
-A espectroscopia astronômica é a área da astronomia que tem como objeto de estudo o espectro de radiação eletromagnética proveniente de diversos corpos celestes, como estrelas. Em sua maioria, estrelas emitem luz em todos os comprimentos de onda e possuem linhas de absorção em frequências discretas, devido à presença de elementos químicos em sua atmosfera que absorvem luz nessas frequências. O estudo dos espectros estelares é relevante devido à gama de informações que podem ser obtidas à partir de estudos espectrais, como composição química, distância, idade, luminosidade e taxa de perda de massa da estrela\cite{wiki:astro_spectroscopy}.
+A espectroscopia astronômica é a área da astronomia que tem como objeto de estudo o espectro de radiação eletromagnética proveniente de diversos corpos celestes, como estrelas, planetas, nebulosas, galáxias e núcleos galácticos ativos \cite{wiki:astro_spectroscopy}. 
+
+Estrelas emitem luz em todos os comprimentos de onda, que vão do rádio aos raios-gama. Porém, nem toda luz irradiada pela estrela consegue atingir a Terra. Isso acontece devido à presença de elementos químicos na atmosfera da estrela, que absorvem a luz emitida e formam linhas de absorção no espectro estelar resultante.
+
+O estudo dos espectros estelares é relevante devido ao volume de informação que pode ser obtido à partir de estudos espectrais, como composição química, distância, idade, luminosidade e taxa de perda de massa da estrela\cite{wiki:astro_spectroscopy}.
 
 %mencionar tipos espectrais ??? talvez, verificar com professores
 % O crescente interesse no estudo da espectroscopia estelar no final do século XIX, fez com que os astrô
@@ -125,14 +129,15 @@ A espectroscopia astronômica é a área da astronomia que tem como objeto de es
 % falar sobre como observações e pesquisas são ground based e qual é o problema desse método
 % feedback sobre como falar mais da contaminação e o que de fato acontece com o sinal
 
-\par A aquisição de espectros estelares se dá por instrumentos denominados espectrógrafos, que dividem a luz irradiada de um objeto celeste em seus comprimentos de onda componentes \cite{spectrograph_aus}. As observações feitas com esse instrumento são capturadas a partir do solo, o que contribui fortemente para a depreciação do sinal, pois ao atravessar a atmosfera terrestre o sinal astronômico interage com gases como vapor de água e oxigênio \cite{seifahrt2010precise}. Esta interação resulta na formação de novas linhas espectrais que são registradas de forma conjunta com o espectro estelar original \cite{catanzaro1997high}. O espectro resultante desta interação é dito como contaminado pela presença de linhas telúricas. 
+\par A aquisição de espectros estelares se dá por instrumentos denominados espectrógrafos, que dividem a luz irradiada de um objeto celeste em seus comprimentos de onda componentes \cite{spectrograph_aus}. As observações feitas com esse instrumento são capturadas a partir do solo, o que contribui fortemente para a contaminação do sinal, pois ao atravessar a atmosfera terrestre o sinal astronômico interage com gases como vapor de água e oxigênio \cite{seifahrt2010precise}. Esta interação resulta na formação de novas linhas espectrais que se misturam ao sinal original \cite{catanzaro1997high}, resultando em um espectro contaminado pela presença de linhas telúricas. 
 
 % foco do trabalho
-\par Um método comumente usado para remover características telúricas e recuperar o espectro original é a observação de uma estrela padrão, logo antes ou depois da observação da estrela original. Esta estrela padrão é normalmente uma estrela quente com poucas características marcantes além de fortes linhas de hidrogênio \cite{seifahrt2010precise}. A divisão do espectro original pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela original sem ruído telúrico \cite{rudolf2016modelling}. O grande problema desse método é a falta de eficiência, pois requer uma grande quantidade de tempo de uso de telescópio \cite{seifahrt2010precise}.
+\par Para remover as linhas telúricas e recuperar o sinal original, um dos métodos usados é a observação de uma estrela padrão, logo antes ou depois da observação da estrela original. Esta estrela padrão é normalmente uma estrela quente com poucas características marcantes além de fortes linhas de hidrogênio \cite{seifahrt2010precise}. A divisão do espectro original pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela original sem ruído telúrico \cite{rudolf2016modelling}. O grande problema desse método é a falta de eficiência, pois requer uma grande quantidade de tempo de uso de telescópio \cite{seifahrt2010precise}. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Objetivo}
 \doublespacing
-Este trabalho de formatura supervisionado tem como objetivo a implementação  de um \it{framework} que seja capaz de remover o ruído telúrico de espectros estelares. Para isso é necessário detectar as linhas telúricas, remover o ruído telúrico e reconstruir o sinal original, quando possível. 
+Este trabalho de formatura supervisionado tem como objetivo a implementação  de um \textit{framework} que seja capaz de remover o ruído telúrico de espectros estelares. Para isso é necessário detectar as linhas telúricas, remover o ruído e reconstruir o sinal original, quando possível. 
 
 % \par Neste trabalho de formatura supervisionado será feita uma implementação para resolver o seguinte problema: dado um conjunto de segmentos no plano, identificar rapidamente todos os segmentos (ou pontos) contidos numa janela retangular de lados paralelos aos eixos. \par O objetivo será escrever uma biblioteca com implementações dos algoritmos e estruturas de dados relacionados a esse problema assim como a análise rigorosa de tempo e espaço dos algoritmos implementados.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
