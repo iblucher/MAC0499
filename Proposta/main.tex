@@ -115,52 +115,46 @@
 \section{Introdução}
 \doublespacing
 
-% introduzir astronomia e espectroscopia 
-
 A espectroscopia astronômica é a área da astronomia que tem como objeto de estudo o espectro de radiação eletromagnética proveniente de diversos corpos celestes, como estrelas, planetas, nebulosas, galáxias e núcleos galácticos ativos \cite{wiki:astro_spectroscopy}. 
 
-Estrelas emitem luz em todos os comprimentos de onda, que vão do rádio aos raios-gama. Porém, nem toda luz irradiada pela estrela consegue atingir a Terra. Isso acontece devido à presença de elementos químicos na atmosfera da estrela, que absorvem a luz emitida e formam linhas de absorção no espectro estelar resultante.
+Estrelas emitem luz em todos os comprimentos de onda, que vão do rádio aos raios-gama. Porém, nem toda luz irradiada pela estrela consegue atingir a Terra. Isso acontece devido à presença de elementos químicos em sua atmosfera, que absorvem a luz emitida e formam linhas de absorção no espectro estelar resultante.
 
-O estudo dos espectros estelares é relevante devido ao volume de informação que pode ser obtido à partir de estudos espectrais, como composição química, distância, idade, luminosidade e taxa de perda de massa da estrela\cite{wiki:astro_spectroscopy}.
-
-%mencionar tipos espectrais ??? talvez, verificar com professores
-% O crescente interesse no estudo da espectroscopia estelar no final do século XIX, fez com que os astrô
-
-% falar sobre como observações e pesquisas são ground based e qual é o problema desse método
-% feedback sobre como falar mais da contaminação e o que de fato acontece com o sinal
+A observação de espectros estelares é relevante devido ao volume de informação que pode ser obtido à partir de estudos espectrais, como composição química, distância, idade, luminosidade e taxa de perda de massa da estrela\cite{wiki:astro_spectroscopy}.
 
 \par A aquisição de espectros estelares se dá por instrumentos denominados espectrógrafos, que dividem a luz irradiada de um objeto celeste em seus comprimentos de onda componentes \cite{spectrograph_aus}. As observações feitas com esse instrumento são capturadas a partir do solo, o que contribui fortemente para a contaminação do sinal, pois ao atravessar a atmosfera terrestre o sinal astronômico interage com gases como vapor de água e oxigênio \cite{seifahrt2010precise}. Esta interação resulta na formação de novas linhas espectrais que se misturam ao sinal original \cite{catanzaro1997high}, resultando em um espectro contaminado pela presença de linhas telúricas. 
 
-% foco do trabalho
-\par Para remover as linhas telúricas e recuperar o sinal original, um dos métodos usados é a observação de uma estrela padrão, logo antes ou depois da observação da estrela original. Esta estrela padrão é normalmente uma estrela quente com poucas características marcantes além de fortes linhas de hidrogênio \cite{seifahrt2010precise}. A divisão do espectro original pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela original sem ruído telúrico \cite{rudolf2016modelling}. O grande problema desse método é a falta de eficiência, pois requer uma grande quantidade de tempo de uso de telescópio \cite{seifahrt2010precise}. 
+\par Para remover as linhas telúricas e recuperar o sinal original, um dos métodos usados é a observação de uma estrela padrão, normalmente uma estrela quente de rotação rápida e com poucas características marcantes além de fortes linhas de hidrogênio \cite{seifahrt2010precise}. A divisão do espectro original pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela de ciência sem o ruído telúrico \cite{rudolf2016modelling}. Isto é possível devido ao espectro da estrela padrão representar com certa precisão o espectro de transmissão da atmosfera terrestre \cite{ulmer2019telluric}. O grande problema desse método é a falta de eficiência e precisão, pois requer medições suficientemente próximas no tempo e, uma grande quantidade de tempo de uso de telescópio \cite{seifahrt2010precise}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Objetivo}
 \doublespacing
 Este trabalho de formatura supervisionado tem como objetivo a implementação  de um \textit{framework} que seja capaz de remover o ruído telúrico de espectros estelares. Para isso é necessário detectar as linhas telúricas, remover o ruído e reconstruir o sinal original, quando possível. 
 
-% \par Neste trabalho de formatura supervisionado será feita uma implementação para resolver o seguinte problema: dado um conjunto de segmentos no plano, identificar rapidamente todos os segmentos (ou pontos) contidos numa janela retangular de lados paralelos aos eixos. \par O objetivo será escrever uma biblioteca com implementações dos algoritmos e estruturas de dados relacionados a esse problema assim como a análise rigorosa de tempo e espaço dos algoritmos implementados.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Metodologia}
 \doublespacing
+Como início do trabalho, está sendo feito um levantamento dos métodos disponíveis em artigos científicos atualmente usados para a resolução do problema. Após o levantamento bibliográfico, será feito um experimento piloto. Este experimento consiste em artificialmente contaminar dados sintéticos e desenvolver um filtro que consiga recuperar ao máximo o sinal original. Esta contaminação será feita usando um software de computação do espectro de transmissão atmosférica \cite{bertaux2014tapas}. Após a contaminação, partindo da suposição de que a atmosfera age como um filtro linear, será feita uma estimativa do seu comportamento, que será aplicada nos sinais contaminados. Para concluir o experimento e quantificar o seu desempenho, será feita a comparação de espectros reais com o resultado do programa.
 
-% \par Já foi iniciado o estudo do algoritmo implementado em \cite{alvaro}, assim como da literatura associada. A linguagem escolhida para a implementação foi \textit{python}, tanto pela facilidade de escrita quanto de se  mostrar graficamente os resultados obtidos. Será feita uma biblioteca com os algoritmos e estruturas de dados utilizadas que será disponibilizada no \href{http://github.com/mlordx/mac0499}{gitHub}.
+À partir dos resultados do experimento piloto, serão definidas novas metas e desenvolvimentos futuros para o trabalho. Isso é devido à complexidade do problema, que pode adquirir níveis mais profundos de sofisticação conforme o modelo utilizado para representar a transmissão atmosférica.
+
+A linguagem escolhida para a implementação do experimento piloto foi o \textit{Python}, tanto pela facilidade de escrita quanto pela quantidade de bibliotecas astronômicas e de processamento de sinais existentes.
+
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Planejamento}
 \doublespacing
 \subsection{Etapas}
-% \begin{itemize}
-% \item[\textbf{1.}] Implementação das primitivas geométricas.
-% \item[\textbf{2.}] Estudar o problema no caso unidimensional.
-% \item[\textbf{3.}] Implementar o algoritmo para o caso unidimensional com diferentes estruturas de dados e fazer comparações de perfomance e espaço.
-% \item[\textbf{4.}] Estudar o problema no caso bidimensional.
-% \item[\textbf{5.}] Implementar o algoritmo para o caso bidimensional com diferentes estruturas de dados e fazer comparações de perfomance e espaço.
-% \item[\textbf{6.}] Estudar possíveis extensões do problema (pontos em movimento, n-dimensões, etc).
-% \item[\textbf{7.}] Implementar tais extensões e fazer comparações de perfomance e espaço das estruturas de dados utilizadas.
-% \item[\textbf{8.}] Escrever a monografia.
-% \item[\textbf{9.}] Preparar pôster e apresentação.
-% \end{itemize}
+\begin{itemize}
+    \item [\textbf{1.}] Estudo da espectroscopia estelar e dos métodos atuais de remoção da contaminação telúrica .
+    \item [\textbf{2.}] Obtenção dos dados sintéticos e familiarização com o formato de dados e código para sua leitura e manipulação.
+    \item [\textbf{3.}] Contaminação de sinais sintéticos com o software de transmissão atmosférica.
+    \item [\textbf{4.}] Estimativa e implementação do filtro linear representativo da atmosfera.
+    \item [\textbf{5.}] Testes e resultados do experimento piloto.
+    \item [\textbf{6.}] Estudo de extensões/sofisticações do problema e desenvolvimentos futuros.
+    \item [\textbf{7.}] Escrita da monografia.
+    \item [\textbf{8.}] Preparação do pôster e da apresentação final.
+\end{itemize}
+
 \subsection{Cronograma}
 \begin{table}[H]
 \centering
@@ -170,20 +164,19 @@ Este trabalho de formatura supervisionado tem como objetivo a implementação  d
 >{\columncolor[HTML]{EFEFEF}}l |l|l|l|l|l|l|l|l|}
 \hline
 \cellcolor[HTML]{9B9B9B}{\color[HTML]{333333} Etapas} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} abr} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} mai} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} jun} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} jul} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} ago} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} set} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} out} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{333333} nov} \\ \hline
-{\color[HTML]{000000} 1}                              &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 2}                              &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 3}                              &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 4}                              &                                                   &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 5}                              &                                                    &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 6}                              &                                                    &                                                   &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 7}                              &                                                    &                                                   &                                                   &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 8}                              &                                                    &                                                    &                                                   &                                                   &                                                   &                                                   &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 9}                              &                                                    &                                                    &                                                   &                                                   &                                                   &                                                   &                                                   &                                                   \\ \hline
+{\color[HTML]{000000} 1}                              &                                                 X  &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 2}                              &                                                  X &                        X                            &                                                    &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 3}                              &                                                   &                      X                              &                                                 X   &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 4}                              &                                                   &                             X                      &                                                   X &               X                                     &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 5}                              &                                                    &                                                   &                                                X    &              X                                      &                                                    &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 6}                              &                                                    &                                                   &                                                   &                        X                            &      X                                              &                                                    &                                                    &                                                    \\ \hline
+{\color[HTML]{000000} 7}                              &                                                    &                                                   &                                                  X &                   X                                 &                                                 X   &                   X                                 &                                             X       &                                                    \\ \hline
+{\color[HTML]{000000} 8}                              &                                                    &                                                    &                                                   &                                                   &                                                   &                                                   &                                               X     &                                 X                   \\ \hline
 \end{tabular}
 \end{table}
 \newpage
 \bibliographystyle{unsrt}
-\bibliography{references} % Entries are in the "refs.bib" file
+\bibliography{references} % Entries are in the "references.bib" file
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
