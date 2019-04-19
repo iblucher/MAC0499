@@ -73,6 +73,8 @@
 %\bibpunct{(}{)}{;}{a}{,}{,}
 
 
+\newcommand{\pc}[1]{\texttt{\textcolor{magenta}{[#1]}}}
+
 % Info
 %\title{}
 \begin{document}
@@ -115,40 +117,57 @@
 \section{Introdução}
 \doublespacing
 
-A espectroscopia astronômica é a área da astronomia que tem como objeto de estudo o espectro de radiação eletromagnética proveniente de diversos corpos celestes, como estrelas, planetas, nebulosas, galáxias e núcleos galácticos ativos \cite{wiki:astro_spectroscopy}. 
+A espectroscopia astronômica é a área da astronomia que tem como objeto de estudo o espectro de radiação eletromagnética proveniente de diversos corpos celestes, como estrelas, planetas, nebulosas, galáxias e núcleos galácticos ativos. A observação de espectros estelares é relevante devido ao volume de informação que pode ser obtido à partir de estudos espectrais, como composição química, distância, idade, luminosidade e taxa de perda de massa da estrela\cite{wiki:astro_spectroscopy}.
 
-Estrelas emitem luz em todos os comprimentos de onda, que vão do rádio aos raios-gama. Porém, nem toda luz irradiada pela estrela consegue atingir a Terra. Isso acontece devido à presença de elementos químicos em sua atmosfera, que absorvem a luz emitida e formam linhas de absorção no espectro estelar resultante.
+\par A aquisição de espectros estelares se dá por instrumentos denominados espectrógrafos, que dividem a luz irradiada de um objeto celeste em seus comprimentos de onda componentes \cite{spectrograph_aus}. Este instrumento pode estar presente em telescópios terrestres e em telescópios espaciais.
 
-A observação de espectros estelares é relevante devido ao volume de informação que pode ser obtido à partir de estudos espectrais, como composição química, distância, idade, luminosidade e taxa de perda de massa da estrela\cite{wiki:astro_spectroscopy}.
+\par A maioria das observações em astronomia são feitas a partir do solo, e nesse caso, nem toda luz irradiada pela estrela consegue ser capturada pelo espectrógrafo. Ao atravessar a atmosfera terrestre, o sinal astronômico interage com gases como vapor de água e oxigênio \cite{seifahrt2010precise}, o que resulta na formação de novas linhas espectrais (linhas telúricas) que se misturam ao sinal original \cite{catanzaro1997high}, criando um espectro distorcido ou contaminado.
 
-\par A aquisição de espectros estelares se dá por instrumentos denominados espectrógrafos, que dividem a luz irradiada de um objeto celeste em seus comprimentos de onda componentes \cite{spectrograph_aus}. As observações feitas com esse instrumento são capturadas a partir do solo, o que contribui fortemente para a contaminação do sinal, pois ao atravessar a atmosfera terrestre o sinal astronômico interage com gases como vapor de água e oxigênio \cite{seifahrt2010precise}. Esta interação resulta na formação de novas linhas espectrais que se misturam ao sinal original \cite{catanzaro1997high}, resultando em um espectro contaminado pela presença de linhas telúricas. 
+\par Para remover as linhas telúricas e recuperar o sinal original de uma estrela a ser estudada (estrela de ciência), um dos métodos usados é a observação de uma estrela padrão, normalmente uma estrela quente de rotação rápida e com poucas características marcantes além de fortes linhas de hidrogênio \cite{seifahrt2010precise}. A divisão do espectro observado pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela de ciência sem o ruído telúrico \cite{rudolf2016modelling}. Isto é possível devido ao espectro da estrela padrão representar com certa precisão o espectro de transmissão da atmosfera terrestre \cite{ulmer2019telluric}. O grande problema desse método é a falta de eficiência e precisão, pois requer medições suficientemente próximas no tempo da estrela de ciência e da estrela padrão, além de uma grande quantidade de tempo de uso de telescópio \cite{seifahrt2010precise}. 
 
-\par Para remover as linhas telúricas e recuperar o sinal original, um dos métodos usados é a observação de uma estrela padrão, normalmente uma estrela quente de rotação rápida e com poucas características marcantes além de fortes linhas de hidrogênio \cite{seifahrt2010precise}. A divisão do espectro original pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela de ciência sem o ruído telúrico \cite{rudolf2016modelling}. Isto é possível devido ao espectro da estrela padrão representar com certa precisão o espectro de transmissão da atmosfera terrestre \cite{ulmer2019telluric}. O grande problema desse método é a falta de eficiência e precisão, pois requer medições suficientemente próximas no tempo e, uma grande quantidade de tempo de uso de telescópio \cite{seifahrt2010precise}. 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{telluric_spectrum.png}
+  \caption[Espectro branco: espectro observado da estrela HD186791, com contaminação telúrica. Espectro vermelho: espectro observado de uma estrela quente, as linhas indicam onde estão as linhas telúricas.]
+    {\tabular[t]{@{}l@{}}Espectro branco: espectro observado da estrela HD186791, com contaminação telúrica. \\ Espectro vermelho: espectro observado de uma estrela quente, as linhas indicam onde \\estão as linhas telúricas.\endtabular}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Objetivo}
+\section{Objetivos}
 \doublespacing
-Este trabalho de formatura supervisionado tem como objetivo a implementação  de um \textit{framework} que seja capaz de remover o ruído telúrico de espectros estelares. Para isso é necessário detectar as linhas telúricas, remover o ruído e reconstruir o sinal original, quando possível. 
+Este trabalho de formatura supervisionado tem como objetivo a implementação  de um \textit{framework} que seja capaz de remover o ruído telúrico de espectros estelares. Para isso é necessário detectar as linhas telúricas, remover o ruído e reconstruir o sinal original, quando possível. Alguns objetivos específicos são:
+
+\begin{quote}\begin{itemize}
+    \item Avaliar a possibilidade de modelar o espectro de transmissão da atmosfera terrestre como um filtro linear, construído a partir do espectro de uma estrela padrão;
+    \item Estudar a dependência do ruído telúrico em relação a parâmetros observacionais como a data da observação (e consequentemente as posições relativas da terra e da estrela padrão) e condições meteorológicas (que afetam a composição da atmosfera terrestre), a fim de definir filtros paramétricos para a remoção do ruído telúrico;
+    \item Propor experimentos computacionais baseados em dados sintéticos de espectroscopia estelar e softwares de simulação da atmosfera terrestre \cite{bertaux2014tapas} a fim de validar os filtros propostos.
+\end{itemize}\end{quote}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Metodologia}
 \doublespacing
-Como início do trabalho, está sendo feito um levantamento dos métodos disponíveis em artigos científicos atualmente usados para a resolução do problema. Após o levantamento bibliográfico, será feito um experimento piloto. Este experimento consiste em artificialmente contaminar dados sintéticos e desenvolver um filtro que consiga recuperar ao máximo o sinal original. Esta contaminação será feita usando um software de computação do espectro de transmissão atmosférica \cite{bertaux2014tapas}. Após a contaminação, partindo da suposição de que a atmosfera age como um filtro linear, será feita uma estimativa do seu comportamento, que será aplicada nos sinais contaminados. Para concluir o experimento e quantificar o seu desempenho, será feita a comparação de espectros reais com o resultado do programa.
+Como início do trabalho, está sendo feito um levantamento dos métodos disponíveis em artigos científicos atualmente usados para a resolução do problema. 
 
-À partir dos resultados do experimento piloto, serão definidas novas metas e desenvolvimentos futuros para o trabalho. Isso é devido à complexidade do problema, que pode adquirir níveis mais profundos de sofisticação conforme o modelo utilizado para representar a transmissão atmosférica.
+Após o levantamento bibliográfico, será feito um experimento piloto. Este experimento consiste em artificialmente contaminar dados sintéticos e desenvolver um filtro que consiga recuperar ao máximo o sinal original. Para isso, incialmente serão simuladas observações de espectros estelares. Em seguida, será adotada a suposição de que o sinal telúrico pode ser representado por um filtro. A partir disso, usando técnicas de processamento de sinais digitais, será possível estimar o comportamento da atmosfera terrestre, que será aplicado nos sinais contaminados. Para concluir o experimento e quantificar o seu desempenho, será feita a comparação de espectros reais com o resultado do programa.
 
-A linguagem escolhida para a implementação do experimento piloto foi o \textit{Python}, tanto pela facilidade de escrita quanto pela quantidade de bibliotecas astronômicas e de processamento de sinais existentes.
+A partir dos resultados do experimento piloto, serão definidas novas metas e desenvolvimentos futuros para o trabalho. Isso é devido à complexidade do problema, que pode adquirir níveis mais profundos de sofisticação conforme o modelo utilizado para representar a transmissão atmosférica.
+
+A linguagem escolhida para a implementação do experimento piloto foi o \textit{Python}. A justificativa desta escolha se dá ao formato dos dados dos espectros estelares, o formato \textit{FITS (Flexible Image Transport System)}, o formato de arquivo digital mais comum na astronomia \cite{2010A&A...524A..42P}. Serão usadas funções de leitura e manipulação dos dados da biblioteca \textit{astropy}, e bibliotecas com métodos de processamento de sinais digitais, para representação dos filtros.
+
+
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Planejamento}
+\section{Planejamento}\label{sec:planejamento}
 \doublespacing
 \subsection{Etapas}
 \begin{itemize}
-    \item [\textbf{1.}] Estudo da espectroscopia estelar e dos métodos atuais de remoção da contaminação telúrica .
-    \item [\textbf{2.}] Obtenção dos dados sintéticos e familiarização com o formato de dados e código para sua leitura e manipulação.
+    \item [\textbf{1.}] Estudo de conceitos da espectroscopia estelar e dos métodos atuais de remoção da contaminação telúrica.
+    \item [\textbf{2.}] Obtenção dos dados sintéticos; familiarização com o formato de dados (FITS) e código para sua leitura e manipulação.
     \item [\textbf{3.}] Contaminação de sinais sintéticos com o software de transmissão atmosférica.
-    \item [\textbf{4.}] Estimativa e implementação do filtro linear representativo da atmosfera.
+    \item [\textbf{4.}] Estimativa e implementação de filtros lineares representativos da atmosfera terrestre.
     \item [\textbf{5.}] Testes e resultados do experimento piloto.
     \item [\textbf{6.}] Estudo de extensões/sofisticações do problema e desenvolvimentos futuros.
     \item [\textbf{7.}] Escrita da monografia.
@@ -156,6 +175,9 @@ A linguagem escolhida para a implementação do experimento piloto foi o \textit
 \end{itemize}
 
 \subsection{Cronograma}
+
+A tabela a seguir estabelece um cronograma preliminar para as tarefas definidas na seção~\ref{sec:planejamento}. É importante destacar que a tarefa 6 será detalhada posteriormente, a depender dos resultados da tarfea 5. Eventuais subtarefas derivadas desse detalhamento serão incluídas em uma versão revisada do cronograma.
+
 \begin{table}[H]
 \centering
 \caption{}
@@ -169,9 +191,9 @@ A linguagem escolhida para a implementação do experimento piloto foi o \textit
 {\color[HTML]{000000} 3}                              &                                                   &                      X                              &                                                 X   &                                                    &                                                    &                                                    &                                                    &                                                    \\ \hline
 {\color[HTML]{000000} 4}                              &                                                   &                             X                      &                                                   X &               X                                     &                                                    &                                                    &                                                    &                                                    \\ \hline
 {\color[HTML]{000000} 5}                              &                                                    &                                                   &                                                X    &              X                                      &                                                    &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 6}                              &                                                    &                                                   &                                                   &                        X                            &      X                                              &                                                    &                                                    &                                                    \\ \hline
-{\color[HTML]{000000} 7}                              &                                                    &                                                   &                                                  X &                   X                                 &                                                 X   &                   X                                 &                                             X       &                                                    \\ \hline
-{\color[HTML]{000000} 8}                              &                                                    &                                                    &                                                   &                                                   &                                                   &                                                   &                                               X     &                                 X                   \\ \hline
+{\color[HTML]{000000} 6}                              &                                                    &                                                   &                                                   &                        X                            &      X                                              &            X                                        &            X                                        &                                                    \\ \hline
+{\color[HTML]{000000} 7}                              &                                                    &                                                   &                                                   &                   X                                 &                                                 X   &                   X                                 &                                             X       &                                                    \\ \hline
+{\color[HTML]{000000} 8}                              &                                                    &                                                    &                                                   &                                                   &                                                   &                                                   &                                                   &                                 X                   \\ \hline
 \end{tabular}
 \end{table}
 \newpage
