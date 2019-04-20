@@ -123,10 +123,10 @@ A espectroscopia astronômica é a área da astronomia que tem como objeto de es
 
 \par A maioria das observações em astronomia são feitas a partir do solo, e nesse caso, nem toda luz irradiada pela estrela consegue ser capturada pelo espectrógrafo. Ao atravessar a atmosfera terrestre, o sinal astronômico interage com gases como vapor de água e oxigênio \cite{seifahrt2010precise}, o que resulta na formação de novas linhas espectrais (linhas telúricas) que se misturam ao sinal original \cite{catanzaro1997high}, criando um espectro distorcido ou contaminado.
 
-\par Para remover as linhas telúricas e recuperar o sinal original de uma estrela a ser estudada (estrela de ciência), um dos métodos usados é a observação de uma estrela padrão, normalmente uma estrela quente de rotação rápida e com poucas características marcantes além de fortes linhas de hidrogênio \cite{seifahrt2010precise}. A divisão do espectro observado pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela de ciência sem o ruído telúrico \cite{rudolf2016modelling}. Isto é possível devido ao espectro da estrela padrão representar com certa precisão o espectro de transmissão da atmosfera terrestre \cite{ulmer2019telluric}. O grande problema desse método é a falta de eficiência e precisão, pois requer medições suficientemente próximas no tempo da estrela de ciência e da estrela padrão, além de uma grande quantidade de tempo de uso de telescópio \cite{seifahrt2010precise}. 
+\par Para remover as linhas telúricas e recuperar o sinal original de uma estrela a ser estudada (estrela de ciência), um dos métodos usados é a observação de uma estrela padrão, normalmente uma estrela quente de rotação rápida e com poucas características marcantes além de fortes linhas de hidrogênio \cite{seifahrt2010precise}. A divisão do espectro observado pelo espectro da estrela padrão resulta em uma aproximação do espectro da estrela de ciência sem o ruído telúrico \cite{rudolf2016modelling}. Isto é possível devido ao espectro da estrela padrão representar com certa precisão o espectro de transmissão da atmosfera terrestre \cite{ulmer2019telluric}. O grande problema desse método é a falta de eficiência e acurácia, pois requer medições suficientemente próximas no tempo da estrela de ciência e da estrela padrão, além de uma grande quantidade de tempo de uso de telescópio \cite{seifahrt2010precise}. 
 
 % não consegui forçar a imagem a ficar logo depois da introdução, pois isso desestrutura todos os parágrafos, logo ela ficou no começo dos objetivos.
-\begin{figure}[h!]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.75\textwidth]{telluric_spectrum.png}
   \caption[Espectro branco: espectro observado da estrela HD186791, com contaminação telúrica. Espectro vermelho: espectro observado de uma estrela quente, as linhas indicam onde estão as linhas telúricas.]
@@ -141,12 +141,13 @@ Este trabalho de formatura supervisionado tem como objetivo a implementação  d
 \begin{quote}\begin{itemize}
     \item Avaliar a possibilidade de modelar o espectro de transmissão da atmosfera terrestre como um filtro linear, construído a partir do espectro de uma estrela padrão;
     \item Estudar a dependência do ruído telúrico em relação a parâmetros observacionais como a data da observação (e consequentemente as posições relativas da terra e da estrela padrão) e condições meteorológicas (que afetam a composição da atmosfera terrestre), a fim de definir filtros paramétricos para a remoção do ruído telúrico;
-    \item Propor experimentos computacionais baseados em dados sintéticos de espectroscopia estelar e softwares de simulação da atmosfera terrestre \cite{bertaux2014tapas} a fim de validar os filtros propostos.
+    \item Propor experimentos computacionais baseados em dados sintéticos de espectroscopia estelar e \textit{softwares} de simulação da atmosfera terrestre \cite{bertaux2014tapas} a fim de validar os filtros propostos.
 \end{itemize}\end{quote}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Metodologia}
 \doublespacing
 Como início do trabalho, está sendo feito um levantamento dos métodos disponíveis em artigos científicos atualmente usados para a resolução do problema. 
