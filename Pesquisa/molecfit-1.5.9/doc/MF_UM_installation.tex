@@ -1,0 +1,197 @@
+%-------------------------------------------------------------------------------
+\section{Installation procedure}\label{sec:installation}
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+\subsection{Requirements}\label{sec:requirements}
+%-------------------------------------------------------------------------------
+The installation of the basic \mf{} binary package requires:
+\begin{itemize}
+  \item
+    C99 compatible compiler (e.g. gcc or clang)
+  \item
+    glibc 2.11 or newer on Linux or OS X 10.7 or newer
+  \item
+    common unix utilities (bash, tar, sed, grep, \ldots{})
+\end{itemize}
+
+The optional \ac{GUI} to \mf{} requires:
+
+\begin{itemize}
+  \item
+    Python v2.6 or v2.7 (but not Python v3.x)
+  \item
+    wxPython v2.8 or newer
+  \item
+    Python matplotlib v1.0 or newer
+  \item
+    PyFITS v2.4 or newer
+\end{itemize}
+
+The command line client also has optional display features which
+require:
+
+\begin{itemize}
+  \item gnuplot v4.2 patchlevel 3 or newer
+\end{itemize}
+
+%-------------------------------------------------------------------------------
+\subsection{Binary installation}
+\label{sec:installscript}
+%-------------------------------------------------------------------------------
+
+First the downloaded installer needs to be made executable. To do this change
+into the directory the installer was downloaded to and run following command
+(replacing molecfit\_installer.run with the actual downloaded filename):
+
+\begin{verbatim}
+chmod u+x ./molecfit_installer.run
+\end{verbatim}
+
+Now the installer can be executed from the same folder with:
+
+\begin{verbatim}
+./molecfit_installer.run
+\end{verbatim}
+
+It will ask for an installation directory where it will extract its
+contents to. It is recommended to choose an empty directory to avoid
+overwriting existing files.
+
+After the installer has successfully finished, the \mf{} executables
+are installed into the \texttt{bin} subdirectory of the chosen installation
+folder. They can be executed by specifying the full or relative path.
+Also installed are a set of example parameter files for several
+instruments in the \texttt{examples/config} directory. To run a CRIRES example
+type:
+
+\begin{verbatim}
+<INST_DIR>/bin/molecfit <INST_DIR>/examples/config/molecfit_crires.par
+\end{verbatim}
+
+For more details see Section~\ref{sec:running}.
+
+For the \ac{GUI} use the \texttt{molecfit\_gui} executable instead of
+\texttt{molecfit}.
+For more details on the \ac{GUI} see \cite{MFGUI}.
+
+%-------------------------------------------------------------------------------
+\subsection{\ac{GUI} dependencies}
+\label{sec:guidependencies}
+%-------------------------------------------------------------------------------
+
+The \ac{GUI} requires some additional dependencies to be installed on the system.
+To check if the python installation is able to run the \ac{GUI}, following
+commands can be run:
+
+\begin{verbatim}
+python -c 'import wx'
+
+python -c 'import matplotlib; import matplotlib.backends.backend_wxagg'
+
+python -c 'import pyfits'
+\end{verbatim}
+
+If these commands fail please see following site for instructions on how
+to install these packages:
+
+\texttt{http://www.eso.org/pipelines/reflex\_workflows/}
+
+%-------------------------------------------------------------------------------
+\subsection{Package contents}
+\label{sec:pkgcontents}
+%-------------------------------------------------------------------------------
+
+The installation package is a self extracting tarball containing the
+\mf{} source code and pre-built versions of its third party
+dependencies:
+
+\begin{itemize}
+  \item
+    Common Pipeline Library v6.4.2 and its dependencies cfitsio v3.350,
+    wcslib v4.16 and fftw3 v3.3.3 \cite{CPL}
+  \item
+    Gridded Binary (GRIB) \gribv{} \cite{WGRIB}
+  \item
+    radiative transfer code \lnflv{} and \lblrtmv{} \cite{LBLRTM}
+  \item
+    \aerv{} \cite{AER}
+\end{itemize}
+
+
+%-------------------------------------------------------------------------------
+\subsection{Source Installation}
+\label{sec:sourceinstall}
+%-------------------------------------------------------------------------------
+
+Advanced users may want to install everything from source, the basic
+instructions for this are outlined here. The installation from source
+additionally requires the gfortran compiler.
+
+\subsubsection{CPL compilation}
+
+The CPL sources can be obtained from \cite{CPL}
+
+For \mf{} CPL only requires cfitsio. It can be installed as follows:
+
+\begin{verbatim}
+./configure --prefix=/install-location
+
+make
+
+make shared
+
+make install
+\end{verbatim}
+
+Then CPL can be install with:
+
+\begin{verbatim}
+./configure --prefix=/install-location --with-cfitsio=/install-location
+
+make
+
+make install
+\end{verbatim}
+
+See the respective packages documentation for details on the
+installation procedure.
+
+\subsubsection{Non-ESO sources compilation}
+
+The rest of the required sources can be downloaded from the same place
+the \mf{} binaries installers are available from. The third party
+source tarball contains a convenience Makefile to build and install all
+packages at once. It can be run with:
+
+\begin{verbatim}
+make -f BuildThirdParty.mk install prefix=/install-location
+\end{verbatim}
+
+For installation on Mac OS please read the comments in this Makefile.
+
+\subsubsection{Molecfit compilation}
+
+After all dependencies have been installed \mf{} can be compiled from
+source into the same location.
+
+This is the only step required if one wants to update \mf{} from
+source after previously installing the third party dependencies with the
+binary installer.
+
+\begin{verbatim}
+./configure --prefix=/install-location --with-cpl=/install-location
+
+make
+
+make install
+\end{verbatim}
+
+In order to use \mf{} from this location the environment variable
+{\tt LD\_LIBRARY\_PATH} \\(or {\tt DYLD\_LIBRARY\_PATH} on Mac OS) need to be
+set. With the bash shell this is done with following command:
+
+\begin{verbatim}
+export LD_LIBRARY_PATH=/install-location/lib
+\end{verbatim}
+
+Now \mf{} is ready to be used from {\tt /install-location/bin}.

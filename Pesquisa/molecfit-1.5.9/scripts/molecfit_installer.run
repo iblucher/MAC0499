@@ -1,0 +1,28 @@
+#!/bin/bash
+# simple self extracting installer, append tarball after exit
+# todo: use makeself instead
+BASEDIR="$PWD"
+
+if [ "$1" == "--extract" ]; then
+  if [ -z "$2" ]; then
+    echo "--extract requires a destination e.g $0 --extract /tmp/folder"
+    exit 1
+  fi
+  mkdir -p "$2"
+  echo "Extracting contents to $2"
+  sed "1,/^exit$/d" "$0" | tar -C "$2" -x
+  exit 0
+elif [ "$1" == "--contents" ]; then
+  sed "1,/^exit$/d" "$0" | tar -tv
+  exit 0
+elif [ "$1" == "--help" ]; then
+  echo "$0 [DEST]:  install to destination DEST, if not given install will ask for a destination"
+  echo "$0 --extract DEST:  extract contents to DEST"
+  echo "$0 --contents:  list contents"
+  exit 0
+fi
+
+tmpdir="$PWD/$(mktemp -d molec_XXXXXX)" || exit 1
+trap "rm -rf \"$tmpdir\"" EXIT
+sed "1,/^exit$/d" "$0" | tar -C "$tmpdir" -x && cd "$tmpdir" && BASEDIR="$BASEDIR" ./install_package.sh "$@"
+exit

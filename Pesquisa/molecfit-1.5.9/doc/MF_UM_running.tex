@@ -1,0 +1,1127 @@
+%-------------------------------------------------------------------------------
+\section{Running procedure}\label{sec:running}
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+\subsection{Environment variables {\tt molecfit}}\label{sec:variables}
+%-------------------------------------------------------------------------------
+Before the execution you can to define some environment variables in order to 
+change the behavior of molecfit.
+\begin{itemize}
+  \item TMPDIR: Define the folder where create the temporary directory.
+        If it is not define, molecfit use the default 'tmp' directory in the system
+  \item MOLECFITDIR: Define the installation directory.
+        If it is not define, molecfit use the path of the installation directory provide in compilation time.
+  \item MOLECFITDIR\_DATA: Define the data directory.
+        If it is not define, molecfit use the path of the data directory create in the installation.
+\end{itemize}
+Example of use:
+\begin{verbatim}
+    export TMPDIR=$PWD
+    export MOLECFITDIR=$PWD/dest
+    export MOLECFITDIR_DATA=$MOLECFITDIR/share/molecfit/data
+\end{verbatim}
+
+%-------------------------------------------------------------------------------
+\subsection{Calling {\tt molecfit}}\label{sec:calling}
+%-------------------------------------------------------------------------------
+After the compilation, the executable {\tt molecfit} for the fitting of
+molecular transmission and emission is located in the {\tt bin/} directory. It
+can be invoked via
+% \begin{verbatim}
+%     cd <basedir>
+%     ./bin/molecfit <parameter file> <optional mode>
+% \end{verbatim}
+% or
+\begin{verbatim}
+    cd <arbitrary_dir>
+    <fullpath>/bin/molecfit <parameter file> <optional mode>
+\end{verbatim}
+where {\tt <parameter file>} represents a user-defined parameter file
+(including paths). The {\tt <optional mode>} parameter enables the user to run
+different modes of the fitting procedure:
+\begin{itemize}
+    \item `m' - multiple: Choosing this option, the fitting procedure follows
+          all five steps described in Section~\ref{sec:algorithm}.
+    \item `s' - single run: Only step \#5 is carried out (see
+          Section~\ref{sec:algorithm}).
+\end{itemize}
+Note that in both modes fitting steps that were designated to be skipped (by
+setting fit flag $= 0$ in the parameter file) are excluded (see
+Section~\ref{sec:paramfile}).
+
+The {\tt <INST\_DIR>/examples} directory contains several examples,
+including input spectra (in subfolder {\tt input}) and configuration parameter
+files (in subfolder {\tt config}) for the CRIRES, VISIR and X-Shooter
+instruments. The CRIRES spectrum represents the best data set for analysing
+molecular abundances and is optimally fitted using the parameter file listed
+in Section~\ref{sec:paramfile}:
+% \begin{verbatim}
+%     cd <basedir>
+%     ./bin/molecfit examples/config/molecfit_crires.par
+% \end{verbatim}
+\begin{verbatim}
+    cd <arbitrary_dir>
+    <fullpath>/bin/molecfit examples/config/molecfit_crires.par
+\end{verbatim}
+The other examples can be started synonymously.
+
+The conversion of the input data file into a FITS table that is suitable
+for the fitting procedure can also be performed by means of the executable
+{\tt preptable} plus {\tt <parameter file>} as input parameter. The procedure
+is the same as for {\tt molecfit}, but it stops before the fitting is started.
+
+%-------------------------------------------------------------------------------
+\subsection{Calling {\tt calctrans}}\label{sec:callingct}
+%-------------------------------------------------------------------------------
+After the compilation, the executable {\tt calctrans} for the derivation of
+the telluric absorption spectrum over the whole spectrum is also located in the {\tt bin/}
+directory. It can be run by
+% \begin{verbatim}
+%     cd <basedir>
+%     ./bin/calctrans <parameter file>
+% \end{verbatim}
+% or
+\begin{verbatim}
+    cd <arbitrary_dir>
+    <fullpath>/bin/calctrans <parameter file>
+\end{verbatim}
+where {\tt <parameter file>} represents the same user-defined parameter file
+(including paths) as used for {\tt molecfit}.
+
+The  telluric  absorption  correction  can be  calculated  for  a  new
+spectrum with a different aimass (cf.  Section~\ref{sec:callingct}) by
+changing the argument of {\sc  filename} in the {\tt <parameter file>}
+(see Section~\ref{sec:params}). If it is an ASCII file, the argument 
+of {\sc telalt} must be also changed.
+
+Note  that the  line  kernel  and the  wavelength  correction are  not
+modified  by this  approach.  This  requires a  direct  fit with  {\tt
+  molecfit}.
+
+
+%-------------------------------------------------------------------------------
+\subsection{Calling {\tt corrfilelist}}\label{sec:callingcfl}
+%-------------------------------------------------------------------------------
+The {\tt bin/} directory contains the executable {\tt corrfilelist}
+for the telluric absorption correction for each of the spectra listed in
+an ASCII file given as argument to the {\sc listname} keyword 
+in the parameter file. Since the
+correction function is not recalculated, airmass differences are not
+considered (cf. Section~\ref{sec:callingct}). In the same way as
+{\tt calctrans}, {\tt corrfilelist} can be invoked by
+% \begin{verbatim}
+%     cd <basedir>
+%     ./bin/corrfilelist <parameter file>
+% \end{verbatim}
+% or
+\begin{verbatim}
+    cd <arbitrary_dir>
+    <fullpath>/bin/corrfilelist <parameter file>
+\end{verbatim}
+where {\tt <parameter file>} represents the same user-defined parameter file
+(including paths) as used for {\tt molecfit}.
+
+%-------------------------------------------------------------------------------
+\subsection{Calling {\tt calctrans\_lblrtm} and {\tt calctrans\_convolution}}\label{sec:callingct2}
+%-------------------------------------------------------------------------------
+
+Alternatively, correction of spectra affected by different (but known)
+kernels or different airmasses can  be dealt with in  the following way by  calling two other
+executables:
+\begin{verbatim}
+   cd <arbitrary_dir>
+\end{verbatim}
+\begin{itemize}
+\item 
+\begin{verbatim}
+<fullpath>/bin/calctrans_lblrtm  <parameter file>
+\end{verbatim}
+  calculates  the transmission  spectrum from LBLRTM
+  using the best fit parameter over the whole wavelength range, with a
+  sampling 5 times better than the input spectrum;
+\item 
+\begin{verbatim}
+<fullpath>/bin/calctrans_convolution  <parameter file>
+\end{verbatim}
+performs the  convolution of  the
+  spectrum produced by  {\tt calctrans\_lblrtm} with  the user-provided kernel.
+\end{itemize}
+
+A typical use is the following:
+\begin{enumerate}
+\item the user knows well the  kernel for the spectra provided by each
+  fiber of  a multi-fiber spectrograph.   {\tt Molecfit} is  called to
+  fit the  molecular content  on an input  spectrum (argument  of {\sc
+    filename})  corresponding to  a  given fiber;  the parameter  file
+  includes  the filename  with the  corresponding kernel  (argument of
+  {\sc kernel\_file});
+\item once a satisfactory fit is obtained, {\tt calctrans\_lblrtm} is
+  run with the parameter file unchanged;
+\item then {\tt calctrans\_convolution} is called with the same
+  parameter file in which the name of the input file (argument of
+  {\sc filename}) has been changed for the spectrum of another fiber, and
+  where the kernel filename (argument of {\sc kernel\_file}) has been changed
+  to provide the corresponding kernel. This step can be repeated for each
+  spectra.
+\end{enumerate}
+On  the  other  hand,  if   the  airmass  for  another  fiber  differs
+significantly from the first, {\tt calctrans\_lblrtm} should be called
+with  the  same parameter  file  where  the  name  of the  input  file
+(argument of {\sc  filename}) has been changed to the  filename of the
+corresponding  spectrum.  The  telescope altitude  (argument  of  {\sc
+  telalt}) must be changed also if the input file is an ASCII file.
+
+
+
+%-------------------------------------------------------------------------------
+\subsection{The parameter file}\label{sec:paramfile}
+%-------------------------------------------------------------------------------
+All parameters needed for the fit are read from an ASCII parameter file, which
+contains parameter names, descriptions, and initial values. Example files can
+be found in the folder {\tt examples/config/}.
+
+The file is divided into sections, where parameters belonging together are
+grouped. These sections incorporate the directory structure (labelled
+{\tt DIRECTORY STRUCTURE}), the required input ({\tt INPUT DATA}), output
+options ({\tt RESULTS}), the precision of the fit ({\tt FIT PRECISION}),
+molecular information ({\tt MOLECULAR COLUMNS}), the fit of the background and
+the continuum ({\tt BACKGROUND AND CONTINUUM}), the wavelength fit
+({\tt WAVE\-LENGTH SOLUTION}), the resolution fit ({\tt RESOLUTION}),
+environmental parameters ({\tt AMBIENT}\linebreak {\tt PARAMETERS}), and the
+atmospheric profiles ({\tt ATMO\-SPHERIC PROFILES}). The individual parameters
+are given one per line. The parameter name plus a trailing colon and space is
+followed by one or more parameter values, which also have to be separated by
+spaces. Lines beginning with a hash key are assumed to be comments and are
+skipped. Thus, next to removing parameter lines, there are several options to
+``deactivate'' a parameter in the parameter file:
+
+Command ``active'':
+\begin{verbatim}
+ftol: 1e-2
+\end{verbatim}
+
+Command ``deactivated'' (commented out):
+\begin{verbatim}
+#ftol: 1e-2
+\end{verbatim}
+
+Command ``deactivated'' (no trailing colon):
+\begin{verbatim}
+ftol 1e-2
+\end{verbatim}
+
+Command ``deactivated'' (no parameter value)
+\begin{verbatim}
+ftol:
+\end{verbatim}
+or
+\begin{verbatim}
+ftol
+\end{verbatim}
+
+In the following, {\tt examples/config/molecfit\_crires.par} is shown as
+an example of a parameter file. Individual parameters are explained in
+Section~\ref{sec:params}:
+
+{\small
+\begin{verbatim}
+### Driver for MOLECFIT
+
+## INPUT DATA
+
+# Data file name (path relative to the current directory or absolute path)
+filename: examples/input/crires_spec_jitter_extracted_0000.fits
+
+# ASCII list of files to be corrected for telluric absorption using the
+# transmission curve derived from the input reference file (path of list and
+# listed files relative to the current directory or absolute path; default: "none")
+listname: none
+
+# Type of input spectrum -- 1 = transmission (default); 0 = emission
+trans: 1
+
+# Names of the file columns (table) or extensions (image) containing:
+# Wavelength  Flux  Flux_Err  Mask
+# - Flux_Err and/or Mask can be avoided by writing 'NULL'
+# - 'NULL' is required for Wavelength if it is given by header keywords
+# - parameter list: col_lam, col_flux, col_dflux, and col_mask
+columns: Wavelength Extracted_OPT Error_OPT NULL
+
+# Default error relative to mean for the case that the error column is missing
+default_error: 0.01
+
+# Multiplicative factor to convert wavelength to micron
+# (e.g. nm -> wlgtomicron = 1e-3)
+wlgtomicron: 1e-3
+
+# Wavelengths in vacuum (= vac) or air (= air)
+vac_air: vac
+
+# ASCII or FITS table for wavelength ranges in micron to be fitted
+# (path relative to the current directory or absolute path; default: "none")
+wrange_include: none
+
+# ASCII or FITS table for wavelength ranges in micron to be excluded from the
+# fit (path relative to the current directory or absolute path; default: "none")
+wrange_exclude: none
+
+# ASCII or FITS table for pixel ranges to be excluded from the fit
+# (path relative to the current directory or absolute path; default: "none")
+prange_exclude: examples/config/exclude_crires.dat
+
+## RESULTS
+
+# Directory for output files (path relative to the current directory or absolute path)
+output_dir: output
+
+# Name for output files
+# (supplemented by "_fit" or "_tac" as well as ".asc", ".atm", ".fits",
+# ".par, ".ps", and ".res")
+output_name: molecfit_crires
+
+# Plot creation: gnuplot is used to create control plots
+# W - screen output only (incorporating wxt terminal in gnuplot)
+# X - screen output only (incorporating x11 terminal in gnuplot)
+# P - postscript file labelled '<output_name>.ps', stored in <output_dir>
+# combinations possible, i.e. WP, WX, XP, WXP (however, keep the order!)
+# all other input: no plot creation is performed
+plot_creation: XP
+
+# Create plots for individual fit ranges? -- 1 = yes; 0 = no
+plot_range: 0
+
+## FIT PRECISION
+
+# Relative chi2 convergence criterion
+ftol: 1e-2
+
+# Relative parameter convergence criterion
+xtol: 1e-2
+
+## MOLECULAR COLUMNS
+
+# List of molecules to be included in the model
+# (default: 'H2O', N_val: nmolec)
+list_molec: H2O CH4 O3
+
+# Fit flags for molecules -- 1 = yes; 0 = no (N_val: nmolec)
+fit_molec: 1 1 1
+
+# Values of molecular columns, expressed relatively to the input ATM profile
+# columns (N_val: nmolec)
+relcol: 1. 1. 1.
+
+## BACKGROUND AND CONTINUUM
+
+# Conversion of fluxes from phot/(s*m2*mum*as2) (emission spectrum only) to
+# flux unit of observed spectrum:
+# 0: phot/(s*m^2*mum*as^2) [no conversion]
+# 1: W/(m^2*mum*as^2)
+# 2: erg/(s*cm^2*A*as^2)
+# 3: mJy/as^2
+# For other units, the conversion factor has to be considered as constant term
+# of the continuum fit.
+flux_unit: 0
+
+# Fit of telescope background -- 1 = yes; 0 = no (emission spectrum only)
+fit_back: 0
+
+# Initial value for telescope background fit (range: [0,1])
+telback: 0.1
+
+# Polynomial fit of continuum --> degree: cont_n
+fit_cont: 1
+
+# Degree of coefficients for continuum fit
+cont_n: 3
+
+# Initial constant term for continuum fit (valid for all fit ranges)
+# (emission spectrum: about 1 for correct flux_unit)
+cont_const: 1.
+
+## WAVELENGTH SOLUTION
+
+# Refinement of wavelength solution using a polynomial of degree wlc_n
+fit_wlc: 1
+
+# Polynomial degree of the refined wavelength solution
+wlc_n: 3
+
+# Initial constant term for wavelength correction (shift relative to half
+# wavelength range)
+wlc_const: 0.
+
+## RESOLUTION
+
+# Fit resolution by boxcar -- 1 = yes; 0 = no
+fit_res_box: 0
+
+# Initial value for FWHM of boxcar relative to slit width (>= 0. and <= 2.)
+relres_box: 0.
+
+# Voigt profile approximation instead of independent Gaussian and Lorentzian
+# kernels? -- 1 = yes; 0 = no
+kernmode: 0
+
+# Fit resolution by Gaussian -- 1 = yes; 0 = no
+fit_res_gauss: 1
+
+# Initial value for FWHM of Gaussian in pixels
+res_gauss: 1.
+
+# Fit resolution by Lorentzian -- 1 = yes; 0 = no
+fit_res_lorentz: 0
+
+# Initial value for FWHM of Lorentzian in pixels
+res_lorentz: 0.5
+
+# Size of Gaussian/Lorentzian/Voigtian kernel in FWHM
+kernfac: 300.
+
+# Variable kernel (linear increase with wavelength)? -- 1 = yes; 0 = no
+varkern: 0
+
+# ASCII file for kernel elements (one per line; normalisation not required)
+# instead of synthetic kernel consisting of boxcar, Gaussian, and Lorentzian
+# components (path relative to the current directory or absolute path; default: "none")
+kernel_file: none
+
+## AMBIENT PARAMETERS
+
+# If the input data file contains a suitable FITS header, the keyword names of
+# the following parameters will be read, but the corresponding values will not
+# be used. The reading of parameter values from this file can be forced by
+# setting keywords to NONE.
+
+# Observing date in years or MJD in days
+obsdate
+obsdate_key: MJD-OBS
+
+# UTC in s
+utc
+utc_key: UTC
+
+# Telescope altitude angle in deg
+telalt
+telalt_key: ESO TEL ALT
+
+# Humidity in %
+rhum
+rhum_key: ESO TEL AMBI RHUM
+
+# Pressure in hPa
+pres
+pres_key: ESO TEL AMBI PRES START
+
+# Ambient temperature in deg C
+temp
+temp_key: ESO TEL AMBI TEMP
+
+# Mirror temperature in deg C
+m1temp
+m1temp_key: ESO TEL TH M1 TEMP
+
+# Elevation above sea level in m (default is Paranal: 2635m)
+geoelev
+geoelev_key: ESO TEL GEOELEV
+
+# Longitude (default is Paranal: -70.4051)
+longitude
+longitude_key: ESO TEL GEOLON
+
+# Latitude (default is Paranal: -24.6276)
+latitude
+latitude_key: ESO TEL GEOLAT
+
+## INSTRUMENTAL PARAMETERS
+
+# Slit width in arcsec (taken from FITS header if present)
+slitw: 0.4
+slitw_key: ESO INS SLIT1 WID
+
+# Pixel scale in arcsec (taken from this file only)
+pixsc: 0.086
+pixsc_key: NONE
+
+## ATMOSPHERIC PROFILES
+
+# Reference atmospheric profile
+ref_atm: equ.atm
+
+# Specific GDAS-like input profile (P[hPa] HGT[m] T[K] RELHUM[%]) (path
+# relative to the installation directory or absolute path). In the case of "none", no GDAS
+# profiles will be considered. The default "auto" performs an automatic
+# retrieval.
+gdas_prof: auto
+
+# Grid of layer heights for merging ref_atm and GDAS profile. Fixed grid = 1
+# (default) and natural grid = 0.
+layers: 1
+
+# Upper mixing height in km (default: 5) for considering data of a local meteo
+# station. If emix is below geoelev, rhum, pres, and temp are not used for
+# modifying the corresponding profiles.
+emix: 5
+
+# PWV value in mm for the input water vapour profile. The merged profile
+# composed of ref_atm, GDAS, and local meteo data will be scaled to this value
+# if pwv > 0 (default: -1 -> no scaling).
+pwv: -1
+
+end
+\end{verbatim}
+}
+
+%\pagebreak
+
+%-------------------------------------------------------------------------------
+\subsection{The parameters}\label{sec:params}
+%-------------------------------------------------------------------------------
+In the following, the individual parameters are explained in more detail by
+following the order as they appear in the parameter file.
+
+% {\bf\large\tt\#\# DIRECTORY STRUCTURE:}
+% \begin{itemize}
+% \item {\sc basedir}: Base directory (default: ".") for the following folder
+% structure:
+% \begin{verbatim}
+%                |--bin/
+%                |
+%                |--config/
+%   <basedir>----|
+%                |--data/
+%                |
+%                |--output/
+% \end{verbatim}
+% A relative or an absolute path can be provided. In the former case, \mf\
+% has to be started in <basedir>. The subfolder ``bin/'' of <basedir> is to
+% contain all required executables (see Section~\ref{sec:installation}).
+% Configuration files for the radiative transfer codes and mandatory input data
+% (line parameter database, atmospheric profiles, or molecular cross section
+% files) have to be located in ``config/'' and ``data/'', respectively. Finally,
+% ``output/'' is the default folder for all resulting files described in
+% Section~\ref{sec:output}. The output directory can be modified by the parameter
+% {\sc output\_dir} (see below). For example \mf\ parameter files and input
+% spectra, we have created the directory ``examples/'' with the subfolders
+% ``config/'' and ``input/''. The names of these folders are arbitrary and their
+% presence is not expected by the code.
+% \end{itemize}
+
+{\bf\large\tt\#\# INPUT DATA:}
+\begin{itemize}
+\item {\sc filename}: Path and name of the input spectrum. The path has to be
+relative to the current directory or absolute. The accepted file formats for the
+input spectrum are ASCII and FITS. The spectral data of the latter has to be
+provided either in table form (multiple FITS extensions for different chips) or
+as 1D image (with optional error and quality data in additional FITS
+extensions).  See section \ref{sec:inputspec} for more information about the
+input file format.
+\item {\sc listname}: Input ASCII list of files for {\tt corrfilelist}, which
+corrects spectra for telluric absorption using the transmission curve derived
+by {\tt calctrans}. The path to the list and the listed files has to be
+relative to the current directory or absolute. In contrast to {\sc filename}, the
+listed files can also be 2D FITS images. By default, no file list is expected
+(``none'').
+\item {\sc trans}: type of input spectrum (1 = transmission, 0 = emission;
+default = 1).
+\item {\sc columns}: Column names of the input file containing information on
+wavelength, flux, flux\_err, and mask. The latter two are optional and can be
+disabled by setting them to ``NULL''. For ASCII files, the column names are
+irrelevant, with the exception of ``NULL'' input. In the case of FITS images,
+the given labels are compared to the FITS extension names (keyword
+``EXTNAME''). Since it is expected that the flux data is in the first layer of
+the FITS file (0th extension), the existence of a corresponding FITS keyword is
+not required for this column. Internally, the code denotes the columns as
+{\sc col\_lam}, {\sc col\_flux}, {\sc col\_dflux}, and {\sc col\_mask}.
+\item {\sc default\_error}: Default error relative to the mean in case
+the error column is missing (column name = ``NULL'', see previous
+record).
+\item {\sc wlgtomicron}: Multiplicative factor to convert input wavelength unit
+into $\mu$m. For example, for nm this parameter has to set to $10^{-3}$.
+\item {\sc vac\_air}: Wavelengths in vacuum (= ``vac'') or air (= ``air'')?
+This parameter depends on the instrument and the wavelength calibration
+approach.
+\item {\sc wrange\_include}: ASCII or FITS table for wavelength ranges to be
+fitted. The path to the file has to be relative to the current directory or absolute.
+Except for empty lines and comment lines starting with \#, each line of an
+ASCII file has to provide a lower and an upper wavelength limit in $\mu$m. FITS
+tables must contain exactly two columns. The column labels are not fixed. If a
+range table is not desired and the full spectrum shall be fitted, ``none'' can
+be given. This is also the default value.
+\item {\sc wrange\_exclude}: ASCII or FITS table for wavelength ranges to be
+excluded from the fit. The path to the file has to be relative to the current directory
+or absolute. Except for empty lines and comment lines starting with \#, each
+line of an ASCII file has to provide a lower and an upper wavelength limit in
+$\mu$m. FITS tables must contain exactly two columns. The column labels are not
+fixed. If the exclusion of wavelength ranges is not desired, ``none'' can be
+given. This is also the default value.
+\item {\sc prange\_exclude}: ASCII or FITS table for pixel ranges to be
+excluded from the fit. The path to the file has to be relative to the current directory
+or absolute. Except for empty lines and comment lines starting with \#, each
+line of an ASCII file has to provide a lower and an upper pixel. FITS tables
+must contain exactly two columns. The column labels are not fixed. The pixel
+counting starts with 1. If there are several chips, the pixel counting
+continues at chip limits. If a range table is not desired and all pixels shall
+be fitted, ``none'' can be given. This is also the default value.
+\end{itemize}
+
+{\bf\large\tt\#\# RESULTS:}
+\begin{itemize}
+\item {\sc output\_dir}: Output directory as path relative to the current directory or
+absolute path (see also Section {\tt DIRECTORY STRUCTURE)}. The folder is
+created if it does not exist.
+\item {\sc output\_name}: Unique name space for output files. The extensions
+are supplemented by ``\_fit'' or ``\_tac'' as well as ``.asc'', ``.atm'',
+``.fits'', ``.par'', ``.ps'', and ``.res''. See Section~\ref{sec:output} for
+more details.
+\item {\sc plot\_creation}: {\tt molecfit} invokes {\tt gnuplot} to create
+control plots for verifying the fit. For each fit range, an individual plot
+is created, which contains a comparison of the observed and the modelled
+spectrum and their residual. An overview plot for the entire wavelength range
+is also produced. Finally, {\tt calctrans} creates a plot that shows the
+initial and the telluric absorption corrected spectrum. This parameter allows
+specifying the output terminal of gnuplot:
+W - screen output incorporating wxt terminal,
+X - screen output incorporating x11 terminal,
+P - postscript files labelled `<output\_name>\_fit.ps',
+    `<output\_name>\_fit\_<fitrange>.ps', and `<output\_name>\_tac.ps' (stored
+    in <output\_dir>).
+Also, arbitrary combinations are possible, \eg\ WP for wxt terminal and
+postscript, or WX for wxt and x11 terminal output.
+\item {\sc plot\_range}: Flag for creation of plots of individual fit ranges
+(1 = yes, 0 = no). If the flag is set to 0, the files labelled
+`<output\_name>\_fit\_<fitrange>.ps' are not produced.
+\end{itemize}
+
+{\bf\large\tt\#\# FIT PRECISION:}
+\begin{itemize}
+\item {\sc ftol}: relative $\chi^2$ convergence criterion.
+\item {\sc xtol}: relative parameter convergence criterion.
+\end{itemize}
+
+{\bf\large\tt\#\# MOLECULAR COLUMNS:}
+\begin{itemize}
+\item {\sc list\_molec}: List of molecules separated by blanks, which are
+included in the model. Note that only those molecules are valid, which are
+also present in the standard atmospheric profile {\sc ref\_atm} (see also
+Section~\ref{sec:mipas}).
+\item {\sc fit\_molec}: Fit flags (1 = yes, 0 = no) separated by blanks for
+list of molecules. \# has to match number of molecules in {\sc list\_molec}.
+Example: {\sc 1 0 1} implies that only the first and third molecule are
+fitted. The middle molecule is included statically in the fit, \ie\ its
+abundance is not varied in the fit.
+\item {\sc relcol}: Relative molecular column densities separated by blanks,
+normalised to the values in the input atmospheric profile (1 = 100\%). \# has
+to match number of molecules in {\sc list\_molec}.
+\end{itemize}
+
+{\bf\large\tt\#\# BACKGROUND AND CONTINUUM:}
+\begin{itemize}
+\item {\sc flux\_unit}: Conversion of fluxes from phot/(s$\cdot$m$^2\cdot$
+$\mu$m$\cdot$arcsec$^2$) (emission spectrum only) to flux unit of observed
+spectrum: 0 = phot/(s$\cdot$m$^2\cdot$$\mu$m$\cdot$arcsec$^2$) (--> no
+conversion), 1 = W/(m$^2\cdot$$\mu$m$\cdot$arcsec$^2$),
+2 = erg/(s$\cdot$cm$^2\cdot$\AA$\cdot$arcsec$^2$), 3 = mJy/arcsec$^2$.
+For other units differing from the offered units by a constant factor, the
+constant term of the continuum fit parameters {\sc cont\_const} has to be
+multiplied by the conversion factor. For non-flux-calibrated spectra provided
+in analogue-to-digital units (ADU), the default 0 is the best choice.
+\item {\sc fit\_back}: fit of telescope background (1 = yes, 0 = no); used for
+emission spectrum fit only.
+\item {\sc telback}: initial emissivity value for telescope background grey
+body fit; used for emission spectrum fit only.
+\item {\sc fit\_cont}: Flag for polynomial fit of the continuum (1 = yes,
+0 = no). For each fit range/chip, the model spectrum is multiplied by the
+resulting polynomial.
+\item {\sc cont\_n}: degree of polynomial for the continuum fit.
+\item {\sc cont\_const}: Initial constant term of the polynomial for the
+continuum fit. The same value is used for all fit ranges/chips. By default,
+1 is assumed. Since all higher terms are set to 0 at the beginning, the fitting
+procedure starts without a continuum correction if the default setting is used.
+For sky emission spectra with correct {\sc flux\_unit}, the true continuum
+correction factor should be very close to the default value 1.
+\end{itemize}
+
+{\bf\large\tt\#\# WAVELENGTH SOLUTION:}
+\begin{itemize}
+\item {\sc fit\_wlc}: flag for refinement of wavelength solution (1 = yes,
+0 = no).
+\item {\sc wlc\_n}: degree of Chebyshev polynomial for refined wavelength
+solution.
+\item {\sc wlc\_const}: Constant term of the Chebyshev polynomial for the
+wavelength solution, which is derived for each chip independently. The provided
+constant term is used for all chips. The given value represents a shift
+relative to half the wavelength range of the input spectrum. By default,
+0 is assumed. Since the linear term and the higher terms are set to 1 and 0,
+respectively, at the beginning, the fitting procedure starts without a
+wavelength correction if the default setting is used.
+\end{itemize}
+
+{\bf\large\tt\#\# RESOLUTION:}\\[0.5cm]
+The resolution fit incorporates a combined, boxcar, Gaussian, and
+Lorentzian convolution. The latter two convolutions result in a Voigt profile.
+\begin{itemize}
+\item {\sc fit\_res\_box}: flag for resolution fit using a boxcar filter
+(1 = yes, 0 = no).
+\item {\sc relres\_box}: Initial value for FWHM of boxcar relative to slit
+width ($\geq 0$ and $\leq 2$). A value of 0 combined with
+{\sc fit\_res\_box}~=~0 switches off the convolution of a boxcar.
+\item {\sc kernmode}: By default (= 0), spectra are convolved by independent
+Gaussian and Lorentzian kernels. It is also possible to perform only one
+convolution with a kernel derived from a Voigt profile approximation (= 1),
+which also uses the FWHM of Gaussian and Lorentzian as input.
+\item {\sc fit\_res\_gauss}: flag for resolution fit using a Gaussian filter
+(1 = yes, 0 = no).
+\item {\sc res\_gauss}: Initial value for FWHM of Gaussian (in pixels). A value
+of 0 combined with \\ {\sc fit\_res\_gauss}~=~0 switches off the convolution of
+a Gaussian.
+\item {\sc fit\_res\_lorentz}: flag for resolution fit using a Lorentzian
+filter (1 = yes, 0 = no).
+\item {\sc res\_lorentz}: Initial value for FWHM of Lorentzian (in pixels). A
+value of 0 combined with \\ {\sc fit\_res\_lorentz}~=~0 switches off the
+convolution of a Lorentzian.
+\item {\sc kernfac}: Kernel size in units of FWHM. Depending on
+{\sc kernmode} either the Gaussian and Lorentzian kernels or the combined
+Voigt profile kernel are relevant. By default, a value of 3 is assumed.
+\item {\sc varkern}: Flag for selecting a constant (= 0) or a variable kernel
+(= 1). In the latter case, all FWHM values are related to the central
+wavelength of the full wavelength range. The variable kernel increases linearly
+with wavelength, \ie\ the resolution is constant. X-Shooter Echelle spectra
+show this behaviour. For spectra where the object profile in the slit mainly
+determines the kernel, the default constant kernel option is recommended.
+\item {\sc kernel\_file} ASCII file for fixed kernel elements (pixels) instead
+of a synthetic kernel consisting of boxcar, Gaussian, and Lorentzian
+components. The latter is the default case and requires ``none''. The path to
+the file has to be relative to the current directory or absolute. In the file, each
+kernel element has to be given on a separate line. It is not required that the
+kernel has been normalised to 1. Note that a given {\sc kernel\_file} overrules
+all other parameters related to the line profile. The kernel will not be
+fitted and will not depend on the wavelength (irrespective of {\sc varkern}).
+\end{itemize}
+
+{\bf\large\tt\#\# AMBIENT PARAMETERS:}\\[0.5cm]
+The parameters of this section are only required if the input spectrum is
+provided as ASCII file or if the ESO FITS header keywords are missing or differ
+from the default names. The use of a specific value from the parameter file can
+be forced by setting the keyword name to ``NONE''. If no keyword is provided
+by the input file (\eg\ ASCII file), it is not required to set the keyword
+names to ``NONE''.
+\begin{itemize}
+\item {\sc obsdate}: Observing date in years, \eg\ 2008.566, or MJD in days.
+This parameter is required for the retrieval of GDAS data.
+\item {\sc obsdate\_key}: FITS keyword name for {\sc obsdate} (default:
+``MJD-OBS'').
+\item {\sc utc}: UTC in s, starting at 00:00. This parameter is required for
+the retrieval of GDAS data.
+\item {\sc utc\_key}: FITS keyword name for {\sc utc} (default: ``UTC'').
+\item {\sc telalt}: altitude angle of telescope in deg.
+\item {\sc telalt\_key}: FITS keyword name for {\sc telalt} (default:
+``ESO TEL ALT'').
+\item {\sc rhum}: Relative humidity in \% for {\sc geoelev}. This parameter is
+only relevant if {\sc emix} is larger than {\sc geoelev}.
+\item {\sc rhum\_key}: FITS keyword name for {\sc rhum} (default:
+``ESO TEL AMBI RHUM'').
+\item {\sc pres}: Pressure in hPa for {\sc geoelev}. This parameter is only
+relevant if {\sc emix} is larger than {\sc geoelev}.
+\item {\sc pres\_key}: FITS keyword name for {\sc pres} (default:
+``ESO TEL AMBI PRES START'').
+\item {\sc temp}: Ambient temperature in $^\circ$C for {\sc geoelev}. This
+parameter is only relevant if {\sc emix} is larger than {\sc geoelev}.
+\item {\sc temp\_key}: FITS keyword name for {\sc temp} (default:
+``ESO TEL AMBI TEMP'').
+\item {\sc m1temp}: Temperature of primary mirror M1 in $^\circ$C. This
+parameter is only relevant for emission spectra (\ie\ {\sc trans}~=~0), where
+the thermal emission of the telescope has to be considered.
+\item {\sc m1temp\_key}: FITS keyword name for {\sc m1temp} (default:
+``ESO TEL TH M1 TEMP'').
+\item {\sc geoelev}: elevation above sea level in m (default is Paranal:
+2635\,m).
+\item {\sc geoelev\_key}: FITS keyword name for {\sc geoelev} (default:
+``ESO TEL GEOELEV'').
+\item {\sc longitude}: Longitude in deg (default is Paranal: -70.4051). This
+parameter is required for the retrieval of GDAS data.
+\item {\sc longitude\_key}: FITS keyword name for {\sc longitude} (default:
+``ESO TEL GEOLON'').
+\item {\sc latitude}: Latitude in deg (default is Paranal: -24.6276). This
+parameter is required for the retrieval of GDAS data.
+\item {\sc latitude\_key}: FITS keyword name for {\sc latitude} (default:
+``ESO TEL GEOLAT'').
+
+\end{itemize}
+{\bf\large\tt\#\# INSTRUMENTAL PARAMETERS:}
+\begin{itemize}
+\item {\sc slitw}: Slit width in arcsec. The provided value is only taken into
+account if the ESO keyword ``ESO INS SLIT1 WID'' does not exist and the
+instrument is not X-Shooter (special keyword finding routine). For CRIRES and
+VISIR, the stated keyword is usually present.
+\item {\sc slitw\_key}: FITS keyword name for {\sc slitw} (default:
+``ESO INS SLIT1 WID'').
+\item {\sc pixsc}: Pixel scale in arcsec. This parameter has to be provided
+manually, since this information could not be found in the ESO file headers of
+the investigated instruments.
+\item {\sc pixsc\_key}: FITS keyword name for {\sc pixsc}. The default is
+``NONE'', \ie\ the parameter is read from the parameter file.
+\end{itemize}
+
+{\bf\large\tt\#\# ATMOSPHERIC PROFILES:}
+\begin{itemize}
+\item {\sc ref\_atm}: Reference atmospheric profile (standard profile). By
+default, it is set to ``equ.atm'', which is located in the dedicated folder
+``data/profiles/mipas/''. See Section~\ref{sec:mipas} for more information.
+\item {\sc gdas\_prof}: Specific GDAS-like input profile (format:
+P[hPa] HGT[m] T[K] RELHUM[\%], see Section~\ref{sec:gdas}). The path to the
+file has to be relative to the installation directory or absolute. In the case of ``none'',
+no GDAS profiles will be considered. The default option ``auto'' causes an
+automatic retrieval either from a local library or a web-server (see
+Section~\ref{sec:processing}).
+\item {\sc layers}: Flag for grid of layer heights required for merging
+{\sc ref\_atm} and GDAS profiles. The default option is 1, which selects a
+fixed grid with 50 layers for Cerro Paranal (see Section~\ref{sec:processing}).
+If the parameter is set to 0, a natural grid is used, \ie\ all layer heights of
+{\sc ref\_atm} and the GDAS profile are combined, which tends to significantly
+increase the number of layers compared to the default option. If local meteo
+data are considered (see {\sc emix}), {\sc geoelev} is also added to the grid.
+\item {\sc emix}: Upper mixing height in km for considering data of a local
+meteorological station (see Section~\ref{sec:emm}). Above this level, the
+influence of the meteo data is expected to be zero (see
+Section~\ref{sec:processing}). For Cerro Paranal, the default value of 5\,km
+is assumed. If {\sc emix} is below {\sc geoelev}, no local meteo data are
+considered, \ie\ the content of {\sc rhum}, {\sc pres}, and {\sc temp} is
+not used for modifying the merged profiles.
+\item {\sc pwv}: Precipitable water vapour (PWV) value in mm for the input
+water vapour profile. The merged profile composed of {\sc ref\_atm}, GDAS, and
+local meteo data (see Section~\ref{sec:profiles}) will be scaled to this value
+if {\sc pwv} is positive. By default ({\sc pwv}~=~-1), the manipulation of the
+input water vapour profile is switched off. The {\sc relcol} value for water
+vapour refers to the given {\sc pwv}.
+\end{itemize}
+
+The keyword {\sc end} is optional. It marks the last line that is considered by
+the file reading routine. Any text beyond {\sc end} is ignored.
+
+%-------------------------------------------------------------------------------
+\subsection{Format of the input spectrum}\label{sec:inputspec}
+%-------------------------------------------------------------------------------
+\subsubsection{Accepted file formats}\label{sec:inputspec_accepted}
+%-------------------------------------------------------------------------------
+Molecfit currently accepts the following formats:
+\begin{enumerate}
+    \item ASCII.
+    \item FITS binary table,
+    \item 1D FITS image,
+    \item Multi-dimentional FITS image,
+\end{enumerate}
+and recognizes it in the following way:
+\begin{enumerate}[i]
+    \item If the file is not a FITS file, Molecfit assumes an ASCII format.
+    \item If the file is a FITS file, Molecfit then looks at the presence of
+          extensions.  Molecfit assumes a 1D image format.  (Note that the FITS
+          keyword {\sc EXTEND} only indicates that an extension may be present,
+          not that it is present!)
+    \item If there is at least  one extension, Molecfit uses the keyword
+          {\sc XTENSION} in the extension(s) to identify if the file is
+          a---possibly multi-extension---FITS binary table
+          ({\sc XTENSION=BINTABLE}) or an image ({\sc XTENSION=IMAGE}).  If the
+          file is an image, Molecfit then uses the {\sc NAXIS} keyword to
+          distinguish between 1D, 2D and 3D images.
+\end{enumerate}
+
+%-------------------------------------------------------------------------------
+\subsubsection{A note regarding the mask values}\label{sec:inputspec_mask}
+%-------------------------------------------------------------------------------
+The default behavior of Molecfit is that all values are either 0 or 1. A value
+of 0 indicates that the value must not be used by the fit and a value of 1
+indicates that the value should be used by the fit. However, Molecfit also
+checks that values other than 0 and 1 are used. If this is the case, 0 is
+assumed to be ok and all other values cause pixel rejection.
+
+Possible {\sc NAN} in the flux and error columns are substituted by zero flux
+and the corresponding pixel is rejected for the fit. The same is performed for
+negative errors.
+
+
+%-------------------------------------------------------------------------------
+\subsubsection{Format of the ASCII files}\label{sec:inputspec_ascii}
+%-------------------------------------------------------------------------------
+Two columns are mandatory: the first column must provide the wavelength and the
+second column, the flux. Two additional columns are optional: the 1-\(\sigma\)
+error on the flux and the mask.
+
+The 'columns' entry in the parameter file should be a list of 4 names, which are
+unimportant, except for {\sc NULL}.  However, it is a good practice---if only
+for readability---to use
+\begin{verbatim}
+	columns: Wavelength Flux Flux_Err Mask
+\end{verbatim}
+
+If the error on the flux and/or the mask are not provided, {\sc Flux\_Err}
+and/or {\sc Mask} should be replaced by {\sc NULL}.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Format of the FITS binary tables}\label{sec:inputspec_bintable}
+%-------------------------------------------------------------------------------
+Two columns are mandatory: the first column must provide the wavelength and the
+second column the flux. Two additional columns are optional: the 1-\(\sigma\)
+error on the flux and  the mask.
+
+The 'columns' entry in the parameter file should be:
+\begin{verbatim}
+	columns: wavelength_label flux_label flux_err_label mask_label
+\end{verbatim}
+where the field is made of the label (title) of the column in the FITS binary
+table. Note that the labels are case-sensitive! If the error on the flux and/or
+the mask are not provided, {\sc flux\_err\_label} and/or {\sc mask\_label}
+should be replaced by {\sc NULL}.
+
+Example: reduced CRIRES (pre-upgrade) file using the optimally extracted fluxes.
+\begin{verbatim}
+	columns: Wavelength Extracted_OPT Error_OPT NULL
+\end{verbatim}
+
+%-------------------------------------------------------------------------------
+\subsubsection{Format of the FITS 1D image data}\label{sec:inputspec_fits1dimg}
+%-------------------------------------------------------------------------------
+In the case of FITS image data, the wavelength information is provided through
+the FITS keywords {\sc CRPIX1}, {\sc CRVAL1} and {\sc CRPIX1} if the wavelength
+vector is not provided.
+
+The 'columns' entry in the parameter file should be:
+\begin{verbatim}
+	columns: NULL Flux NULL NULL
+\end{verbatim}
+
+%-------------------------------------------------------------------------------
+\subsubsection{Format of the FITS multi-extension image data}\label{sec_inputspec_fitsmultimg}
+%-------------------------------------------------------------------------------
+In the case of FITS image data, the wavelength information is provided through
+the FITS keywords {\sc CRPIX1}, {\sc CRVAL1} and {\sc CRPIX1} if the wavelength
+vector is not provided.
+
+The name of the extension is retrieved from the {\sc EXTNAME} keyword of the
+corresponding extension.
+
+The 'columns' entry in the parameter file should be:
+\begin{verbatim}
+	columns: EXTNAME_for_wave EXTNAME_for_flux EXTNAME_for_error EXTNAME_for_mask
+\end{verbatim}
+
+If the error or the mask is not provided, the corresponding entry should be
+replaced by {\sc NULL}.
+
+Examples:
+\begin{itemize}
+	\item X-shooter visible spectrum reduced by the pipeline (esorex, gasgano,
+          reflex), with the FITS keyword {\sc PRO.CATG} including any of the
+          MERGE1D string.
+\begin{verbatim}
+	columns: NULL FLUX ERRS QUAL
+\end{verbatim}
+	\item X-shooter Internal Data Product spectrum (e.g. retrieved from the
+          Phase 3 archive):
+\begin{verbatim}
+	columns: WAVE FLUX ERR QUAL
+\end{verbatim}
+\end{itemize}
+
+%-------------------------------------------------------------------------------
+\subsection{The output files}\label{sec:output}
+%-------------------------------------------------------------------------------
+\subsubsection{Output overview}\label{sec:outputfiles}
+%-------------------------------------------------------------------------------
+\sloppy The output files produced by {\tt molecfit}, {\tt calctrans},
+{\tt calctrans\_lblrtm}, {\tt calctrans\_convolution} and
+{\tt corrfilelist} are stored in the directory specified by the
+{\sc output\_dir} parameter (see Section~\ref{sec:params}). The following
+output files (named corresponding to the {\sc output\_name} parameter) are
+created by {\tt molecfit}:
+\begin{itemize}
+\item <{\sc output\_name}>.fits: input file converted to FITS table and with
+additional mask colum (1 = selected, 0 = rejected). This file can also be
+produced by {\tt preptable}.
+\item <{\sc output\_name}>\_fit.par: copy of input parameter file.
+\item <{\sc output\_name}>\_fit.atm: final atmospheric profile for the best fit
+(incorporates standard profile + \ac{GDAS} + \ac{EMM} + fit of the
+molecular abundances).
+\item <{\sc output\_name}>\_fit.fits: FITS table containing the observed input
+spectrum and the modelled spectrum. There are 10 to 11 columns:
+\#1: chip, \#2: wavelength grid of input spectrum converted into $\mu$m and
+vacuum, \#3: observed input spectrum (radiance/ transmission), \#4: weight of
+observed data, \#5: number of fit range (0 if not fitted), \#6: model
+wavelengths in $\mu$m and vacuum, \#7: continuum scaling function,
+\#8: modelled output spectrum (radiance/transmission), \#9: weight of model
+pixels (0 = no valid calculation), \#10: weighted deviation between modelled
+and observed spectrum, \#11: transmission curve for fitted wavelength ranges
+(only for transmission case).
+\item <{\sc output\_name}>\_fit.asc: ASCII version of the FITS table described
+above.
+\item <{\sc output\_name}>\_fit.ps: (optional) postscript plot showing a
+comparison of the best-fit model and input observed spectrum and the difference
+of both spectra. See parameter {\sc plot\_creation}.
+\item <{\sc output\_name}>\_fit\_<fitrange>.ps: (optional) postscript plots
+for the individual fit ranges. See the parameters {\sc plot\_creation} and
+{\sc plot\_range}.
+\item <{\sc output\_name}>.res: results file containing information on the fit
+quality and the best-fit parameters (see Section~\ref{sec:resfile}).
+\end{itemize}
+The executable {\tt calctrans} creates the following files:
+\begin{itemize}
+\item <{\sc output\_name}>\_tac.fits: FITS table containing the results of
+the telluric absorption correction of the input spectrum. There are 9 columns:
+\#1: chip, \#2: wavelength grid of input spectrum converted into $\mu$m and
+vacuum, \#3: observed input spectrum (radiance/transmission), \#4: weight of
+observed data, \#5: model wavelengths in $\mu$m and vacuum, \#6: best-fit
+transmission curve (correction function for telluric absorption),
+\#7: weight of model pixels (0 = no valid calculation), \#8: input spectrum
+corrected for telluric absorption, \#9: flag indicating the quality of the
+telluric absorption correction (0 = very low transmission $\to$ zero-point
+uncertainties are crucial $\to$ numerical problems expected, 1 = probably OK).
+A model transmission curve (column \#6) is also calculated for input sky
+radiance spectra. However, in this case, no telluric absorption correction
+is carried out (column \#8).
+\item <{\sc output\_name}>\_tac.asc: ASCII version of the FITS table described
+above.
+\item <{\sc output\_name}>\_tac.ps: (optional) postscript plot showing a
+comparison of the input spectrum with and without telluric absorption
+correction. See parameter {\sc plot\_creation}.
+\item <{\sc filename}>\_TAC.<filetype>: telluric absorption corrected input
+spectrum in the same file format as the input file. For ASCII and FITS tables,
+a corresponding column plus the quality flag column are added. If an error
+column exists, a column for the corrected error is also created. For FITS
+images, the flux spectrum is substituted by the corrected spectrum and
+existing flux error and mask/quality FITS extensions are modified.
+\item <{\sc filename}>\_TRA.<filetype>: 1D FITS image without extensions that
+holds the correction function for telluric absorption. This file is only
+created if the input file is a FITS image.
+\end{itemize}
+Alternatively, the executable {\tt calctrans\_lblrtm} creates the following
+files:
+\begin{itemize}
+\item <{\sc output\_name}>\_N\_T|R.fits: FITS table containing the result of
+    the telluric absorption features where:
+    \begin{itemize}
+    \item N is a number corresponding to the fit range,
+    \item T or R is appended to the filename according to the user's
+        request: transmission or emission spectrum ({\tt trans} keyword in
+        the input parameter file).
+    \end{itemize}
+\item <{\sc output\_name}>\_code\_stat.flags: flags used internally between
+    \sloppy {\tt calctrans\_lblrtm} and {\tt calctrans\_convolution}.
+\end{itemize}
+The executable {\tt calctrans\_convolution} creates the following files:
+\begin{itemize}
+\item <{\sc output\_name}>\_tac.fits
+\item <{\sc output\_name}>\_tac.asc
+\item <{\sc output\_name}>\_tac.ps
+\item <{\sc filename}>\_TAC.<filetype>
+\item <{\sc filename}>\_TRA.<filetype>
+\end{itemize}
+(see the paragraph above about {\tt calctrans} for a detailed description of
+those files)
+
+Finally, {\tt corrfilelist} produces a <filename>\_TAC.<filetype> file (see
+above) for each file listed in {\sc listname}.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Example of a {\tt .res} file}\label{sec:resfile}
+%-------------------------------------------------------------------------------
+The <{\sc output\_name}>\_fit.res file contains detailed information on the fit
+results. In particular, information on the fit quality, i.e. $\chi^2$ and RMS
+values, all coefficients of the best-fit model, uncertainties of these
+coefficients (only if a parameter was fitted), and the final water column are
+given. For the provided {\tt mpfit} status message, see the documentation in
+{\tt mpfit.h}. In general, positive numbers imply that the code found a
+solution.
+
+In the following, the output file belonging to the parameter file listed in
+Section~\ref{sec:paramfile} is shown:
+\begin{verbatim}
+DATA FILE:
+examples/input/crires_spec_jitter_extracted_0000.fits
+
+MPFIT RESULTS:
+Status:                    2
+Fit parameters:            38
+Data points:               4096
+Weight > 0:                3896
+Frac. of valid model pix.: 1.00
+Iterations:                13
+Function evaluations:      154
+Fit run time in min:       1.15
+Avg. LBLRTM run time in s: 3.76
+LBLRTM calls:              16
+Initial chi2:              1.452e+09
+Best chi2:                 4.562e+05
+Reduced chi2:              1.171e+02
+RMS rel. to error:         1.082e+01
+RMS rel. to mean:          1.990e-02
+
+BEST-FIT PARAMETERS:
+
+SPECTRAL RESOLUTION:
+Rel. FWHM of boxcar (slit width = 1): 0.000
+FWHM of boxcar in pixels:             0.000
+FWHM of Gaussian in pixels:           1.940 +- 0.003
+FWHM of Lorentzian in pixels:         0.500
+
+WAVELENGTH SOLUTION:
+Chip 1, coef 0: -5.082e-03 +- 4.356e-06
+Chip 1, coef 1:  1.001e+00 +- 7.231e-06
+Chip 1, coef 2:  2.085e-03 +- 7.277e-06
+Chip 1, coef 3:  5.023e-04 +- 6.830e-06
+Chip 2, coef 0:  2.314e-03 +- 4.339e-06
+Chip 2, coef 1:  1.004e+00 +- 9.810e-06
+Chip 2, coef 2:  5.840e-03 +- 6.325e-06
+Chip 2, coef 3:  4.218e-05 +- 6.381e-06
+Chip 3, coef 0: -3.487e-04 +- 7.627e-06
+Chip 3, coef 1:  9.995e-01 +- 1.836e-05
+Chip 3, coef 2:  1.551e-03 +- 9.098e-06
+Chip 3, coef 3: -7.590e-05 +- 8.770e-06
+Chip 4, coef 0: -1.360e-03 +- 3.974e-06
+Chip 4, coef 1:  1.001e+00 +- 7.622e-06
+Chip 4, coef 2: -1.099e-03 +- 6.119e-06
+Chip 4, coef 3:  1.735e-05 +- 6.554e-06
+
+CONTINUUM CORRECTION:
+Range 1, chip 1, coef 0:  4.395e+01 +- 3.220e-03
+Range 1, chip 1, coef 1:  6.602e+00 +- 1.070e+00
+Range 1, chip 1, coef 2: -8.195e+03 +- 9.750e+01
+Range 1, chip 1, coef 3: -5.589e+05 +- 2.507e+04
+Range 2, chip 2, coef 0:  4.375e+01 +- 3.903e-03
+Range 2, chip 2, coef 1:  1.293e+02 +- 1.375e+00
+Range 2, chip 2, coef 2: -3.498e+04 +- 1.412e+02
+Range 2, chip 2, coef 3: -2.385e+06 +- 3.431e+04
+Range 3, chip 3, coef 0:  3.624e+01 +- 7.714e-03
+Range 3, chip 3, coef 1: -1.796e+02 +- 2.219e+00
+Range 3, chip 3, coef 2: -5.348e+03 +- 6.280e+02
+Range 3, chip 3, coef 3:  2.646e+06 +- 8.653e+04
+Range 4, chip 4, coef 0:  3.245e+01 +- 3.088e-03
+Range 4, chip 4, coef 1:  5.918e+01 +- 1.094e+00
+Range 4, chip 4, coef 2: -3.674e+03 +- 1.265e+02
+Range 4, chip 4, coef 3:  2.851e+05 +- 3.342e+04
+
+RELATIVE MOLECULAR GAS COLUMNS:
+H2O: 0.885 +- 0.000
+CH4: 0.946 +- 0.000
+ O3: 0.932 +- 0.001
+
+MOLECULAR GAS COLUMNS IN PPMV:
+H2O: 2.051e+02 +- 4.099e-02
+CH4: 1.639e+00 +- 3.884e-04
+ O3: 3.909e-01 +- 4.666e-04
+
+H2O COLUMN IN MM: 0.991 +- 0.000
+\end{verbatim}
+
+%-------------------------------------------------------------------------------
+\subsection{Known Issues}\label{sec:issues}
+%-------------------------------------------------------------------------------
+\begin{itemize}
+  \item If the data have pixels with unusually high values, Molecfit may fail since the
+        underlying algorithm uses single precision floats.  A solution is to apply a
+        scale factor to the data before the fit.
+  \item The old MacOSX file system (HDF+) have case insensitivity. The user must be 
+        sure to put a different name in the 'output\_name' parameter that the name of
+        the input file in Molecfit. If you don't take care of that the GUI will not
+        show any error message in the screen in the old MacOSX file systems, 
+        but it will not storage the output correction file.  
+\end{itemize}

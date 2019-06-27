@@ -1,0 +1,113 @@
+Version 1.5.6
+-------------
+
+* Bugs [PIPE-8083, PIPE-8086, PIPE-8094]. Fixed link dependency problems.
+
+Version 1.5.5
+-------------
+
+* Bug [PIPE-8040]. Fixed access to GDAS profile of Calar alto (long=-2.5,lat=+37.2).
+* Update the Paramal GDAS file included with the Molecfit distribution 
+  (gdas_profiles_C-70.4-24.6.tar.gz)
+
+Version 1.5.4
+-------------
+
+* Bug / improvement [PIPE-7950]. GDAS profile access in parallel.
+
+Version 1.5.3
+-------------
+
+* Bug fixed [PIPE-7917]
+* Bug fixed [PIPE-7873]
+
+Version 1.5.1
+-------------
+
+ * Various bug fixes.
+
+Version 1.5.0
+-------------
+
+ * API adapted to the requirements of the ESO pipelines group
+ * Modified the folder structure.
+ * MOLECFITDIR and MOLECFITDIR_DATA environment variable paths can be used 
+   at runtime. It's necessary for the pipelines in Jenkins regression tests.
+ * Various bug fixes in the GUI.
+
+
+Version 1.4.0
+-------------
+
+ * <basedir> was removed from the parameter file.
+ * Paths are relative to the current directory.  Of course, it is still possible
+   to give absolute paths.
+ * Major upgrade of dependencies: LNFL v3.1, LBLRTM v12.8 and aer v3.6.
+ * Molecfit no longer writes in installation directory and can therefore be
+   installed systemwide now.
+ * Calctrans is now also split in two: calctrans_lblrtm for the radiative
+   transfer computation, and calctrans_convolution for convolving the spectra.
+ * New examples.
+ * Various minor bug fixes.
+
+Version 1.2.0
+-------------
+
+ * Molecfit now uses the 3-hour interval gdas data files in the local database.
+   Previously it only used the 6-hour interval files despite the finer
+   granularity being available for Paranal.
+   This means the interpolation of pressure and humidity values to the
+   observation time should be more accurate.
+ * When no gdas data is available in local database for the requested
+   observation it will check an ESO server for a new version of the database.
+   Currently the database on the server only contains the data for Paranal.
+ * Disable automatic download of gdas data via grib as the server is not
+   available anymore.
+ * Fix possible crash when no gdas data is available and the averaged profile
+   has to be used.
+ * Updated bundled gdas data to include data up to 21.02.2016
+
+Version 1.1.1
+-------------
+
+ * support ESO science data products standard (SDP) format for 
+   one-dimensional (1D) spectra
+   Note the use of units stored in this format is not yet supported,
+   wlgtomicron still needs to be set correctly in the parameter file.
+ * support astropy.io.fits in addition to pyfits for GUI
+ * some more wxWidgets 3.0 fixes
+ * updated bundled gdas data to include data up to 07.08.2015
+
+Version 1.1.0
+-------------
+
+ * Improved convolution with a wavelength-dependent synthetic kernel, which
+   does not produce weak periodic glitches anymore.
+ * User-defined kernels can also be provided for each pixel separately. The
+   required matrix of kernel elements has to be written into an ASCII file.
+ * Removed input wavelength range limit. This allows usage with instrument
+   data covering larger ranges.
+ * improved compatibility with wxWidgets 3.0
+ * updated bundled gdas data to include data up to 07.04.2015
+
+Version 1.0.2
+-------------
+
+ * avoid pseudo-line at 2.069 µm in calctrans results of X-Shooter NIR-arm
+   spectra due to an additional overlap of adjacent LBLRTM spectra. Only
+   relevant for wide wavelength ranges, where LBLRTM has to be run several
+   times.
+ * improved robustness to invalid parameter inputs
+ * updated bundled gdas data to include data up to 31.07.2014
+
+Version 1.0.1
+-------------
+
+ * Fix wrong path for excluded pixels in crires example configuration.
+ * Work around bugs in matplotlib 1.1.0 and 1.2.0 causing the mask tool
+   selections to not work.
+
+Version 1.0.0
+-------------
+
+ * First public release

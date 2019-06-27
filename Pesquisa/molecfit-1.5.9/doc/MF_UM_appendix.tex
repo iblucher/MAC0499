@@ -1,0 +1,498 @@
+%-------------------------------------------------------------------------------
+\section{Appendix}\label{app:appendix}
+%-------------------------------------------------------------------------------
+\subsection{Expert Fitting}\label{app:expertfit}
+%-------------------------------------------------------------------------------
+The expert fitting mode allows one to fit individual chips and ranges and
+provides access to the coefficients of the polynomials for the continuum and
+wavelength correction.
+Moreover, parameter files with the best-fit values are written
+which can be used for another iteration of \mf.
+
+The example parameter file {\tt molecfit\_crires\_expert.par} can be used to
+test the expert mode. The following rows differ from the standard parameter
+file:
+
+% \begin{verbatim}
+% # Maximum number of chips to be checked for fit_chip and cont_chip
+% # keywords (default: 4)
+% nchip_max
+% \end{verbatim}
+
+% The parameters {\tt nchip\_max} is only required if there are more
+% than 4 chips. Since this is not the case for the given CRIRES
+% example, they can be ignored.
+
+\begin{verbatim}
+# Fit flag for fitting ranges with respect to continuum correction
+# (default: fit_cont)
+fit_range1:
+fit_range2:
+fit_range3:
+fit_range4:
+\end{verbatim}
+
+The parameters {\tt fit\_range[range]} allow one to enter fit flags for the
+different fitting ranges with respect to the continuum correction. These
+parameters overrule the {\tt fit\_cont} parameter if set. Note that a change of
+the fitting ranges can change the numbering. User-defined ranges that extend
+over more than one chip will be split and numbered differently.
+
+\begin{verbatim}
+# Fit flag for chips with respect to wavelength correction
+# (default: fit_wlc)
+fit_chip1:
+fit_chip2:
+fit_chip3:
+fit_chip4:
+\end{verbatim}
+
+The parameters {\tt fit\_chip[chip]} are very similar to {\tt fit\_range[range]}.
+They allow for independent fits of the wavelength correction coefficients for
+each chip. They overrule {\tt fit\_wlc} if set.
+
+\begin{verbatim}
+# Range-specific coefficients for continuum correction (list separated by
+# spaces; default: cont_const 0. 0. ...)
+cont_range1:
+cont_range2:
+cont_range3:
+cont_range4:
+\end{verbatim}
+
+The parameters {\tt cont\_range[range]} contain the coefficients for the
+continuum correction for each fitting range. They have to be listed separated
+by spaces.
+The number of coefficients per parameter is not restricted. They can deviate
+for different ranges. However, note that the parameter {\tt cont\_n} sets a limit to
+the number of coefficients that are considered for the fit ({\tt cont\_n + 1}).
+The set coefficients overrule the standard values, which are
+{\tt cont\_const, 0., 0.}, and so on.
+
+\begin{verbatim}
+# Chip-specific coefficients for wavelength correction (list separated by
+# spaces; default: wlc_const 1. 0. 0. ...)
+wlc_chip1:
+wlc_chip2:
+wlc_chip3:
+wlc_chip4:
+\end{verbatim}
+
+The parameters {\tt wlc\_chip[range]} contain the coefficients for the
+wavelength correction for each chip. The maximum number of coefficients taken
+for the fit is {\tt wlc\_n + 1}.
+The set coefficients overrule the standard values, which are
+{\tt wlc\_const, 1., 0., 0.}, and so on.
+
+Each provided fit flag or coefficient for the continuum and wavelength
+correction will be considered as start value for the fitting procedure.
+If no value is provided, \mf{} runs in the standard mode, i.e. the default
+values are taken. There is a difference in the performance if all colons are
+removed from the parameter labels. In this case, the traditional \mf{} mode
+runs as described in the user manual. However, a single colon will already
+activate the expert mode. As a consequence, an additional output file will
+be written to the output directory. It has the ending {\tt \_fit.rpar}.
+It equals the file for the \mf{} input parameters labelled {\tt \_fit.par}
+except for the fit parameters, where the best-fit value is written.  Apart from
+the {\tt cont\_range} and {\tt wlc\_chip} parameters, these are {\tt relcol},
+{\tt telback}, {\tt relres\_box}, {\tt res\_gauss}, and {\tt res\_lorentz}.
+The advantage of this file is that it can directly be used as input for another
+run of \mf. By modifying the fit flags (and parameter values) in this file
+before calling \mf, the fit results can be improved by focusing on subsets of
+the fitting parameters, which makes the procedure more robust.
+
+The expert mode offers full access to the \mf{} fitting parameters and
+allows for more flexible iterative fitting. On the other hand, it increases
+the complexity of the fitting procedure and there is a chance of erroneous
+results if the mask files are changed and the range and chip-related parameters
+are not carefully adapted. For this reason, it has not been implemented as
+standard mode for \mf.
+
+%-------------------------------------------------------------------------------
+\subsection{Maintenance}\label{app:maintenance}
+%-------------------------------------------------------------------------------
+\subsubsection{Introduction}
+%-------------------------------------------------------------------------------
+The package \mf{} relies on some external codes and data, which might undergo a
+change due to development even after the SM-02 project ends. Although, it is
+not possible to foresee all possible modifications, some hints can be given to
+use \mf{} even with updates from the external sources at a later stage. This
+particularly applies to the radiative transfer code LNFL/LBLRTM, and the GDAS
+data. In this appendix, we summarise the issues to be taken into account for a
+successful usage of \mf{} with later versions of LNFL/LBLRTM, the line
+database, and the GDAS data.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Radiative transfer code LNFL/LBLRTM}\label{app:lblrtm}
+%-------------------------------------------------------------------------------
+The radiative transfer code package LNFL/LBLRTM is developed by
+AER\cite{LBLRTM} and can directly be obtained from there. \mf{} is delivered
+with \lnflv, \lblrtmv, and the \aerv.
+
+In principle, \mf{} should also work with later versions as its principle usage
+has been unchanged for several years. This means that \mf{} is expected to
+provide all functionality as long as it is retained. In particular, the
+principle usage of the TAPE<xx> files \cite{LBLRTMFAQ}, and the format of the
+LBLRTM input file {\tt TAPE5} MUST remain unchanged. However, as LBLRTM is
+widely used in atmospheric research, we do not expect major changes in the near
+future. In the course of the former DR-, and later SM-projects, we used several
+versions without problems.
+
+What might change is the installation procedure of the LNFL/LBLRTM codes. If a
+future release of \mf{} is provided with a newer version of the radiative
+transfer code, the install script might need to be modified accordingly. For
+that purpose, the developers from AER provide a README file in the tree of the
+sources. In order to maximise flexibility, \mf{} only searches for executables
+labelled {\tt lnfl} and {\tt lblrtm} in the {\tt <INST\_DIR>/bin/}
+directory. Therefore, a soft link to the actual binaries of LNFL and LBLRTM has
+to be provided by the installation script. To facilitate the modification in
+the script, the corresponding section is marked there.
+
+We recommend the following procedure for the update of \mf{} to later versions
+of LNFL/LBLRTM:
+\begin{itemize}
+    \item Updates of the LNFL/LBLRTM are usually once or twice per year (see
+Section "What's new" at \cite{LBLRTM}). Therefore, a quarterly check for new
+versions is sufficient.
+    \item Download the latest version of LNFL/LBLRTM from \cite{LBLRTM}
+    \item Make sure that the principle usage has not changed. Check the
+documents in the {\tt docs} directory in the tree of the LBLRTM sources. There,
+you should find a FAQ document, the release notes, and a detailed HTML
+description of the {\tt TAPE5} input file for LBLRTM.
+    \item Read the {\tt README} files whether the installation procedure has
+changed. These files should be located in the {\tt src/build} directory of LNFL
+and LBLRTM.
+    \item Check whether there is also a line list update and follow the steps
+described in Section~\ref{app:linelist}.
+    \item Adapt the installation script of \mf{}.
+    \item Evaluate by means of the delivered examples.
+\end{itemize}
+
+%-------------------------------------------------------------------------------
+\subsubsection{AER Line parameter list}\label{app:linelist}
+%-------------------------------------------------------------------------------
+Usually the line parameter list delivered with the LNFL/LBLRTM package is
+updated at the same time as the code. We recommend to use the version which is
+delivered together with the corresponding code version.
+
+To integrate the new line list, simply unpack the tarball and copy the new line
+parameter file (usually labelled {\tt aer\_v\_<version>} to the directory {\tt
+<INST\_DIR>/data/hitran/} of your \mf{} installation. This can be
+done also by modifying the install script accordingly. The corresponding
+section is marked there in a special way. Moreover, it is necessary to provide
+the new line list name to the {\sc \_line\_db} parameter in the
+{\tt lblrtm\_setup} file in the {\tt<INST\_DIR>/config/} directory.
+
+Note that it has turned out that at long wavelengths relevant for VISIR, \mf{}
+can be significantly slower if the recommended {\tt aer} line list is used
+instead of the basic HITRAN~2008 database (see Section~\ref{sec:pwv}).
+Unfortunately, this line list is no more available at the HITRAN website
+\cite{HITRAN}, which now provides the 2012 version. The new version has not
+been tested in terms of performance in \mf{}. Hence, it cannot be guaranteed
+that it works at all. If you want to test an original HITRAN line list, you
+have to put it in the {\tt data/hitran/} folder and modify {\sc \_line\_db} in
+the {\tt lblrtm\_setup} file. In addition, the parameter {\sc \_line\_db\_fmt}
+has to be changed from 100 to 160 because of a different file format.
+
+%-------------------------------------------------------------------------------
+\subsubsection{GDAS data}\label{app:gdas}
+%-------------------------------------------------------------------------------
+In contrast to the radiative transfer code, which is updated once/twice per
+year, the GDAS profiles are updated permanently. \mf{} initially searches in a
+local tarball for the corresponding profiles (script \\{\tt
+<INST\_DIR>/bin/get\_gdas\_profiles.sh}), and tries to download it
+from the web in the case they are not found locally. The latter is done by the
+script {\tt <INST\_DIR>/bin/extract\_grib.sh} with the help of the
+GRIB software.
+
+However, the incorporated download server\footnote{\tt
+http://nomad3.ncep.noaa.gov/pub/gdas/rotating/} does not seem to be very stable
+and organised in a predictable way. It might happen, that the profiles are
+not found.
+Therefore regularly updated data tarballs are available from \molecpage.
+They can be downloaded and placed into the {\tt <INST\_DIR>/data/profiles/gdas}
+folder in case the automatic update mechanism fails.
+
+Additionally \mf{} contains the script used to produce the updated files for
+the website. It can also be used to update the local GDAS database. The script
+downloads the GDAS data archive from a different
+server\footnote{\tt ftp://ftp.arl.noaa.gov/archives/gdas1/}. The data there
+is organised on weekly basis, each stored in a single file labelled
+{\tt gdas1.<mmm><yy>.w\#}, being <mmm> the month (e.g. jan, feb, mar,...) and
+<yy> the year. The extension "w\#" describes the number of the week of this
+month:
+
+\#=1 - days 1-7 of the month\\
+\#=2 - days 8-14\\
+\#=3 - days 15-21\\
+\#=4 - days 22-28\\
+\#=5 - days 29 - rest of the month \\
+
+For example, the file {\tt gdas1.apr07.w3} contains data of the third
+week of April 2007 (15th to 21st of April 2007). More information on the file
+structure is given here\footnote{\tt http://www.ready.noaa.gov/gdas1.php}.
+
+These files provide the GDAS profiles of the world wide grid. Therefore, it is
+necessary to extract the profiles in the same way as described in
+Section~\ref{sec:profiles}. This can be achieved with the shell script {\tt
+update\_gdas\_db.sh}. It downloads the data on monthly basis, and extracts the
+profiles as required by \mf{}, and adds them to the local database. However,
+this may take a while as the amount of data to be downloaded is large (up to
+580\,MB per week) and the server is fairly slow.
+
+The shell script invokes a C-programme {\tt extract\_gdas\_profiles}. Although,
+both tools are part of the molecfit package, they can be used independently of
+\mf{} to provide the possibility to update the GDAS archive on different
+machines. This might be useful as some disc space is required temporarily.  If
+this is intended, both tools have to be installed in the following way on the
+target machine:
+
+\begin{itemize}
+\item
+  create subfolders {\tt bin/} and {\tt data/downloads/paranal/} in the target
+  directory on the target machine.
+\item
+  Copy the shell script {\tt update\_gdas\_db.sh} and the C source file
+  {\tt extract\_gdas\_profiles.c} to the {\tt bin/} folder in target directory
+  on the target machine.
+\item
+  There compile the C programme by invoking
+\begin{verbatim}
+    gcc extract_gdas_profiles.c -lm -o extract_gdas_profiles
+\end{verbatim}
+\item
+  Copy the tarball file {\tt gdas\_profiles\_C-70.4-24.6.tar.gz} delivered with
+  the \mf{} package to the directory
+  {\tt <targetdir@targetmachine>/data/downloads/paranal/}. This tarball is
+  being updated.
+\end{itemize}
+
+To update the local GDAS database please follow these steps:
+\begin{itemize}
+    \item
+The final release of \mf{} contains GDAS profiles up to March 2014.
+So, if this is your first update, invoke the update script with the
+parameter oct13:
+\begin{verbatim}
+    cd <INST_DIR>/
+\end{verbatim}
+OR
+\begin{verbatim}
+    cd <targetdir@targetmachine>
+\end{verbatim}
+(depending on your installation (see above)
+\item invoke the update script
+\begin{verbatim}
+    bin/update_gdas_database.sh oct13 P
+\end{verbatim}
+and proceed until the end of the last fully missing month, if necessary. Note:
+You only can download full months. The file
+{\tt data/paranal/last\_month.txt} shows a history of past updates.
+\item Copy the resulting tarball\\
+{\tt data/downloads/paranal/gdas\_profiles\_C-70.4-24.6.tar.gz} to the folder
+\\{\tt <INST\_DIR>/data/profiles/gdas/} in your \mf{} installation path.
+\item Optionally: delete the downloaded files in {\tt data/downloads/gdas/}.
+\end{itemize}
+Some dates are missing. Please check the website\footnote{\tt
+http://ready.arl.noaa.gov/archives.php} for more details. There are no GDAS
+data available before 1st of December 2004.
+
+%-------------------------------------------------------------------------------
+\subsection{License issues}\label{app:licenses}
+%-------------------------------------------------------------------------------
+\subsubsection{LNFL/LBLRTM}
+%-------------------------------------------------------------------------------
+{\bf URL:} http://rtweb.aer.com/lblrtm\_frame.html
+
+\paragraph*{LNFL Terms and Conditions}
+
+The LNFL software you are downloading has been copyrighted by Atmospheric and
+Environmental Research, Inc. (AER) and is proprietary to AER. AER grants USER
+the right to download, install, use and copy this software for scientific and
+research purposes only. By downloading this software, you are agreeing that:
+\begin{itemize}
+\item If you redistribute any portion of the software, whether in original or
+modified form, each source code file redistributed will include the AER
+copyright notice currently present in that file.
+\item The software or any modified version of the software may not be
+incorporated into proprietary software or commercial software offered for sale.
+\item Should you utilize the results of LNFL in your research, we request that
+you appropriately reference this usage in any associated publications.
+\item This software is provided as is without any express or implied
+warranties.
+\end{itemize}
+
+\paragraph*{LBLRTM Terms and Conditions}
+
+The LBLRTM software you are downloading has been copyrighted by Atmospheric and
+Environmental Research, Inc. (AER) and is proprietary to AER. AER grants USER
+the right to download, install, use and copy this software for scientific and
+research purposes only. By downloading this software, you are agreeing that:
+\begin{itemize}
+\item If you redistribute any portion of the software, whether in original or
+modified form, each source code file redistributed will include the AER
+copyright notice currently present in that file.
+\item The software or any modified version of the software may not be
+incorporated into proprietary software or commercial software offered for sale.
+\item Should you utilize the results of LBLRTM in your research, we request
+that you appropriately reference this usage in any associated publications.
+\item This software is provided as is without any express or implied
+warranties.
+\end{itemize}
+
+\paragraph*{Principal References}
+
+Clough, S. A., M. W. Shephard, E. J. Mlawer, J. S. Delamere, M. J. Iacono, K.
+Cady-Pereira, S. Boukabara, and P. D. Brown, Atmospheric radiative transfer
+modeling: a summary of the AER codes, Short Communication, J. Quant. Spectrosc.
+Radiat. Transfer, 91, 233-244, 2005.
+
+Clough, S.A., M.J. Iacono, and J.-L. Moncet, Line-by-line calculation of
+atmospheric fluxes and cooling rates: Application to water vapor. J. Geophys.
+Res., 97, 15761-15785, 1992.
+
+%-------------------------------------------------------------------------------
+%\subsubsection{RFM}
+%-------------------------------------------------------------------------------
+%{\bf  URL :} http://www.atm.ox.ac.uk/RFM/
+
+%-------------------------------------------------------------------------------
+\subsubsection{cmpfit library}
+%-------------------------------------------------------------------------------
+{\bf  URL :} http://www.physics.wisc.edu/~craigm/idl/cmpfit.html
+{\bf  URL :} http://cow.physics.wisc.edu/~craigm/idl/idl.html
+
+\paragraph*{DISCLAIMER}
+
+MPFIT: A MINPACK-1 Least Squares Fitting Library in C
+
+Original public domain version by B. Garbow, K. Hillstrom, J. More'
+  (Argonne National Laboratory, MINPACK project, March 1980)
+  Copyright (1999) University of Chicago
+    (see below)
+
+Tranlation to C Language by S. Moshier (moshier.net)
+  (no restrictions placed on distribution)
+
+Enhancements and packaging by C. Markwardt
+  (comparable to IDL fitting routine MPFIT
+
+   see http://cow.physics.wisc.edu/~craigm/idl/idl.html)
+  Copyright (C) 2003, 2004, 2006, 2007 Craig B. Markwardt
+
+  This software is provided as is without any warranty whatsoever.
+  Permission to use, copy, modify, and distribute modified or
+  unmodified copies is granted, provided this copyright and disclaimer
+  are included unchanged.
+
+
+Source code derived from MINPACK must have the following disclaimer
+text provided.
+
+===========================================================================\\
+Minpack Copyright Notice (1999) University of Chicago.  All rights reserved
+
+Redistribution and use in source and binary forms, with or
+without modification, are permitted provided that the
+following conditions are met:
+
+1. Redistributions of source code must retain the above
+copyright notice, this list of conditions and the following
+disclaimer.
+
+2. Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following
+disclaimer in the documentation and/or other materials
+provided with the distribution.
+
+3. The end-user documentation included with the
+redistribution, if any, must include the following
+acknowledgment:
+
+   "This product includes software developed by the
+   University of Chicago, as Operator of Argonne National
+   Laboratory.
+
+Alternately, this acknowledgment may appear in the software
+itself, if and wherever such third-party acknowledgments
+normally appear.
+
+4. WARRANTY DISCLAIMER. THE SOFTWARE IS SUPPLIED "AS IS"
+WITHOUT WARRANTY OF ANY KIND. THE COPYRIGHT HOLDER, THE
+UNITED STATES, THE UNITED STATES DEPARTMENT OF ENERGY, AND
+THEIR EMPLOYEES: (1) DISCLAIM ANY WARRANTIES, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO ANY IMPLIED WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE
+OR NON-INFRINGEMENT, (2) DO NOT ASSUME ANY LEGAL LIABILITY
+OR RESPONSIBILITY FOR THE ACCURACY, COMPLETENESS, OR
+USEFULNESS OF THE SOFTWARE, (3) DO NOT REPRESENT THAT USE OF
+THE SOFTWARE WOULD NOT INFRINGE PRIVATELY OWNED RIGHTS, (4)
+DO NOT WARRANT THAT THE SOFTWARE WILL FUNCTION
+UNINTERRUPTED, THAT IT IS ERROR-FREE OR THAT ANY ERRORS WILL
+BE CORRECTED.
+
+5. LIMITATION OF LIABILITY. IN NO EVENT WILL THE COPYRIGHT
+HOLDER, THE UNITED STATES, THE UNITED STATES DEPARTMENT OF
+ENERGY, OR THEIR EMPLOYEES: BE LIABLE FOR ANY INDIRECT,
+INCIDENTAL, CONSEQUENTIAL, SPECIAL OR PUNITIVE DAMAGES OF
+ANY KIND OR NATURE, INCLUDING BUT NOT LIMITED TO LOSS OF
+PROFITS OR LOSS OF DATA, FOR ANY REASON WHATSOEVER, WHETHER
+SUCH LIABILITY IS ASSERTED ON THE BASIS OF CONTRACT, TORT
+(INCLUDING NEGLIGENCE OR STRICT LIABILITY), OR OTHERWISE,
+EVEN IF ANY OF SAID PARTIES HAS BEEN WARNED OF THE
+POSSIBILITY OF SUCH LOSS OR DAMAGES.
+
+%-------------------------------------------------------------------------------
+\subsubsection{HITRAN}
+%-------------------------------------------------------------------------------
+{\bf URL:} http://www.cfa.harvard.edu/hitran/\\
+{\bf URL}: http://www.cfa.harvard.edu/hitran/Updated/ref-table.pdf
+
+\paragraph*{Principal references}
+
+Rothman et al., "The HITRAN 2008 molecular spectroscopic database", Journal of
+Quantitative Spectroscopy and Radiative Transfer, vol. 110, pp. 533-572 (2009)
+
+%-------------------------------------------------------------------------------
+\subsubsection{GDAS}
+%-------------------------------------------------------------------------------
+{\bf URL:} http://ready.arl.noaa.gov/gdas1.php
+
+\paragraph*{Air Resources Laboratory - Disclaimer}
+
+The information on government servers is in the public domain, unless
+specifically annotated otherwise, and may be used freely by the public. Before
+using information obtained from this server special attention should be given
+to the date and time of the data and products being displayed. This information
+shall not be modified in content and then presented as official government
+material. The user shall credit NOAA Air Resources Laboratory in any
+publications, presentations, or other derivative works that result from the use
+of this material. NOAA Air Resources Laboratory is not obligated to provide any
+support, consulting, training, or assistance of any kind with regard to the use
+of this material.
+
+This material is provided "AS IS" and any express or implied warranties
+including, but not limited to, the warranties of merchantability and fitness
+for a particular purpose are disclaimed. In no event shall NOAA Air Resources
+Laboratory be liable to you or to any third party for any direct, indirect,
+incidental, consequential, special or exemplary damages or lost profit
+resulting from any use or misuse of this data.
+
+This server is available 24 hours a day, seven days a week, however this server
+is not operational and is not maintained 24 hours a day, seven days a week.
+Timely delivery of data and products from this server through the Internet is
+not guaranteed.
+
+Any references or links from the ARL web server to any non-Federal Government
+Web sites do not imply endorsement of any particular product, service,
+organization, company, information provider, or content. We are not responsible
+for the contents of any "off-site" web pages referenced from ARL servers.
+
+%-------------------------------------------------------------------------------
+%\subsubsection{ESO Meteo Monitor / HATPRO radiometer data}
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+%\subsection{Acknowledgements}
+%-------------------------------------------------------------------------------
+%We would like to thank.....***TBD***

@@ -1,0 +1,209 @@
+
+%-------------------------------------------------------------------------------
+\subsection{The manual way}\label{sec:manualway}
+%-------------------------------------------------------------------------------
+If anything goes wrong with the installation script the package can be
+installed manually, step by step, except the Reflex workflow.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Building {\tt molecfit}}\label{sec:building}
+%-------------------------------------------------------------------------------
+The software expects a directory structure as provided in the tarball:
+\begin{verbatim}
+               |--bin/
+               |
+  <basedir>----|--config/
+               |
+               |--data/
+\end{verbatim}
+where {\tt <basedir>} is the installation directory.
+% The names of the subdirectories are fixed except for the output directory, for
+% which a different name can be set in the parameter file of {\tt molecfit}
+% (see Section~\ref{sec:paramfile}).
+
+For building the codes, first expand the tarball:
+\begin{verbatim}
+    tar xzf <tarball>.tar.gz
+\end{verbatim}
+and start the compilation
+\begin{verbatim}
+    ./bootstrap
+    ./configure --with-cpl=<path-to-CPL-library> --prefix=${<basedir>}
+       [ LDFLAGS="-L<path-to-lib>" CPPFLAGS="-I<path-to-include>" ]
+    make
+    make install
+\end{verbatim}
+After successfull compilation, the executables {\tt molecfit}, {\tt preptable},
+{\tt calctrans}, and {\tt corrfilelist} are stored in the \verb|bin/|
+directory.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Building LNFL/LBLRTM}\label{sec:lbl_installation}
+%-------------------------------------------------------------------------------
+First, untar the main file:
+\begin{quote}
+  \begin{small}
+    \begin{verbatim}
+tar xf lblrtm_v12.1.tar
+    \end{verbatim}
+  \end{small}
+\end{quote}
+Then extract the resulting tarballs:
+\begin{quote}
+  \begin{small}
+    \begin{verbatim}
+tar zxf aerlnfl_v2.6.tar.gz
+tar zxf aerlbl_v12.2.tar.gz
+    \end{verbatim}
+  \end{small}
+\end{quote}
+The former contains \ac{LNFL}, which prepares the input. The latter contains
+\ac{LBLRTM}, the radiative transfer code.
+
+%-------------------------------------------------------------------------------
+\paragraph*{LNFL}
+%-------------------------------------------------------------------------------
+Change to the directory containing the makefile \verb|make_lnfl|:
+\begin{quote}
+  \begin{small}
+    \begin{verbatim}
+cd lnfl/build/
+    \end{verbatim}
+  \end{small}
+\end{quote}
+and run
+\begin{quote}
+  \begin{small}
+    \begin{verbatim}
+gmake -f make_lnfl linuxGNUsgl
+cd ..
+    \end{verbatim}
+  \end{small}
+\end{quote}
+which uses the {\tt gfortran} compiler (see
+\verb|README.build_instructions|). In the parent directory, you will then
+find the final executable \verb|lnfl_v2.6_intel_linux_gnu_sgl|. After the
+compilation rename/ relink it to \verb|lnfl|. If the \verb|molecfit| package
+is already installed copy it to the <basedir>/bin directory. Note that the
+\verb|molecfit| code searches for \verb|lnfl| in this directory (see
+Section~\ref{sec:installscript}).
+
+%-------------------------------------------------------------------------------
+\paragraph*{LBLRTM}
+%-------------------------------------------------------------------------------
+Similarly, \ac{LBLRTM} is compiled. Starting from the directory containing the
+tarballs, first, move to the makefile location:
+\begin{quote}
+  \begin{small}
+    \begin{verbatim}
+cd lblrtm/build/
+    \end{verbatim}
+  \end{small}
+\end{quote}
+Then, run
+\begin{quote}
+  \begin{small}
+    \begin{verbatim}
+gmake -f make_lblrtm linuxGNUsgl
+cd ..
+    \end{verbatim}
+  \end{small}
+\end{quote}
+to obtain \verb|lblrtm_v12.1_linux_gnu_sgl| in the parent directory.
+Consult \verb|README.build_instructions| in \verb|lblrtm/build/| for more
+information on compilation options. It is recommended to use the single
+precision as the double precision version caused problems in various tests.
+After the compilation rename/relink it to \verb|lblrtm|. If the
+\verb|molecfit| package is already installed copy it to the <basedir>/bin
+directory. Note that the \verb|molecfit| code searches for \verb|lblrtm| in
+this directory (see Section~\ref{sec:installscript}).
+
+%-------------------------------------------------------------------------------
+\paragraph*{AER line list}
+%-------------------------------------------------------------------------------
+The LBLRTM package is delivered with the corresponding line list
+{\tt aer\_v\_<version>}, which is the reference line list used by molecfit.
+Starting from the directory containing the tarballs, first type
+\begin{quote}
+  \begin{small}
+    \begin{verbatim}
+tar zxf aer_v_<version>.tar.gz
+    \end{verbatim}
+  \end{small}
+\end{quote}
+to extract the tarball. Finally, copy the line list to the target directory:
+\begin{quote}
+  \begin{small}
+    \begin{verbatim}
+cp -v aer_v_<version>/line_file/aer_v_<version> <basedir>/data/hitran/
+    \end{verbatim}
+  \end{small}
+\end{quote}
+
+%-------------------------------------------------------------------------------
+\subsection{The automatic way: install script {\tt molecfit\_install.sh}}
+\label{sec:installscript}
+%-------------------------------------------------------------------------------
+We provide an install script, which performs the building and installation
+of {\tt molecfit} in five steps:
+\begin{itemize}
+    \item Step 1: First, a root installation directory {\tt <INST\_DIR>} has to
+          be given, within which a subdirectory \mf{} and all deeper
+          layers of directories are created.
+    \item Step 2: The install directory of the CPL library is requested.
+    \item Step 3: Building of \mf{} (see
+          {\tt <INST\_DIR>/doc/molecfit\_gcc.log} for the compiler
+          output). All required data and configuration files are copied to the
+          corresponding target directories {\tt <INST\_DIR>/data} and
+          {\tt <INST\_DIR>/config}.
+    \item Step 4: Building of the \ac{GRIB} package (see
+          {\tt <INST\_DIR>/doc/grib\_gcc.log} for the compiler
+          output).
+    \item Step 5: Installation of the radiative transfer code
+          \ac{LNFL}/\ac{LBLRTM}\footnote{http://rtweb.aer.com/lblrtm\_frame.html}.
+          The binaries are stored to {\tt <INST\_DIR>/bin}. In
+          addition, a link is created (\verb|lnfl| and \verb|lblrtm|).
+\end{itemize}
+If the external radiative transfer code is not installed yet, we refer the
+reader to Section~\ref{sec:lbl_installation}.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Building GRIB}\label{sec:grib_building}
+%-------------------------------------------------------------------------------
+The \ac{GRIB} package contains all necessary files to automatically download
+the \ac{GDAS} profiles from an online archive. In the process, some
+supplementary routines to convert Julian to Gregorian dates (and vice versa),
+and some perl/shell scripts are required and installed as well. To install the
+entire package, simply follow these instructions (assuming the starting point
+{\tt <basedir>}):
+
+\begin{verbatim}
+tar xvfz grib_package.tar.gz
+cd grib_package
+
+cp extract_grib.sh <basedir>/bin
+cp get_grib.pl <basedir>/bin
+cp get_inv.pl <basedir>/bin
+
+tar xvfz wgrib.tar.gz
+cd wgrib
+make
+cp wgrib  <basedir>/bin
+cd ..
+
+tar xvfz wgrib2.tgz
+cd grib2
+make
+cp wgrib2/wgrib2 <basedir>/bin
+cd ..
+
+f95 Gregorian_to_JD.f90 -o Gregorian2JD
+cp Gregorian2JD  <basedir>/bin
+
+f95 JD_to_Gregorian.f90 -o JD2Gregorian
+cp JD2Gregorian  <basedir>/bin
+\end{verbatim}
+Now the executables {\tt wgrib}, {\tt wgrib2}, {\tt Gregorian2JD},
+{\tt JD2Gregorian},  {\tt extract\_grib.sh}, and two perl scripts
+{\tt get\_grib.pl}, and {\tt get\_inv.pl} should be located in the
+{\tt <basedir>/bin} directory.
