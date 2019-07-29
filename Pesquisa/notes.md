@@ -109,3 +109,8 @@ Radiative Transfer Model)"
         - aos objetivos
         - às hipóteses
         - aos problemas da pesquisa
+
+
+- DTW com caminhos que nunca ficam parados (impede caminhos horizontais e verticais)
+- Redução de dados: remover assinatura instrumental
+- Algoritmo para processar os dados do Queiroz baseado no caminho do DTW
