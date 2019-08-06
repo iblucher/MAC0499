@@ -3,12 +3,12 @@
 % Adaptado em julho/2015 a partir do
 %
 % ---------------------------------------------------------------------------- %
-% Arquivo LaTeX de exemplo de dissertaÁ„o/tese a ser apresentados ‡ CPG do IME-USP
+% Arquivo LaTeX de exemplo de disserta√ß√£o/tese a ser apresentados √† CPG do IME-USP
 %
-% Vers„o 5: Sex Mar  9 18:05:40 BRT 2012
+% Vers√£o 5: Sex Mar  9 18:05:40 BRT 2012
 %
-% CriaÁ„o: Jes˙s P. Mena-Chalco
-% Revis„o: Fabio Kon e Paulo Feofiloff
+% Cria√ß√£o: Jes√∫s P. Mena-Chalco
+% Revis√£o: Fabio Kon e Paulo Feofiloff
 
 
 \documentclass[12pt,twoside,a4paper]{book}
@@ -18,17 +18,17 @@
 % Pacotes 
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[pdftex]{graphicx}           % usamos arquivos pdf/png como figuras
-\usepackage{setspace}                   % espaÁamento flexÌvel
-\usepackage{indentfirst}                % indentaÁ„o do primeiro par·grafo
-\usepackage{makeidx}                    % Ìndice remissivo
+\usepackage{setspace}                   % espa√ßamento flex√≠vel
+\usepackage{indentfirst}                % indenta√ß√£o do primeiro par√°grafo
+\usepackage{makeidx}                    % √≠ndice remissivo
 \usepackage[nottoc]{tocbibind}          % acrescentamos a bibliografia/indice/conteudo no Table of Contents
 \usepackage{courier}                    % usa o Adobe Courier no lugar de Computer Modern Typewriter
-\usepackage{type1cm}                    % fontes realmente escal·veis
-\usepackage{listings}                   % para formatar cÛdigo-fonte (ex. em Java)
+\usepackage{type1cm}                    % fontes realmente escal√°veis
+\usepackage{listings}                   % para formatar c√≥digo-fonte (ex. em Java)
 \usepackage{titletoc}
-%\usepackage[bf,small,compact]{titlesec} % cabeÁalhos dos tÌtulos: menores e compactos
+%\usepackage[bf,small,compact]{titlesec} % cabe√ßalhos dos t√≠tulos: menores e compactos
 \usepackage[fixlanguage]{babelbib}
 \usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
 \usepackage[usenames,svgnames,dvipsnames]{xcolor}
@@ -36,12 +36,12 @@
 %\usepackage[pdftex,plainpages=false,pdfpagelabels,pagebackref,colorlinks=true,citecolor=black,linkcolor=black,urlcolor=black,filecolor=black,bookmarksopen=true]{hyperref} % links em preto
 \usepackage[pdftex,plainpages=false,pdfpagelabels,pagebackref,colorlinks=true,citecolor=DarkGreen,linkcolor=NavyBlue,urlcolor=DarkRed,filecolor=green,bookmarksopen=true]{hyperref} % links coloridos
 \usepackage[all]{hypcap}                    % soluciona o problema com o hyperref e capitulos
-\usepackage[round,sort,nonamebreak]{natbib} % citaÁ„o bibliogr·fica textual(plainnat-ime.bst)
-\usepackage{emptypage}  % para n„o colocar n˙mero de p·gina em p·gina vazia
+\usepackage[round,sort,nonamebreak]{natbib} % cita√ß√£o bibliogr√°fica textual(plainnat-ime.bst)
+\usepackage{emptypage}  % para n√£o colocar n√∫mero de p√°gina em p√°gina vazia
 \fontsize{60}{62}\usefont{OT1}{cmr}{m}{n}{\selectfont}
 
 % ---------------------------------------------------------------------------- %
-% CabeÁalhos similares ao TAOCP de Donald E. Knuth
+% Cabe√ßalhos similares ao TAOCP de Donald E. Knuth
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -50,17 +50,17 @@
 \renewcommand{\headrulewidth}{0pt}
 
 % ---------------------------------------------------------------------------- %
-\graphicspath{{./figuras/}}             % caminho das figuras (recomend·vel)
-\frenchspacing                          % arruma o espaÁo: id est (i.e.) e exempli gratia (e.g.) 
-\urlstyle{same}                         % URL com o mesmo estilo do texto e n„o mono-spaced
-\makeindex                              % para o Ìndice remissivo
-\raggedbottom                           % para n„o permitir espaÁos extra no texto
+\graphicspath{{./figuras/}}             % caminho das figuras (recomend√°vel)
+\frenchspacing                          % arruma o espa√ßo: id est (i.e.) e exempli gratia (e.g.) 
+\urlstyle{same}                         % URL com o mesmo estilo do texto e n√£o mono-spaced
+\makeindex                              % para o √≠ndice remissivo
+\raggedbottom                           % para n√£o permitir espa√ßos extra no texto
 \fontsize{60}{62}\usefont{OT1}{cmr}{m}{n}{\selectfont}
 \cleardoublepage
 \normalsize
 
 % ---------------------------------------------------------------------------- %
-% OpÁıes de listing usados para o cÛdigo fonte
+% Op√ß√µes de listing usados para o c√≥digo fonte
 % Ref: http://en.wikibooks.org/wiki/LaTeX/Packages/Listings
 \lstset{ %
 language=Java,                  % choose the language of the code
@@ -93,49 +93,48 @@ framexrightmargin=10pt
 \begin{document}
 
 \frontmatter 
-% cabeÁalho para as p·ginas das seÁıes anteriores ao capÌtulo 1 (frontmatter)
+% cabe√ßalho para as p√°ginas das se√ß√µes anteriores ao cap√≠tulo 1 (frontmatter)
 \fancyhead[RO]{{\footnotesize\rightmark}\hspace{2em}\thepage}
 \setcounter{tocdepth}{2}
 \fancyhead[LE]{\thepage\hspace{2em}\footnotesize{\leftmark}}
 \fancyhead[RE,LO]{}
 \fancyhead[RO]{{\footnotesize\rightmark}\hspace{2em}\thepage}
 
-\onehalfspacing  % espaÁamento
+\onehalfspacing  % espa√ßamento
 
 % ---------------------------------------------------------------------------- %
 % CAPA
 \thispagestyle{empty}
 \begin{center}
     \vspace*{2.3cm}
-    Universidade de S„o Paulo\\
-    Instituto de Matem·tica e EstatÌstica\\
-    Bachalerado em CiÍncia da ComputaÁ„o
+    Universidade de S√£o Paulo\\
+    Instituto de Matem√°tica e Estat√≠stica\\
+    Bachalerado em Ci√™ncia da Computa√ß√£o
 
 
     \vspace*{3cm}
-    \Large{Nome completo do Autor}
+    \Large{Isabela Blucher}
     
 
     \vspace{3cm}
-    \textbf{\Large{TÌtulo da monografia \\
-    se for longo ocupa esta linha tambÈm}}
+    \textbf{\Large{Filtragem de ru√≠do tel√∫rico \\
+    em sinais astron√¥micos}}
     
        
     \vskip 5cm
-    \normalsize{S„o Paulo}
+    \normalsize{S√£o Paulo}
 
-    \normalsize{Dezembro de 2015}
+    \normalsize{Dezembro de 2019}
 \end{center}
 
 % ---------------------------------------------------------------------------- %
-% P·gina de rosto
+% P√°gina de rosto
 %
 \newpage
 \thispagestyle{empty}
     \begin{center}
         \vspace*{2.3 cm}
-        \textbf{\Large{TÌtulo da monografia \\
-    se for longo ocupa esta linha tambÈm}}
+        \textbf{\Large{Filtragem de ru√≠do tel√∫rico em sinais astron√¥micos}}
         \vspace*{2 cm}
     \end{center}
 
@@ -149,24 +148,24 @@ framexrightmargin=10pt
     \vskip 5cm
 
     \begin{center}
-    Supervisor: Prof. Dr. Nome do Supervisor\\
-    $[$ Cosupervisor: Prof. Dr. Nome do Cosupervisor $]$
+    Supervisor: Profa. Dra. Paula Rodrigues Teixeira Coelho\\
+    Cosupervisor: Prof. Dr. Marcelo Gomes de Queiroz 
 
     \vskip 5cm
-    \normalsize{S„o Paulo}
+    \normalsize{S√£o Paulo}
 
-    \normalsize{Dezembro de 2015}
+    \normalsize{Dezembro de 2019}
     \end{center}
 \pagebreak
 
 
 
 
-\pagenumbering{roman}     % comeÁamos a numerar 
+\pagenumbering{roman}     % come√ßamos a numerar 
 
 %% % ---------------------------------------------------------------------------- %
 %% % Agradecimentos:
-%% % Se o candidato n„o quer fazer agradecimentos, deve simplesmente eliminar esta p·gina 
+%% % Se o candidato n√£o quer fazer agradecimentos, deve simplesmente eliminar esta p√°gina 
 %% \chapter*{Agradecimentos}
 %% Texto texto texto texto texto texto texto texto texto texto texto texto texto
 %% texto texto texto texto texto texto texto texto texto texto texto texto texto
@@ -179,10 +178,10 @@ framexrightmargin=10pt
 % Resumo
 \chapter*{Resumo}
 
-Elemento obrigatÛrio, constituÌdo de uma sequÍncia de frases concisas e
-objetivas, em forma de texto.  Deve apresentar os objetivos, mÈtodos empregados,
-resultados e conclusıes.  O resumo deve ser redigido em par·grafo ˙nico, conter
-no m·ximo 500 palavras e ser seguido dos termos representativos do conte˙do do
+Elemento obrigat√≥rio, constitu√≠do de uma sequ√™ncia de frases concisas e
+objetivas, em forma de texto.  Deve apresentar os objetivos, m√©todos empregados,
+resultados e conclus√µes.  O resumo deve ser redigido em par√°grafo √∫nico, conter
+no m√°ximo 500 palavras e ser seguido dos termos representativos do conte√∫do do
 trabalho (palavras-chave).
 \\
 
@@ -192,16 +191,16 @@ trabalho (palavras-chave).
 % Abstract
 \chapter*{Abstract}
 
-Elemento obrigatÛrio, elaborado com as mesmas caracterÌsticas do resumo em
-lÌngua portuguesa.
+Elemento obrigat√≥rio, elaborado com as mesmas caracter√≠sticas do resumo em
+l√≠ngua portuguesa.
 \\
 
 \noindent \textbf{Keywords:} keyword1, keyword2, keyword3.
 
 
 % ---------------------------------------------------------------------------- %
-% Sum·rio
-\tableofcontents    % imprime o sum·rio
+% Sum√°rio
+\tableofcontents    % imprime o sum√°rio
 
 
 
@@ -209,17 +208,17 @@ lÌngua portuguesa.
 %% % ---------------------------------------------------------------------------- %
 %% \chapter{Lista de Abreviaturas}
 %% \begin{tabular}{ll}
-%%          CFT         & Transformada contÌnua de Fourier (\emph{Continuous Fourier Transform})\\
+%%          CFT         & Transformada cont√≠nua de Fourier (\emph{Continuous Fourier Transform})\\
 %%          DFT         & Transformada discreta de Fourier (\emph{Discrete Fourier Transform})\\
-%%         EIIP         & Potencial de interaÁ„o elÈtron-Ìon (\emph{Electron-Ion Interaction Potentials})\\
+%%         EIIP         & Potencial de intera√ß√£o el√©tron-√≠on (\emph{Electron-Ion Interaction Potentials})\\
 %%         STFT         & Tranformada de Fourier de tempo reduzido (\emph{Short-Time Fourier Transform})\\
 %% \end{tabular}
 
 %% % ---------------------------------------------------------------------------- %
-%% \chapter{Lista de SÌmbolos}
+%% \chapter{Lista de S√≠mbolos}
 %% \begin{tabular}{ll}
-%%         $\omega$    & FrequÍncia angular\\
-%%         $\psi$      & FunÁ„o de an·lise \emph{wavelet}\\
+%%         $\omega$    & Frequ√™ncia angular\\
+%%         $\psi$      & Fun√ß√£o de an√°lise \emph{wavelet}\\
 %%         $\Psi$      & Transformada de Fourier de $\psi$\\
 %% \end{tabular}
 
@@ -231,21 +230,21 @@ lÌngua portuguesa.
 
 
 % ---------------------------------------------------------------------------- %
-% CapÌtulos do trabalho
+% Cap√≠tulos do trabalho
 \mainmatter
 
-% cabeÁalho para as p·ginas de todos os capÌtulos
+% cabe√ßalho para as p√°ginas de todos os cap√≠tulos
 \fancyhead[RE,LO]{\thesection}
 
-\singlespacing              % espaÁamento simples
-%\onehalfspacing            % espaÁamento um e meio
+\singlespacing              % espa√ßamento simples
+%\onehalfspacing            % espa√ßamento um e meio
 
 
 \input cap-introducao        % associado ao arquivo: 'cap-introducao.tex'
 \input cap-desenvolvimentos  % associado ao arquivo: 'cap-desenvolvimento.tex'
 \input cap-conclusoes        % associado ao arquivo: 'cap-conclusoes.tex'
 
-% cabeÁalho para os apÍndices
+% cabe√ßalho para os ap√™ndices
 \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\appendixname\ \thechapter}} {\MakeUppercase{#1}} }
 \fancyhead[RE,LO]{}
 \appendix
@@ -255,19 +254,19 @@ lÌngua portuguesa.
 
 % ---------------------------------------------------------------------------- %
 % Bibliografia
-\backmatter \singlespacing   % espaÁamento simples
-\bibliographystyle{plainnat-ime} % citaÁ„o bibliogr·fica textual
+\backmatter \singlespacing   % espa√ßamento simples
+\bibliographystyle{plainnat-ime} % cita√ß√£o bibliogr√°fica textual
 \bibliography{bibliografia}  % associado ao arquivo: 'bibliografia.bib'
 
 
 %%%  ---------------------------------------------------------------------------- %
-%% % Õndice remissivo
-%% \index{TBP|see{periodicidade regi„o codificante}}
+%% % √çndice remissivo
+%% \index{TBP|see{periodicidade regi√£o codificante}}
 %% \index{DSP|see{processamento digital de sinais}}
 %% \index{STFT|see{transformada de Fourier de tempo reduzido}}
 %% \index{DFT|see{transformada discreta de Fourier}}
 %% \index{Fourier!transformada|see{transformada de Fourier}}
 
-%% \printindex   % imprime o Ìndice remissivo no documento 
+%% \printindex   % imprime o √≠ndice remissivo no documento 
 
 \end{document}
