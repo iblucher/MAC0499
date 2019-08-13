@@ -24,7 +24,9 @@
     - Como é feita hoje em dia a remoção
         - Divisão dos espectros (estrela padrão)
 
-- Implementação e experimentos
+(remoção e separar entre como é feita e como eu fiz)
+
+- Implementação e experimentos 
     - Ferramentas
         - Astropy
     - Técnicas utilizadas
@@ -33,7 +35,7 @@
 
 - Avaliação experimental
     - Resultados dos experimentos
-    - Possíveis desenvolvimentos futuros
+    - Possíveis trabalhos futuros
 
 
 
