@@ -27,7 +27,7 @@
 (remoção e separar entre como é feita e como eu fiz)
 
 - Implementação e experimentos 
-    - Ferramentas
+    - Environment (versão de todas as libs e do python)
         - Astropy
     - Técnicas utilizadas
         - DTW
