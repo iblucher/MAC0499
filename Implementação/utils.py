@@ -21,11 +21,7 @@ def get_spectrum_data_and_wavelength(file):
 
 
 def plot_spectrum(flux, wavelength, filename=None):
-    if filename != None:
-        title = filename.split('/')[-1].split('.')[0]
-    else:
-        title = filename
-    
+    title = filename
     plt.rcParams['figure.figsize'] = [12, 8]
     plt.plot(wavelength, flux, '-')
     plt.xlabel(r"Wavelength")

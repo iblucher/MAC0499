@@ -1,15 +1,11 @@
 # Monografia
 
 ## Resumo
-- Motivation (Why do we care?)
-- Problem statement (What problem are we trying to solve?)
-- Approach (How did we go about it)
-- Results (What’s the answer?)
-- Conclusion (What are the implications of the answer?)
+Motivação, problem statement, como resolvemos o problema, qual é a reposta e suas implicações
 
 ## Introdução
 
-- Intoduction (general motivation for your work, context and goals): 1-2 pages
+- Motivação geral
 - Contextualização
 - Estrutura do trabalho
 
@@ -23,24 +19,22 @@
         - Conceitos necessarios para descrever técnicas usadas nos experimentos
     - Como é feita hoje em dia a remoção
         - Divisão dos espectros (estrela padrão)
-
-(remoção e separar entre como é feita e como eu fiz)
+        - Métodos de simulação da transmissão radiativa da atmosfera (ex: tapas e molecfit)
 
 - Implementação e experimentos 
-    - Ferramentas
-        - Astropy
+    - Ferramentas e environment (como reproduzir os experimentos)
+        - Versão dp python e de todas as libs usadas (ex: numpy, astropy)
+        - Formato de dados FITS
     - Técnicas utilizadas
-        - DTW
-    - Notebooks
+        - DTW, FastDTW e modificação nas diagonais (passo 2)
+        - (próxima técnica?)
+    - Notebooks do Jupyter
 
 - Avaliação experimental
     - Resultados dos experimentos
-    - Possíveis trabalhos futuros
-
-
+    
+- Possíveis trabalhos futuros
 
 ## Conclusão
-
-
 
 
