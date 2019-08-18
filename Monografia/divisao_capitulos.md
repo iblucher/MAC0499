@@ -22,9 +22,13 @@ Motivação, problem statement, como resolvemos o problema, qual é a reposta e 
         - Métodos de simulação da transmissão radiativa da atmosfera (ex: tapas e molecfit)
 
 - Implementação e experimentos 
+<<<<<<< HEAD
     - Ferramentas e environment (como reproduzir os experimentos)
         - Versão dp python e de todas as libs usadas (ex: numpy, astropy)
         - Formato de dados FITS
+
+    -  (versão de todas as libs e do python)
+        
     - Técnicas utilizadas
         - DTW, FastDTW e modificação nas diagonais (passo 2)
         - (próxima técnica?)
