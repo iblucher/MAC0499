@@ -9,9 +9,7 @@ Motivação, problem statement, como resolvemos o problema, qual é a reposta e 
 - Contextualização
 - Estrutura do trabalho
 
-## Desenvolvimento
-
-- Fundamentação teórica (conceitos utilizados)
+- Fundamentação teórica (conceitos utilizados) -- COMECAR AQUI
     - Conceitos astronômicos
         - Espectroscopia
         - Contaminação telúrica em observações do solo
@@ -21,8 +19,12 @@ Motivação, problem statement, como resolvemos o problema, qual é a reposta e 
         - Divisão dos espectros (estrela padrão)
         - Métodos de simulação da transmissão radiativa da atmosfera (ex: tapas e molecfit)
 
+## Desenvolvimento
+
+- Metodologia: planejamento teórico da implementação de experimentos
+    - "acredito que esse caminho pode me levar na resposta das primeiras perguntas"
+
 - Implementação e experimentos 
-<<<<<<< HEAD
     - Ferramentas e environment (como reproduzir os experimentos)
         - Versão dp python e de todas as libs usadas (ex: numpy, astropy)
         - Formato de dados FITS
@@ -30,15 +32,13 @@ Motivação, problem statement, como resolvemos o problema, qual é a reposta e 
     -  (versão de todas as libs e do python)
         
     - Técnicas utilizadas
-        - DTW, FastDTW e modificação nas diagonais (passo 2)
+        - DTW, FastDTW
         - (próxima técnica?)
     - Notebooks do Jupyter
 
 - Avaliação experimental
     - Resultados dos experimentos
-    
-- Possíveis trabalhos futuros
 
 ## Conclusão
 
-
+- Possíveis trabalhos futuros
