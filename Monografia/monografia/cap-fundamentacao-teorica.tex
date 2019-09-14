@@ -2,55 +2,57 @@
 \chapter{Fundamentação Teórica}
 \label{cap:fundamentacao-teorica}
 
-O problema de remoção de ruído telúrico em sinais astronômicas é de natureza interdisciplinar.
-Neste capítulo é descrita a teoria da astronomia que caracteriza o problema da contaminação telúrica de sinais astronômicos. Também é descrita a teoria de sinais digitais de técnicas computacionis aplicadas nos experimentos.
+O problema de remoção de ruído telúrico em sinais astronômicos é de natureza interdisciplinar, o que implica na necessidade de compreender tanto a teoria da astronomia sobre espectros estelares, quanto a teoria da computação sobre processamento de sinais digitais.
+Neste capítulo são descritos conceitos básicos em espectroscopia astronômica e processamento de sinais digitais que caracterizam o problema da contaminação telúrica de espectros estelares.
 
 \section{Espectroscopia Astronômica}
 
-A espectroscopia astronômica é a área da astronomia que tem como objeto de estudo o espectro de radiação eletromagnética proveniente de diversos corpos celestes, como estrelas, planetas, nebulosas, galáxias e núcleos galácticos ativos. 
+A espectroscopia é a técnica de dividir a luz, ou mais precisamente, a radiação eletromagnética, proveniente de um objeto em seus comprimentos de onda constituintes, o que resulta na formação de um espectro. Quando aplicada na astronomia, tem como objeto de estudo o espectro de radiação eletromagnética de diversos corpos celestes, como estrelas, planetas, nebulosas, galáxias e núcleos galácticos ativos.
 
-\section{Processamento de Sinais}
-\subsection{Whitening}
-\subsection{Filtro Passa-Alta}
-\subsection{Filtro da Mediana}
-\subsection{DTW}
+Diferentes tipos de objetos celestes produzem diferentes tipos de espectro:  contínuo, de absorção e de emissão. Um espectro contínuo é um vetor de todos os comprimentos de ondas do espectro eletromagnético, arranjado de forma contínua. Ele é gerado pela observação de um corpo opaco quente, que seria o equivalente a observar diretamente o núcleo de uma estrela sem intervenção de matéria. Um espectro de absorção, ou espectro de linhas escuras, é gerado por um gás transparente frio em frente ao corpo opaco quente e está associado à absorção dos fótons da radiação em determinados comprimentos de onda. E por último, o espectro de emissão, ou espectro de linhas brilhantes, é gerado por um gás transparente que foi excitado por uma fonte de energia próxima, o que resulta na emissão de fótons de comprimentos de onda específicos. 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/spectypes.jpg}
+\caption{Os três tipos de espectro}
+\label{fig:spectrum-types}
+\end{figure}
+
+Um objeto astronômico que é muito estudado pelos seus espectros são as estrelas. Por serem objetos quentes, rodeados de gases mais frios, estrelas emitem um espectro contínuo com linhas de absorção em comprimentos de onda característicos.
+
+No final do século XIX, astrônomos perceberam que a análise cuidadosa do espectro de uma estrela fornece uma riqueza de detalhes sobre ela, incluindo temperatura efetiva, velocidade de rotação, velocidade de translação, densidade, composição química e metalicidade. Com a observação rotineira de espectros estelares em grandes números, estes pesquisadores notaram que era possível agrupar as estrelas baseado em suas características espectrais e assim surgiram diversos sistemas de classificação estelar. 
+
+O sistema moderno de classificação de estrelas foi adotado em 1910 e foi criado por um time do observatório da Universidade de Harvard. Este sistema baseia-se nas intensidades relativas das linhas de absorção presentes no espectro. As variações nas linhas espectrais para diferentes estrelas são devidas principalmente à diferença de temperatura das camadas externas de gás na estrela, logo o sistema de classificação espectral é baseado na temperatura efetiva da estrela. 
+
+As classes espectrais do sistema, em ordem decrescente de temperatura efetiva da estrela são: O, B, A, F, G, K, M. Cada uma dessas classes se subdivide em 10 (com os números de 0 a 9), sendo 0 a mais quente dentro da classe e 9 a mais fria.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/Spectra_Briley.jpg}
+\caption{Tipos de espectro estelar}
+\label{fig:stellar-spectrum-types}
+\end{figure}
+
+Na figura ~\ref{fig:stellar-spectrum-types}, é possível observar como diferentes linhas de absorção e bandas moleculares variam em força conforme a temperatura efetiva, ou tipo espectral, da estrela muda.
+
+Os tipos espectrais das estrelas continuam sendo uma parte essencial para a pesquisa em astronomia, seja para auxiliar na descoberta de exoplanetas ou na interpretação da história da evolução das galáxias. 
 
 \section{Contaminação Telúrica}
-\subsection{Métodos atuais}
-% Uma monografia deve ter um capítulo inicial que é a Introdução e um
-% capítulo final que é a Conclusão. Entre esses dois capítulos poderá
-% ter uma sequência de capítulos que descrevem o trabalho em detalhes.
-% Após o capítulo de conclusão, poderá ter apêndices e ao final deverá
-% ter as referências bibliográficas.
 
+Para realizar as pesquisas que necessitam de espectros estelares, é necessário capturá-los com os instrumentos corretos. O instrumento que divide a radiação eletromagnética de objetos celestes em seus respectivos comprimentos de onda é o espectrógrafo, que pode estar presente tanto em telescópios terrestres quanto telescópios espaciais.
 
-% Para a escrita de textos em Ciência da Computação, o livro de Justin Zobel, 
-% \emph{Writing for Computer Science} \citep{zobel:04} é uma leitura obrigatória. 
-% O livro \emph{Metodologia de Pesquisa para Ciência da Computação} de 
-% \citet{waz:09} também merece uma boa lida.
+A maioria das observações astronômicas são feitas a partir do solo, e nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com gases como vapor de água e oxigênio o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas.
 
-% O uso desnecessário de termos em lingua estrangeira deve ser evitado. No entanto,
-% quando isso for necessário, os termos devem aparecer \emph{em itálico}.
+As linhas telúricas, quando misturadas no espectro original, contribuem para a criação de uma observação distorcida ou contaminada. (pq isso é ruim para as pesquisas)
 
-% \begin{small}
-% \begin{verbatim}
-% Modos de citação:
-% indesejável: [AF83] introduziu o algoritmo ótimo.
-% indesejável: (Andrew e Foster, 1983) introduziram o algoritmo ótimo.
-% certo : Andrew e Foster introduziram o algoritmo ótimo [AF83].
-% certo : Andrew e Foster introduziram o algoritmo ótimo (Andrew e Foster, 1983).
-% certo : Andrew e Foster (1983) introduziram o algoritmo ótimo.
-% \end{verbatim}
-% \end{small}
+(o que é feito hoje em dia para resolver o problema: estrela padrão e software de simulação atmosferica)
 
-% Uma prática recomendável na escrita de textos é descrever as legendas das
-% figuras e tabelas em forma auto-contida: as legendas devem ser razoavelmente
-% completas, de modo que o leitor possa entender a figura sem ler o texto onde a
-% figura ou tabela é citada.  
+\section{Sinal espectral}
+\begin{itemize}
+    \item O que é um sinal digital e como ele está sendo usado nesse caso (espectro estelar)
+    \item Como o sinal é criado (CCD e redução de dados)
+    \item filtros e pré-processamento de sinais
+    \item operações no sinal todo (como estamos considerando o problema)
+\end{itemize}
 
-% Apresentar os resultados de forma simples, clara e completa é uma tarefa que
-% requer inspiração. Nesse sentido, o livro de \citet{tufte01:visualDisplay},
-% \emph{The Visual Display of Quantitative Information}, serve de ajuda na
-% criação de figuras que permitam entender e interpretar dados/resultados de forma
-% eficiente.
 
