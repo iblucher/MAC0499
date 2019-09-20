@@ -41,11 +41,16 @@ Os tipos espectrais das estrelas continuam sendo uma parte essencial para a pesq
 
 Para realizar as pesquisas que necessitam de espectros estelares, é necessário capturá-los com os instrumentos corretos. O instrumento que divide a radiação eletromagnética de objetos celestes em seus respectivos comprimentos de onda é o espectrógrafo, que pode estar presente tanto em telescópios terrestres quanto telescópios espaciais.
 
-A maioria das observações astronômicas são feitas a partir do solo, e nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com gases como vapor de água e oxigênio o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas.
+A maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo, e nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com moléculas como vapor de água e oxigênio o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas.
 
-As linhas telúricas, quando misturadas no espectro original, contribuem para a criação de uma observação distorcida ou contaminada. (pq isso é ruim para as pesquisas)
+As linhas telúricas, quando misturadas no espectro original, contribuem para a criação de uma observação distorcida ou contaminada. A menos que seja corrigida, esta contaminação pode produzir erros e introduzir ruídos que reduzem a precisão dos dados observados, e consequentemente, dificultam o avanço de diversas pesquisas astronômicas.
 
-(o que é feito hoje em dia para resolver o problema: estrela padrão e software de simulação atmosferica)
+Existem alguns procedimentos típicos usados hoje em dia para remover as linhas telúricas de um espectro observado, também chamado de espectro de ciência. Um método popular consiste em aplicar uma divisão simples entre o espectro da observação e uma referência telúrica. Esta referência telúrica pode ser obtida de duas maneiras: através de um catálogo de estrelas padrão ou da simulação de um espectro atmosférico teórico.
+
+As estrelas padrão são estrelas quentes em rotação rápida e de tipo espectral B ou A. Elas são escolhidas pois seus espectros não possuem características marcantes além de fortes linhas de hidrogênio. Para que o espectro de uma estrela padrão seja usado como uma referência telúrica, é necessário observá-la próxima em tempo, posição no céu e condições atmosféricas do espectro de ciência. Contudo, existem várias limitações fundamentais no nível de correção que pode ser obtido com o método da estrela padrão. Primeiramente, características estelares ainda podem estar presentes no espectro da estrela padrão, evidenciando que ela não é um modelo preciso da transmissão radiativa da atmosfera. Além disso, o tempo e a direção de observação das duas estrelas não é exatamente o mesmo, o que significa que a assinatura atmosférica de ambos os espectros também será diferente.
+
+Devido às limitações listadas das estrelas padrão, foi criado um método mais sofisticado e automatizado para obter uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)}, que fornece cálculos de radiância espectral com precisão e eficiência. (seifhart e hitran, molecfit)   
+
 
 \section{Sinal espectral}
 \begin{itemize}
