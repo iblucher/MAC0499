@@ -47,7 +47,7 @@ def fast_dtw_on_stellar_spectra(tel, obs, dist=euclidean):
     plt.plot(fast_path[0], fast_path[1], 'k')
     plt.show()
     
-    return fast_path
+    return fast_path, path
 
 
 def align_sequence_dtw_path(path, original_seq):

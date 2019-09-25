@@ -37,32 +37,46 @@ Na figura ~\ref{fig:stellar-spectrum-types}, é possível observar como diferent
 
 Os tipos espectrais das estrelas continuam sendo uma parte essencial para a pesquisa em astronomia, seja para auxiliar na descoberta de exoplanetas ou na interpretação da história da evolução das galáxias. 
 
+\section{Sinal espectral}
+
+Para realizar as pesquisas que necessitam de espectros estelares, é necessário capturá-los com os instrumentos corretos. O instrumento que divide a radiação eletromagnética de objetos celestes em seus respectivos comprimentos de onda é o espectrógrafo, que pode estar presente tanto em telescópios terrestres quanto em telescópios espaciais.
+
+No cerne do que é estudado pela espectroscopia astronômica e pelas pesquisas sobre contaminação telúrica está o espectro astronômico. Para que este consiga ser estudado, é necessário que a observação que chega no telescópio seja transformada em um sinal unidimensional no domínio do comprimento de onda da radiação da observação.
+
+para o espectro chegar na sua forma final antes de ser manipulado ele passa existe o processo de redução de dados feito após a observação da estrela de ciência.
+\begin{itemize}
+\item O que é um sinal espectral e como ele está sendo usado nesse caso (espectro estelar)
+    \item Como o sinal é criado (CCD e redução de dados)
+\end{itemize}
+
+
 \section{Contaminação Telúrica}
 
-Para realizar as pesquisas que necessitam de espectros estelares, é necessário capturá-los com os instrumentos corretos. O instrumento que divide a radiação eletromagnética de objetos celestes em seus respectivos comprimentos de onda é o espectrógrafo, que pode estar presente tanto em telescópios terrestres quanto telescópios espaciais.
-
-A maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo, e nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com moléculas como vapor de água e oxigênio o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas.
+A maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo, e nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com moléculas como vapor de água e oxigênio, o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas.
 
 As linhas telúricas, quando misturadas no espectro original, contribuem para a criação de uma observação distorcida ou contaminada. A menos que seja corrigida, esta contaminação pode produzir erros e introduzir ruídos que reduzem a precisão dos dados observados, e consequentemente, dificultam o avanço de diversas pesquisas astronômicas.
 
-Existem alguns procedimentos típicos usados hoje em dia para remover as linhas telúricas de um espectro observado, também chamado de espectro de ciência. Um método popular consiste em aplicar uma divisão simples entre o espectro da observação e uma referência telúrica. Esta referência telúrica pode ser obtida de duas maneiras: através de um catálogo de estrelas padrão ou da simulação de um espectro atmosférico teórico.
+Existem alguns procedimentos típicos usados hoje em dia para remover as linhas telúricas de um espectro observado, também chamado de espectro de ciência. Um método popular consiste em aplicar uma divisão simples entre o espectro da observação e uma referência telúrica. Esta referência telúrica pode ser obtida de duas maneiras: através de um catálogo de estrelas padrão ou pela simulação de um espectro atmosférico teórico.
 
 As estrelas padrão são estrelas quentes em rotação rápida e de tipo espectral B ou A. Elas são escolhidas pois seus espectros não possuem características marcantes além de fortes linhas de hidrogênio. Para que o espectro de uma estrela padrão seja usado como uma referência telúrica, é necessário observá-la próxima em tempo, posição no céu e condições atmosféricas do espectro de ciência. Contudo, existem várias limitações fundamentais no nível de correção que pode ser obtido com o método da estrela padrão. Primeiramente, características estelares ainda podem estar presentes no espectro da estrela padrão, evidenciando que ela não é um modelo preciso da transmissão radiativa da atmosfera. Além disso, o tempo e a direção de observação das duas estrelas não é exatamente o mesmo, o que significa que a assinatura atmosférica de ambos os espectros também será diferente.
 
-Devido às limitações das estrelas padrão, foi criado um método mais sofisticado e automatizado para obter uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)}, que fornece cálculos de radiância espectral com precisão e eficiência. Este modelo utiliza o HITRAN, um acrônimo para \textit{high-resolution transmission molecular absorption database}, uma base de dados de linhas e parâmetros espectroscópicos.      
+Devido às limitações das estrelas padrão, foi criado um método mais sofisticado e automatizado para obter uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)}, que fornece cálculos de radiância espectral com precisão e eficiência. Este modelo utiliza o HITRAN, um acrônimo para \textit{high-resolution transmission molecular absorption database}, uma base de dados de linhas e parâmetros espectroscópicos. 
 
-(explicar molecfit pq ta nos dados)
+Um exemplo desses softwares é o Molecfit \citep{smette2015molecfit}, uma ferramenta para a modelagem de linhas telúricas desenvolvido por astrônomos do \textit{European Southern Observatory}. De acordo com seus criadores, o Molecfit recupera o perfil atmosférico mais compatível com o tempo da observação da estrela de ciência. Isto envolve a utilização de um modelo de transmissão radiativa da atmosfera com uma base de dados espectral para recuperar atributos como a variação na temperatura, pressão e umidade em função da altitude da observação. É importante ressaltar que mesmo métodos como o Molecfit possuem suas limitações e podem, em certos casos, performar pior do que o método da estrela padrão.
 
 
-\section{Sinal espectral}
+falar sobre como modelamos o problema: ação multiplicativa da atmosfera na estrela 
 \begin{itemize}
-    \item O que é um sinal digital e como ele está sendo usado nesse caso (espectro estelar)
-    \item Como o sinal é criado (CCD e redução de dados)
     \item operações no sinal todo (como estamos considerando o problema)
     \item filtros e pré-processamento de sinais
 \end{itemize}
 
 
 \section{Alinhamento de sinais}
+\begin{itemize}
+    \item objetivo do alinhamento 
+    \item dtw
+    \item fastdtw e restrições no caminho da matriz
+\end{itemize}
 
 
