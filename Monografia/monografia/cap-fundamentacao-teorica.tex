@@ -2,10 +2,10 @@
 \chapter{Fundamentação Teórica}
 \label{cap:fundamentacao-teorica}
 
-O problema de remoção de ruído telúrico em sinais astronômicos é de natureza interdisciplinar, o que implica na necessidade de compreender tanto a teoria da astronomia sobre espectros estelares, quanto a teoria da computação sobre processamento de sinais digitais.
-Neste capítulo são descritos conceitos básicos em espectroscopia astronômica e processamento de sinais digitais que caracterizam o problema da contaminação telúrica de espectros estelares.
+O problema de remoção de ruído telúrico em sinais astronômicos é de natureza interdisciplinar, o que implica na necessidade de compreender tanto a teoria da astronomia sobre espectros estelares, quanto a representação computacional do problema.
+Neste capítulo são descritos conceitos básicos em espectroscopia astronômica, principalmente estelar, e algoritmos de processamento de sinais digitais utilizados na pesquisa, que em conjunto caracterizam o problema da contaminação telúrica de espectros estelares.
 
-\section{Espectroscopia Astronômica}
+\section{Espectroscopia Astronômica} \label{astronomic-spectroscopy}
 
 A espectroscopia é a técnica de dividir a luz, ou mais precisamente, a radiação eletromagnética, proveniente de um objeto em seus comprimentos de onda constituintes, o que resulta na formação de um espectro. Quando aplicada na astronomia, tem como objeto de estudo o espectro de radiação eletromagnética de diversos corpos celestes, como estrelas, planetas, nebulosas, galáxias e núcleos galácticos ativos.
 
@@ -20,7 +20,7 @@ Diferentes tipos de objetos celestes produzem diferentes tipos de espectro:  con
 
 Um objeto astronômico que é muito estudado pelos seus espectros são as estrelas. Por serem objetos quentes, rodeados de gases mais frios, estrelas emitem um espectro contínuo com linhas de absorção em comprimentos de onda característicos.
 
-No final do século XIX, astrônomos perceberam que a análise cuidadosa do espectro de uma estrela fornece uma riqueza de detalhes sobre ela, incluindo temperatura efetiva, velocidade de rotação, velocidade de translação, densidade, composição química e metalicidade. Com a observação rotineira de espectros estelares em grandes números, estes pesquisadores notaram que era possível agrupar as estrelas baseado em suas características espectrais e assim surgiram diversos sistemas de classificação estelar. 
+No final do século XIX, astrônomos perceberam que a análise cuidadosa do espectro de uma estrela fornece uma riqueza de detalhes sobre ela, incluindo sua temperatura efetiva, velocidade de rotação, velocidade de translação, densidade, composição química e metalicidade. Com a observação rotineira de espectros estelares em grandes números, estes pesquisadores notaram que era possível agrupar as estrelas baseado em suas características espectrais e assim surgiram diversos sistemas de classificação estelar. 
 
 O sistema moderno de classificação de estrelas foi adotado em 1910 e foi criado por um time do observatório da Universidade de Harvard. Este sistema baseia-se nas intensidades relativas das linhas de absorção presentes no espectro. As variações nas linhas espectrais para diferentes estrelas são devidas principalmente à diferença de temperatura das camadas externas de gás na estrela, logo o sistema de classificação espectral é baseado na temperatura efetiva da estrela. 
 
@@ -33,26 +33,33 @@ As classes espectrais do sistema, em ordem decrescente de temperatura efetiva da
 \label{fig:stellar-spectrum-types}
 \end{figure}
 
-Na figura ~\ref{fig:stellar-spectrum-types}, é possível observar como diferentes linhas de absorção e bandas moleculares variam em força conforme a temperatura efetiva, ou tipo espectral, da estrela muda.
+Na figura \ref{fig:stellar-spectrum-types}, é possível observar como diferentes linhas de absorção e bandas moleculares variam em força conforme a temperatura efetiva, ou tipo espectral, da estrela muda.
 
 Os tipos espectrais das estrelas continuam sendo uma parte essencial para a pesquisa em astronomia, seja para auxiliar na descoberta de exoplanetas ou na interpretação da história da evolução das galáxias. 
 
 \section{Sinal espectral}
 
-Para realizar as pesquisas que necessitam de espectros estelares, é necessário capturá-los com os instrumentos corretos. O instrumento que divide a radiação eletromagnética de objetos celestes em seus respectivos comprimentos de onda é o espectrógrafo, que pode estar presente tanto em telescópios terrestres quanto em telescópios espaciais.
+No cerne do que é estudado pela espectroscopia astronômica está o sinal espectral. Para capturar o espectro de uma estrela é necessário utilizar um espectrógrafo, um instrumento presente em muitos telescópios que divide a radiação eletromagnética de um objeto celeste em seus respectivos comprimentos de onda.
 
-No cerne do que é estudado pela espectroscopia astronômica e pelas pesquisas sobre contaminação telúrica está o espectro astronômico. Para que este consiga ser estudado, é necessário que a observação que chega no telescópio seja transformada em um sinal unidimensional no domínio do comprimento de onda da radiação da observação.
+Estes instrumentos de observação muitas vezes estão munidos de um CCD ou \textit{charge-coupled device}, um sensor eletrônico constituído por vários quadrados fotossensíveis, que representam os pixels de uma imagem. As imagens resultantes de uma observação do CCD passam por um processo de redução de dados, que envolve a transformação das imagens brutas em dados científicos utilizáveis.   
 
-para o espectro chegar na sua forma final antes de ser manipulado ele passa existe o processo de redução de dados feito após a observação da estrela de ciência.
-\begin{itemize}
-\item O que é um sinal espectral e como ele está sendo usado nesse caso (espectro estelar)
-    \item Como o sinal é criado (CCD e redução de dados)
-\end{itemize}
+No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional à partir de uma imagem de CCD da estrela de ciência. A figura \ref{fig:x0319-obs-spectrum} ilustra o espectro de uma estrela do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter} parte do \textit{Very Large Telescope array} (VLT), localizado no Cerro Paranal, Chile.  
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=15cm]{figuras/X0319_obs_spectrum.png}
+\caption{O espectro observado da estrela X0319}
+\label{fig:x0319-obs-spectrum}
+\end{figure}
+
+O espectro resultante da redução de dados é unidimensional no domínio do comprimento de onda da estrela e tem sua intensidade representada pelo fluxo, que é adimensional. O fluxo de um espectro estelar é geralmente reescalonado para o intervalo $[0, 1]$, de modo a padronizar a intensidade dos espectros. 
+
+É possível observar que a figura \ref{fig:x0319-obs-spectrum} tem o formato esperado de um espectro estelar mencionado na seção \ref{astronomic-spectroscopy}: um espectro contínuo com a presença de várias linhas de absorção.
 
 
 \section{Contaminação Telúrica}
 
-A maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo, e nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com moléculas como vapor de água e oxigênio, o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas.
+Como as estrelas do \textit{X-Shooter Spectral Library}, a maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo. Nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com moléculas como vapor de água e oxigênio, o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas.
 
 As linhas telúricas, quando misturadas no espectro original, contribuem para a criação de uma observação distorcida ou contaminada. A menos que seja corrigida, esta contaminação pode produzir erros e introduzir ruídos que reduzem a precisão dos dados observados, e consequentemente, dificultam o avanço de diversas pesquisas astronômicas.
 
@@ -60,12 +67,12 @@ Existem alguns procedimentos típicos usados hoje em dia para remover as linhas 
 
 As estrelas padrão são estrelas quentes em rotação rápida e de tipo espectral B ou A. Elas são escolhidas pois seus espectros não possuem características marcantes além de fortes linhas de hidrogênio. Para que o espectro de uma estrela padrão seja usado como uma referência telúrica, é necessário observá-la próxima em tempo, posição no céu e condições atmosféricas do espectro de ciência. Contudo, existem várias limitações fundamentais no nível de correção que pode ser obtido com o método da estrela padrão. Primeiramente, características estelares ainda podem estar presentes no espectro da estrela padrão, evidenciando que ela não é um modelo preciso da transmissão radiativa da atmosfera. Além disso, o tempo e a direção de observação das duas estrelas não é exatamente o mesmo, o que significa que a assinatura atmosférica de ambos os espectros também será diferente.
 
-Devido às limitações das estrelas padrão, foi criado um método mais sofisticado e automatizado para obter uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)}, que fornece cálculos de radiância espectral com precisão e eficiência. Este modelo utiliza o HITRAN, um acrônimo para \textit{high-resolution transmission molecular absorption database}, uma base de dados de linhas e parâmetros espectroscópicos. 
+Devido às limitações das estrelas padrão, foi criado um método mais sofisticado e automatizado para obter uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)} \citep{2005JQSRT..91..233C}, que fornece cálculos de radiância espectral com precisão e eficiência. Este modelo utiliza o HITRAN, um acrônimo para \textit{high-resolution transmission molecular absorption database}, uma base de dados de linhas e parâmetros espectroscópicos. 
 
 Um exemplo desses softwares é o Molecfit \citep{smette2015molecfit}, uma ferramenta para a modelagem de linhas telúricas desenvolvido por astrônomos do \textit{European Southern Observatory}. De acordo com seus criadores, o Molecfit recupera o perfil atmosférico mais compatível com o tempo da observação da estrela de ciência. Isto envolve a utilização de um modelo de transmissão radiativa da atmosfera com uma base de dados espectral para recuperar atributos como a variação na temperatura, pressão e umidade em função da altitude da observação. É importante ressaltar que mesmo métodos como o Molecfit possuem suas limitações e podem, em certos casos, performar pior do que o método da estrela padrão.
 
 
-falar sobre como modelamos o problema: ação multiplicativa da atmosfera na estrela 
+falar sobre como modelamos o problema: ação multiplicativa da atmosfera na estrela (aqui ou na metodologia? isso implica em explicar como estamos relaxando o problema e não a fundamentacao teorica do que vou fazer)
 \begin{itemize}
     \item operações no sinal todo (como estamos considerando o problema)
     \item filtros e pré-processamento de sinais

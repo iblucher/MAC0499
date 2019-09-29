@@ -25,7 +25,7 @@ def plot_spectrum(flux, wavelength, filename=None):
     title = filename
     plt.rcParams['figure.figsize'] = [12, 8]
     plt.plot(wavelength, flux, '-')
-    plt.xlabel(r"Wavelength")
+    plt.xlabel(r"Wavelength (nm)")
     plt.ylabel(r"Flux")
     plt.title(title)
     plt.show()
