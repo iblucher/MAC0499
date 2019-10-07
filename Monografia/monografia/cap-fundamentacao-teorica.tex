@@ -13,8 +13,8 @@ Diferentes tipos de objetos celestes produzem diferentes tipos de espectro:  con
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=10cm]{figuras/spectypes.jpg}
-\caption{Os três tipos de espectro}
+\includegraphics[width=10cm]{figuras/Continuous-spectrum-and-two-types-of-line-spectra.png}
+\caption{Os três tipos de espectro: contínuo, de emissão e de absorção \citep{mcgrawhill}}
 \label{fig:spectrum-types}
 \end{figure}
 
@@ -29,7 +29,7 @@ As classes espectrais do sistema, em ordem decrescente de temperatura efetiva da
 \begin{figure}[htb]
 \centering
 \includegraphics[width=10cm]{figuras/Spectra_Briley.jpg}
-\caption{Tipos de espectro estelar}
+\caption{Tipos de espectro estelar \citep{astroprinceton}}
 \label{fig:stellar-spectrum-types}
 \end{figure}
 
@@ -91,20 +91,52 @@ onde $\circ$ representa o produto de Hadamard, ou o produto par a par dos elemen
 \end{itemize}
 
 
-\section{Alinhamento de sinais}
+\section{Similaridade e alinhamento de sinais}
 
-O estudo de sinais digitais, ou mais precisamente, a análise de séries temporais tem como objetivo estudar dados de séries temporais a fim de extrair estatísticas e características significativas dos dados. Um dos objetivos compreendidos pela análise de séries temporais é a mensuração da similaridade entre duas sequências. Este estudo se mostra necessário em diversas aplicações, principalmente em reconhecimento de fala produzidas por fontes sonoras, para saber se uma frase corresponde à outra, tanto em conteúdo quanto em velocidade.
+O estudo de séries temporais tem como objetivo extrair estatísticas e características significativas dos dados analisados. Um dos objetivos compreendidos pela análise de séries temporais é a mensuração da similaridade entre duas sequências. Esta medida de similaridade possui diversas aplicações em áreas como reconhecimento de fala, para saber se uma frase corresponde à outra, economia, para analisar similaridades em dados de investimentos em períodos diferentes, e etc.
 
-Para se calcular a similaridade entre duas séries temporais pode ser usada a distância euclideana em pares de pontos de cada série que correspondem ao mesmo instante no domínio do tempo. Esta métrica funcionaria em sinais perfeitamente sincronizados no domínio do tempo e que se movem na mesma velocidade. No caso das sequências estarem dessincronizadas, pontos similares em cada uma delas começam a se afastar uns dos outros e a conclusão equivocada nesse caso é de que os sinais são pouco similares devido ao aumento da distância euclideana.
+Para se calcular a similaridade entre duas séries temporais pode ser usada a distância euclideana em pares de pontos de cada série que correspondem ao mesmo instante. Esta métrica funcionaria em sinais perfeitamente sincronizados no domínio do tempo e que se movem na mesma velocidade. No caso das sequências estarem dessincronizadas, pontos similares em cada uma delas começam a se afastar uns dos outros e a conclusão equivocada nesse caso é de que os sinais são pouco similares devido ao aumento da distância euclideana.
 
-Um algoritmo mais roubusto que é utilizado para determinar a similaridade entre duas séries temporais chama \textit{Dynamic Time Warping (DTW)}. Este algoritmo acha uma correspondência ótima entre duas séries temporais, ou quaisquer dados que podem ser representados como sequências lineares, mesmo que estejam dessincronizados. Isto é feito com o deslocamento elástico das sequências para medir a similaridade de trechos com diferentes fases \citep{shou2005fast}. A figura \ref{fig:euclidean-vs-dtw-matching} ilustra como a DTW encontra uma correspondência mais intuitiva entre duas sequências, juntando regiões com formatos similares.
+Um algoritmo mais roubusto utilizado para determinar a similaridade entre duas séries temporais é o \textit{Dynamic Time Warping (DTW)}. Este algoritmo acha uma correspondência ótima entre duas séries temporais, ou quaisquer dados que podem ser representados como sequências lineares, mesmo que estejam dessincronizados. Isto é feito com o deslocamento elástico das sequências para medir a similaridade de trechos com diferentes fases \citep{shou2005fast}. A figura \ref{fig:euclidean-vs-dtw-matching} ilustra como a DTW encontra uma correspondência mais intuitiva entre duas sequências do que a correspondência euclideana, juntando regiões com formatos similares.
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=7cm]{figuras/Euclidean_vs_DTW.jpg}
-\caption{Diferença entre a correspondência euclideana e da DTW}
+\caption{Diferença entre a correspondência euclideana e da DTW em sinais similares \citep{dtwmatching}}
 \label{fig:euclidean-vs-dtw-matching}
 \end{figure}
+
+A formulação do problema \citep{salvador2007toward} do \textit{Dynamic Time Warping} é a seguinte: dadas duas sequências $X$ e $Y$, de comprimentos respectivos $n$ e $m$ tal que 
+
+\begin{align*}
+    X = \{x_1, x_2, \cdots, x_n\} \\
+    Y = \{y_1, y_2, \cdots, y_m\}
+\end{align*}
+
+construa um caminho $W$ de comprimento $k$ tal que
+
+\begin{equation*}
+    W = \{w_1, w_2, \cdots, w_k\}, \qquad max(n, m) \leq k < n + m
+\end{equation*}
+
+e o $k$-ésimo elemento do caminho $W$ é $w_k = (i, j)$ e $i$, $j$ são índices das sequências $X$ e $Y$, respectivamente. O camihi $W$ deve começar em $w_1 = (1, 1)$ e deve terminar em $w_k = (n. m)$, de forma a assegurar que todos os índices das duas sequências serão usados. Também há uma restrição no caminho $W$ que força $i$ e $j$ a serem monótonos não-decrescentes ao longo do caminho, logo
+
+\begin{equation*}
+    w_k = (i, j),\, w_{k + 1} = (i', j') \qquad i \leq i' \leq i + 1,\, j\leq j' \leq j + 1
+\end{equation*}
+
+Esta descrição do problema possibilita a geração de infinitos caminhos, logo, o objetivo é encontrar o caminho ótimo entre as sequências $X$ e $Y$. O caminho ótimo do algoritmo é o caminho de distância mínima, é definido como
+
+\begin{equation*}
+    dist(W) = \sum_{d=1}^{d=k} dist(w_{di}, w_{dj})
+\end{equation*}
+
+onde $dist(W)$ é a distância do caminho $W$ selecionada (tipicamente a euclideana) e $dist(w_{di}, w_{dj})$ é a distância entre um par de dados das sequências $x$ e $Y$ no $d$-ésimo elemento do caminho $W$.
+
+A implementação do algoritmo utiliza o paradigma da programação dinâmica, onde cada instância do problema é resolvida usando a solução de subinstâncias do problema original. O diferencial desta abordagem é que o resultado dos subproblemas são armazenados em uma tabela ou matriz. No caso da DTW é criada uma matrz de distância $n \times m$ 
+
+
+
 
 explicar como funciona a dtw: matriz, programação dinamica, complexidade assintotica quadratica e metodos para acelerar algoritmo.
 
