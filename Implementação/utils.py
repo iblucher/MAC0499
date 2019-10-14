@@ -35,7 +35,7 @@ def find_nearest(array,value):
     idx = np.searchsorted(array, value)
     return(idx - 1, idx)
 
-def fast_dtw_on_stellar_spectra(tel, obs, dist=euclidean):
+def fast_dtw_on_stellar_spectra(tel, obs, dist=euclidean, xlabel=None, ylabel=None):
     distance, path = fastdtw(tel, obs, dist=dist)
     
     print('Distance: {}'.format(distance))
@@ -45,6 +45,8 @@ def fast_dtw_on_stellar_spectra(tel, obs, dist=euclidean):
     
     fast_path = list(zip(*path))
     plt.plot(fast_path[0], fast_path[1], 'k')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.show()
     
     return fast_path, path

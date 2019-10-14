@@ -41,6 +41,8 @@
 \usepackage{emptypage}  % para não colocar número de página em página vazia
 \fontsize{60}{62}\usefont{OT1}{cmr}{m}{n}{\selectfont}
 \usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 % ---------------------------------------------------------------------------- %
 % Cabeçalhos similares ao TAOCP de Donald E. Knuth
@@ -89,6 +91,11 @@ xrightmargin=10pt,
 framexleftmargin=10pt,
 framexrightmargin=10pt
 }
+
+% ---------------------------------------------------------------------------- %
+% Definicoes dos autores
+
+\newcommand{\pc}[1]{\texttt{\textcolor{magenta}{[#1]}}}
 
 % ---------------------------------------------------------------------------- %
 % Corpo do texto
@@ -150,7 +157,7 @@ framexrightmargin=10pt
     \vskip 5cm
 
     \begin{center}
-    Supervisor: Profa. Dra. Paula Rodrigues Teixeira Coelho\\
+    Supervisor: Profa. Dra. Paula Rodrigues Teixeira Coelho (IAG)\\
     Co-supervisor: Prof. Dr. Marcelo Gomes de Queiroz 
 
     \vskip 5cm
