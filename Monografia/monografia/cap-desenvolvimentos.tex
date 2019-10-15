@@ -2,34 +2,18 @@
 \chapter{Metodologia}
 \label{cap:desenvolvimentos}
 
-Para desenvolver algoritmos capazes de remover a contaminação telúrica dos espectros de ciência é necessário de um conhecimento extenso sobre os sinais. Este trabalho tem como objetivo melhorar soluções atualmente utilizadas e para isso mostrou-se necessário uma compreensão maior da semântica dos dados e suas nuances astronômicas. 
+Este trabalho tem o objetivo de desenvolver uma solução que seja capaz de remover a contaminação telúrica de espectros astronômicos capturados a partir do solo. Para fazer isso é necessário um conhecimento extenso sobre os dados coletados, desde como foram criados e compostos até sua semântica e nuances astronômicas.  
 
-Neste capítulo são descritos o ambiente e ferramentas utilizadas no desenvolvimento 
+Neste capítulo são descritos os experimentos realizados durante o desenvolvimento do trabalho que foram úteis para compreender e visualizar os espectros de ciência e telúrico, testar o realinhamento de sinais e aprender características fundamentais dos espectros na solução do problema da contaminação telúrica.  
 
-\section{Ambiente e ferramentas}
+\section{Formato de dados FITS}
 
-- python
-- jupyter notebooks
-- astropy (falar sobre fits)
-- numpy
-- matplotlib
-- funcoes do utils (compilado de funcoes, falar sobre cada uma)
+O formato de dados utilizado nos experimentos é o FITS ou \textit{Flexible Image Transfer System}. Este formato de arquivo digital facilita o armazenamento, processamento e transmissão de dados científicos e foi projetado para armazenar conjuntos de dados $n$-dimensionais que consistem em matrizes e tabelas. Este é o formato de dados mais utilizado na astronomia, e inclusive possui recursos adicionais para incluir informações de calibração fotométrica e espacial e metadados de origem do arquivo \citep{pence2010definition}.
 
-\section{Experimentos}
+Um arquivo FITS é composto por segmentos chamados de HDU (\textit{Header-Data Units}). Um arquivo FITS deve necessariamente ter um \textit{Primary HDU}, que armazena os dados científicos principais e pode ser acompanhado de HDUs adicionais, categorizados entre extensões de imagens, extensões de tabelas ASCII e extensões de tabelas binárias \citep{nasa-fits}.
 
-\section{Notebooks}
+\section{Divisão do sinal estelar pelo telúrico}
 
-% Embora neste exemplo tenhamos apenas um capítulo,  entre a introdução
-% e a conclusão de uma monografia podemos ter uma sequência de capítulos
-% descrevendo o trabalho e os resultados. Estes podem descrever
-% fundamentos, trabalhos relacionados, método/modelo/algoritmo proposto,
-% experimentos realizados, resulatdos obtidos.
+\section{DTW no sinal estelar}
 
-% Cada capítulo pode ser organizado em seções, que por sua vez pode
-% conter subseções. 
-
-% Um exemplo de figura está na figura~\ref{fig:graph}.
-% \begin{figure}[htb]a
-% \includegraphics[width=5cm]{figuras/graph}
-% \caption{\label{fig:graph}Exemplo de uma figura.}
-% \end{figure}
+\section{DTW no sinal atmosférico}
