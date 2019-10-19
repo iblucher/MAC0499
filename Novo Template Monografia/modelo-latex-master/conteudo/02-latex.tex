@@ -1,0 +1,254 @@
+%!TeX root=../tese.tex
+%("dica" para o editor de texto: este arquivo é parte de um documento maior)
+% para saber mais: https://tex.stackexchange.com/q/78101/183146
+
+%% ------------------------------------------------------------------------- %%
+\chapter{Fundamentação Teórica}
+\label{cap:fundamentacao-teorica}
+
+O problema de remoção de ruído telúrico em sinais astronômicos é de natureza interdisciplinar, o que implica na necessidade de compreender tanto a teoria da astronomia sobre espectros estelares, quanto a representação computacional do problema.
+Neste capítulo são descritos conceitos básicos em espectroscopia astronômica, principalmente estelar, e algoritmos de processamento de sinais digitais utilizados na pesquisa, que em conjunto caracterizam o problema da contaminação telúrica de espectros estelares.
+
+\section{Espectroscopia Astronômica} \label{astronomic-spectroscopy}
+
+A espectroscopia é a técnica de dividir a luz, ou mais precisamente, a radiação eletromagnética, proveniente de um objeto em seus comprimentos de onda constituintes, o que resulta na formação de um espectro. Quando aplicada na astronomia, tem como objeto de estudo o espectro de radiação eletromagnética de diversos corpos celestes, como estrelas, planetas, nebulosas, galáxias e núcleos galácticos ativos.
+
+Diferentes tipos de objetos celestes produzem diferentes tipos de espectro:  contínuo, de absorção e de emissão. Um espectro contínuo é um vetor de todos os comprimentos de ondas do espectro eletromagnético, arranjado de forma contínua. Ele é gerado pela observação de um corpo opaco quente, que seria o equivalente a observar diretamente o núcleo de uma estrela sem intervenção de matéria. Um espectro de absorção, ou espectro de linhas escuras, é gerado por um gás transparente frio em frente ao corpo opaco quente e está associado à absorção dos fótons da radiação em determinados comprimentos de onda. E por último, o espectro de emissão, ou espectro de linhas brilhantes, é gerado por um gás transparente que foi excitado por uma fonte de energia próxima, o que resulta na emissão de fótons de comprimentos de onda específicos. A figura \ref{fig:spectrum-types} ilustra os três tipos de espectros. 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/Continuous-spectrum-and-two-types-of-line-spectra.png}
+\caption{Os três tipos de espectro: contínuo, de emissão e de absorção \citep{mcgrawhill}}
+\label{fig:spectrum-types}
+\end{figure}
+
+Um objeto astronômico que é muito estudado pelos seus espectros são as estrelas. Por serem objetos quentes, rodeados de gases mais frios, estrelas emitem um espectro de linhas de absorção sobreposto a um espectro de contínuo. As linhas de absorção tem comprimentos de onda característicos dos elementos químicos que geraram o espectro. A figura \ref{fig:vega-spectrum} ilustra o espectro da estrela Vega, cujo formato segue o de um espectro contínuo com a sobreposição de linhas de absorção de hidrogênio, oxigênio e vapor de água.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=12cm]{figuras/vega_spectrum.jpg}
+\caption{O espectro da estrela Vega\citep{vega-spectrum}}
+\label{fig:vega-spectrum}
+\end{figure}
+
+No final do século XIX, astrônomos perceberam que a análise cuidadosa do espectro de uma estrela fornece uma riqueza de detalhes sobre ela, incluindo sua temperatura efetiva, velocidade de rotação, velocidade de translação, densidade, composição química e metalicidade. Com a observação rotineira de espectros estelares em grandes números, estes pesquisadores notaram que era possível agrupar as estrelas baseado em suas características espectrais e assim surgiram diversos sistemas de classificação estelar. 
+
+
+O sistema moderno de classificação de estrelas foi adotado em 1910 e foi criado por um time do observatório da Universidade de Harvard. Este sistema baseia-se nas intensidades relativas das linhas de absorção presentes no espectro. As variações nas linhas espectrais para diferentes estrelas são devidas principalmente à diferença de temperatura das camadas externas de gás na estrela, logo o sistema de classificação espectral é baseado na temperatura efetiva da estrela. 
+
+As classes espectrais do sistema, em ordem decrescente de temperatura efetiva da estrela são: O, B, A, F, G, K, M. Cada uma dessas classes se subdivide em 10 (com os números de 0 a 9), sendo 0 a mais quente dentro da classe e 9 a mais fria.
+
+\begin{table}[htb]
+\centering
+\label{tab:stellar-temperatures}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Tipo Espectral} & \textbf{Temperatura Superficial (K)} \\ \hline
+O                       & 30.000                               \\ \hline
+B                       & 20.000                               \\ \hline
+A                       & 10.000                               \\ \hline
+F                       & 7000                                 \\ \hline
+G                       & 6000                                 \\ \hline
+K                       & 4000                                 \\ \hline
+M                       & 3000                                 \\ \hline
+\end{tabular}
+\caption{A temperatura superficial estelar para cada tipo espectral \citep{iag-stellar-temps}}
+\end{table}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/Spectra_Briley.jpg}
+\caption{Tipos de espectro estelar \citep{astroprinceton}}
+\label{fig:stellar-spectrum-types}
+\end{figure}
+
+Na figura \ref{fig:stellar-spectrum-types}, é possível observar como diferentes linhas de absorção e bandas moleculares variam em intensidade conforme a temperatura efetiva, ou tipo espectral, da estrela muda.
+
+Os tipos espectrais das estrelas continuam sendo uma parte essencial para a pesquisa em astronomia, seja para auxiliar na descoberta de exoplanetas ou na interpretação da história da evolução das galáxias. \pc{senti falta de uma referencia aqui. posso te ajudar, claro.}
+
+\section{Sinal espectral}
+
+
+\pc{Pergunta para Isa e Marcelo: o quanto voces referenciam artigos em textos da Computacao? No texto abaixo, o meu impulso é adicionar uma referencia para cada conceito, como espectrografo, CCD etc... Posso ajudar nas referencias, claro, mas primeiro gostaria de saber se voces tb estao acostumados a adicionar referencia para quase cada conceito, ou se esse é um viés meu.}
+
+No cerne do que é estudado pela espectroscopia astronômica está o sinal espectral. Para capturar o espectro de uma estrela é necessário utilizar um espectrógrafo, um instrumento presente em muitos telescópios que divide a radiação eletromagnética de um objeto celeste em seus respectivos comprimentos de onda.
+
+Estes instrumentos de observação muitas vezes estão munidos de um CCD ou \textit{charge-coupled device}, um sensor eletrônico constituído por vários quadrados fotossensíveis, que representam os pixels de uma imagem. As imagens resultantes de uma observação do CCD passam por um processo de redução de dados, que envolve a transformação das imagens brutas em dados científicos utilizáveis.   
+
+No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional à partir de uma imagem de CCD da estrela observada, também chamada de estrela de ciência. A figura \ref{fig:x0319-obs-spectrum} ilustra o espectro de uma estrela do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter}\footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/xshooter.html}}, parte do \textit{Very Large Telescope array}\footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}} (VLT), localizado no Cerro Paranal, Chile.  
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=15cm]{figuras/X0319_obs_spectrum.png}
+\caption{O espectro observado da estrela X0319}
+\label{fig:x0319-obs-spectrum}
+\end{figure}
+
+O espectro resultante da redução de dados é unidimensional no domínio do comprimento de onda da estrela e tem sua intensidade representada pelo fluxo, que é adimensional. \pc{aqui vai requerer uma explicacao maior, acho que minha provavelmente. o fluxo vem em unidades de contagem de fótons, ou ADUs, que sao adimensionais. Nem sempre o espectro é retificado / normalizado para o intervalo [0,1], os da XSL nao sao por exemplo}O fluxo de um espectro estelar é geralmente reescalonado para o intervalo $[0, 1]$, de modo a padronizar a intensidade dos espectros. 
+
+É possível observar que a figura \ref{fig:x0319-obs-spectrum} tem o formato esperado de um espectro estelar mencionado na seção \ref{astronomic-spectroscopy}: um espectro contínuo com a presença de várias linhas de absorção.
+
+
+\section{Contaminação Telúrica}
+
+Como as estrelas do \textit{X-Shooter Spectral Library}, a maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo. Nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com moléculas como vapor de água e oxigênio, o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas.
+\pc{acho que cabe mencionar que regioes diferentes de comprimento de onda sao mais ou menos sensiveis aa atmosfera, e mostrar um grafico ilustrando um espectro telurico. pode ser da literatura, assim mostramos um observado (ao contrario dos que voce tem sao modelos). }
+
+As linhas telúricas, quando misturadas no espectro original, contribuem para a criação de uma observação distorcida ou contaminada. A menos que seja corrigida, esta contaminação pode produzir erros e introduzir ruídos que reduzem a precisão dos dados observados, e consequentemente, dificultam o avanço de diversas pesquisas astronômicas.
+
+Existem alguns procedimentos típicos usados hoje em dia para remover as linhas telúricas de um espectro de ciência. Um método popular consiste em aplicar uma divisão simples entre o espectro da observação e uma referência telúrica, quando satisfeita a condição de que o referencial telúrico tenha as mesmas assinaturas instrumentais do espectros de ciência. \pc{essa ultima frase que eu adicionei tem a ver com alguma conversa que tivemos, o Marcelo explicou disso na lousa. vou rever as conversas e as fotos da lousa pra podermos expandir se / quando necessario}. Esta referência telúrica pode ser obtida de duas maneiras: através da observação de um estrela padrão ou pela simulação de um espectro atmosférico teórico.
+
+As estrelas padrão são estrelas quentes em rotação rápida de tipo espectral B ou A. Elas são escolhidas pois seus espectros não possuem características marcantes além de fortes linhas de hidrogênio. Para que o espectro de uma estrela padrão seja usado como uma referência telúrica, é necessário observá-la próxima em tempo, posição no céu e condições atmosféricas do espectro de ciência. Contudo, existem várias limitações fundamentais no nível de correção que pode ser obtido com o método da estrela padrão. Primeiramente, características estelares ainda podem estar presentes no espectro da estrela padrão, evidenciando que ela não é um modelo preciso da transmissão radiativa da atmosfera. Além disso, o tempo e a direção de observação das duas estrelas nunca será exatamente o mesmo, o que significa que a assinatura atmosférica de ambos os espectros também será diferente.
+
+Devido às limitações das estrelas padrão, foi criado um método mais sofisticado e automatizado para obter uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)} \citep{2005JQSRT..91..233C}, que fornece cálculos de radiância espectral com precisão e eficiência. Este modelo utiliza o HITRAN \citep{rothman2009hitran}, um acrônimo para \textit{High-resolution Transmission molecular absorption database}, uma base de dados de linhas e parâmetros espectroscópicos. 
+
+Um exemplo desses softwares é o Molecfit \citep{smette2015molecfit}, uma ferramenta para a modelagem de linhas telúricas desenvolvido por astrônomos do \textit{European Southern Observatory}. De acordo com seus criadores, o Molecfit recupera o perfil atmosférico mais compatível com o tempo da observação da estrela de ciência. Isto envolve a utilização de um modelo de transmissão radiativa da atmosfera com uma base de dados espectral para recuperar atributos como a variação na temperatura, pressão e umidade em função da altitude da observação. É importante ressaltar que mesmo métodos como o Molecfit possuem suas limitações e podem, em certos casos, performar pior do que o método da estrela padrão. \pc{isso é verdade, mas a frase aqui pede que a questao seja expandida dando exemplos. talvez seja melhor apenas tirar a frase daqui, pra nao influenciar a sequencia da narrativa, e em algum outro local expandirmos os possiveis problemas e ligamos com o problema que vamos atacar, a falta de sincronia entre os comprimentos de onda}.
+
+Independente de como é gerado o referencial telúrico, 
+a divisão simples do espectro observado por este referencial indica que a ação da atmosfera na estrela é de natureza linear e multiplicativa. \pc{é mesmo a divisao dos espectros que indica isso? } Em termos matemáticos, consideramos os espectros de ciência, telúrico e estelar sem contaminação como vetores $o$ (observado), $a$ (atmosfera) e $s$ (estrela), tal que:
+
+\begin{equation*}
+    o := \{o_1, o_2, \cdots, o_{n-1}\} \qquad a := \{a_1, a_2, \cdots, a_{n-1}\} \qquad s := \{s_1, s_2, \cdots, s_{n-1}\} 
+\end{equation*}
+
+\pc{porque termina no indice n-1? como comeca no indice 1 nao deveria terminar no indice n?}
+
+\noindent \pc{"onde n representa tal e tal e "}os vetores possuem o mesmo comprimento e representam valores discretos do fluxo estelar ou atmosférico em intervalos igualmente espaçados de comprimento de onda. A contaminação telúrica do espectro de ciência nesta representação é a multiplicação dos elementos do vetor telúrico pelo estelar:
+
+\begin{equation*}
+    o = a \circ s
+\end{equation*}
+
+\noindent onde $\circ$ representa o produto de Hadamard, ou o produto par a par dos elementos do vetor. Esta representação tem como objetivo relaxar as restrições físicas do problema, de forma que seja possível aplicar algoritmos nos sinais que dependem da suposição de linearidade da contaminação telúrica.
+
+
+\begin{itemize}
+    \item pré-processamento de sinais (dúvidas se isso deve entrar aqui) \pc{acho que o pre-processamento tem mais cara de Metodologia do que Fundamentacao Teorica}
+\end{itemize}
+
+
+\section{Similaridade e alinhamento de sinais}
+
+O estudo de séries temporais tem como objetivo extrair estatísticas e características significativas dos dados analisados. Um dos objetivos compreendidos pela análise de séries temporais é a mensuração da similaridade entre duas sequências. Esta medida de similaridade possui diversas aplicações em áreas como reconhecimento de fala, para saber se uma frase corresponde à outra, economia, para analisar similaridades em dados de investimentos de períodos diferentes, e etc. No caso dos espectros estelares, a similaridade entre sinais pode ser útil para alinhar regiões de contaminação atmosférica de moléculas específicas em um espectro de ciência com as regiões a contaminação correspondente no espectro telúrico.
+
+Para se calcular a similaridade entre duas séries temporais pode ser usada a distância euclideana em pares de pontos de cada série que correspondem ao mesmo instante. Esta métrica funcionaria em sinais perfeitamente sincronizados no domínio do tempo e que se movem na mesma velocidade. No caso das sequências estarem dessincronizadas, pontos similares em cada uma delas começam a se afastar uns dos outros e a conclusão equivocada nesse caso é de que os sinais são pouco similares devido ao aumento da distância euclideana.
+
+Um algoritmo mais roubusto utilizado para determinar a similaridade entre duas séries temporais é o \textit{Dynamic Time Warping (DTW)}. Este algoritmo acha uma correspondência ótima entre duas séries temporais, ou quaisquer dados que podem ser representados como sequências lineares, mesmo que estejam dessincronizados. Isto é feito com o deslocamento elástico das sequências para medir a similaridade de trechos com diferentes fases \citep{shou2005fast}. A figura \ref{fig:euclidean-vs-dtw-matching} ilustra como o DTW encontra uma correspondência mais intuitiva do que a correspondência euclideana, juntando regiões das duas sequências com formatos similares mesmo que não estejam perfeitamente alinhadas.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=7cm]{figuras/Euclidean_vs_DTW.jpg}
+\caption{Diferença entre a correspondência euclideana e da DTW em sinais similares \citep{dtwmatching}}
+\label{fig:euclidean-vs-dtw-matching}
+\end{figure}
+
+A formulação do problema \citep{salvador2007toward} do \textit{Dynamic Time Warping} é a seguinte: dadas duas sequências $X$ e $Y$, de comprimentos respectivos $n$ e $m$ tal que 
+
+\begin{align*}
+    X = \{x_1, x_2, \cdots, x_n\} \\
+    Y = \{y_1, y_2, \cdots, y_m\}
+\end{align*}
+
+construa um caminho $W$ de comprimento $k$ tal que
+
+\begin{equation*}
+    W = \{w_1, w_2, \cdots, w_k\}, \qquad max(n, m) \leq k < n + m
+\end{equation*}
+
+e o $k$-ésimo elemento do caminho $W$ é $w_k = (i, j)$ e $i$, $j$ são índices das sequências $X$ e $Y$, respectivamente. O caminho $W$ deve começar em $w_1 = (1, 1)$ e deve terminar em $w_k = (n. m)$, de forma a assegurar que todos os índices das duas sequências serão usados. Também há uma restrição no caminho $W$ que força $i$ e $j$ a serem monótonos não-decrescentes. Em termos matemáticos isso corresponde a
+
+\begin{equation*}
+    w_k = (i, j),\, w_{k + 1} = (i', j') \qquad i \leq i' \leq i + 1,\, j\leq j' \leq j + 1
+\end{equation*}
+
+Esta descrição do problema possibilita a geração de infinitos caminhos, logo, o objetivo é encontrar o caminho ótimo entre as sequências $X$ e $Y$. O caminho ótimo do algoritmo é o caminho de distância mínima
+
+\begin{equation*}
+    dist(W) = \sum_{d=1}^{d=k} dist(w_{di}, w_{dj})
+\end{equation*}
+
+onde $dist(W)$ é a distância do caminho $W$ selecionada (tipicamente a euclideana) e $dist(w_{di}, w_{dj})$ é a distância entre um par de dados das sequências $X$ e $Y$ no $d$-ésimo elemento do caminho $W$.
+
+A implementação do algoritmo utiliza o paradigma da programação dinâmica, onde cada instância do problema é resolvida usando soluções de subinstâncias do problema original. O diferencial desta abordagem é que os resultados dos subproblemas são armazenados em uma tabela ou matriz. No caso da DTW é criada uma matrz de distância $D$ de dimensão $n \times m$, onde $D(i, j)$ armazena o valor da distância do caminho mínimo que pode ser construído entre as sequências $X' = \{x_1, \cdots, x_i\}$ e $Y' = \{y_1, \cdots, y_j\}$. Logo, o valor armazenado em $D(n, m)$ representa a distância do caminho mínimo que compreende as duas sequências inteiras. O preenchimento da matriz $D$ é feito com a seguinte lógica
+
+\begin{equation*}
+    D(i, j) = dist(i, j) + min\{D(i - 1, j), D(i, j - 1), D(i - 1, j - 1)\}
+\end{equation*}
+
+Esta abordagem funciona pois todos os caminhos de sequências que são ligeiramente menores do que as sequências de tamanhos $i$ e $j$ já são conhecidos, logo, a distância armazenada em $D(i, j)$ corresponde à distância mínima entre todos os caminhos possíveis para sequências com um ponto de diferença de $i$ e $j$ mais a distância entre dois pontos $x_i$ e $y_j$. Para que a construção da matriz funcione, o preenchimento deve ser feito uma columna por vez, de baixo para cima e da esquerda para a direita. 
+
+Depois que a matriz $D$ está completa, é necessário encontrar um caminho ótimo entre $D(1, 1)$ e $D(n, m)$. Saindo de $D(n, m)$ é feito um \textit{backtrack} onde em cada elemento da matriz é realizada uma busca gulosa que avalia elementos à esquerda, abaixo e na diagonal inferior esquerda. Dentre estes três avaliados, o elemento com o menor valor é adicionado ao começo do caminho ótimo até o dado momento. Este procedimento é repetido até que o caminho chegue na célula $D(1, 1)$.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=9cm]{figuras/dtw_warp_path.png}
+\caption{Uma matriz de similaridade com o caminho ótimo da DTW entre as séries X e Y\citep{salvador2007toward}}
+\label{fig:dtw-matrix-and-path}
+\end{figure}
+
+O pseudo-código dos procedimentos de preenchimento da matriz \citep{hierarchical-time-clustering} e de \textit{backtracking} que compõem a DTW são dados pelos algoritmos \ref{dtw-matrix} e \ref{dtw-path}.
+
+\begin{algorithm}
+\caption{DTW matrix filling}\label{dtw-matrix}
+\begin{algorithmic}[1]
+\Procedure{DTW}{$x,y$}
+    \Comment{Seja $M$ uma matriz bidimensional $n \times m$}
+    \State $M[0, 0]\gets 0$
+    \For{$i \gets 1$ to $m$}
+        \State $M[0, i] \gets \infty$
+    \EndFor
+    \For{$i \gets 1$ to $n$}
+        \State $M[i, 0] \gets \infty$
+    \EndFor
+    \For{$i \gets 1$ to $n$}
+        \For{$j \gets 1$ to $m$}
+            \State $d = dist(x[i], y[j])$
+            \State $M[i, j] = d + min(M[i-1, j], M[i, j-1], M[i-1, j-1])$
+        \EndFor
+    \EndFor
+\State \textbf{return} $M[n, m]$\Comment{Distância do caminho ótimo}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{DTW path backtracking}\label{dtw-path}
+\begin{algorithmic}[1]
+\Procedure{DTW\_path}{$M$}
+    \Comment{Seja $P$ uma lista de tuplas}
+    \State $i\gets n$
+    \State $j\gets m$
+    \While{$i \neq 0$ and $j \neq 0$}
+        \State P.add(i, j)
+        \If{$M[i-1, j-1] \leq M[i-1, j]$ and $M[i-1, j-1] \leq M[i, j-1]$}
+            \State $i \gets i - 1$
+            \State $j \gets j - 1$
+        \ElsIf{$M[i-1, j] \leq M[i-1, j-1]$ and $M[i-1, j] \leq M[i, j-1]$}
+            \State $i \gets i - 1$
+        \Else
+            \State $j \gets j - 1$
+        \EndIf
+    \EndWhile
+\State \textbf{return} $P$\Comment{Índices do caminho ótimo}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+É possível analisar a complexidade de tempo e espaço da DTW com o algoritmo de preenchimento da matriz de similaridade. Cada elemento da matriz $n \times m$ é escrito exatamente uma vez em tempo constante, e a matriz inteira é armazenada na memória. Logo, ambas as complexidades são $\mathcal{O}(n * m)$, que no caso de $n = m$, equivale a uma complexidade assintótica $\mathcal{O}(n^2)$. A complexidade de espaço é especialmente proibitiva, visto que sequências com apenas 177 mil elementos geram uma matriz de similaridades que exige \textit{terabytes} de memória para ser armazenada.
+
+A complexidade quadrática tanto em tempo quanto em espaço da DTW, cria a demanda de métodos que consigam acelerar este procedimento. No artigo de \citet{salvador2007toward}, é proposta uma abordagem multinível inspirada no problema da partição de grafos. Essa técnica tende a funcionar bem para problemas muito grandes e de difícil solução por completo. Neste caso, soluções de problemas menores ou parciais podem ser refinadas e combinadas para que se encontre uma boa aproximação da solução do problema original.
+
+O algoritmo proposto, chamado de \textit{FastDTW}, depende de algumas operações-chave: a redução das séries temporais, a projeção do caminho da DTW para maiores resoluções e o refinamento do caminho encontrado. A redução das séries temporais é feita tirando a média de pontos adjacentes e o resultado são vetores com a metade do seu comprimento original. Repete-se esta operação várias vezes para se criar todas as resoluções das séries temporais que serão usadas. O algoritmo quadrático padrão da DTW é utilizado para as séries temporais com menor resolução e o caminho ótimo encontrado é então projetado para a próxima maior resolução que foi computada. Na projeção aplica-se de uma versão restrita da DTW apenas na vizinhança próxima do caminho resultante da projeção, o que não garante que o caminho ótimo será encontrado. Para aumentar as chances de encontrar a solução ótima existe um parâmetro de raio $r$, que representa o número de células adjacentes ao caminho projetado que farão parte da DTW restrita. Este procedimento é repetido para todas as resoluções até finalizar na matriz de resolução original.
+
+O algoritmo usa uma estratégia recursiva, na qual o caso base é o uso da DTW quadrática padrão. Uma análise da complexidade de tempo e espaço do pior caso em que ambas as séries temporais possuem $n$ elementos, resulta em $n(8r + 14)$ para tempo e $n(4r + 7)$ para espaço, ou seja, se o parâmetro $r$ é um valor constante pequeno ($<n$), podemos afirmar que a complexidade assintótica de ambos é $\mathcal{O}(n)$.
+
+
+como usar o caminho gerado pela DTW para reconstruir o sinal realinhado (algoritmo que usamos em alguns experimentos)
+
+\section{Conceitos de astronomia relevantes para este trabalho}
+
+\paragraph{Espectro estelar: }
+
+\paragraph{Redução de dados: }
+
+\paragraph{Resolução espectral: }

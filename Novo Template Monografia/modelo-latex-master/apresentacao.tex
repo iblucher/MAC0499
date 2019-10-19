@@ -1,0 +1,143 @@
+% Authors: Nelson Lago and Fernanda Magano
+% This file is distributed under the MIT Licence
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREÂMBULO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% aspectratio default é 4:3;
+% as mais úteis são 169 (16:9), 1610 (16:10) e 149 (14:9)
+% A língua padrão é a última citada
+\documentclass[xcolor={hyperref,svgnames,x11names,table},brazil,english,12pt,aspectratio=149]{beamer}
+
+% Vários pacotes e opções de configuração genéricos
+\input{extras/basics}
+% A fonte precisa ser definida depois que o tema metropolis foi carregado
+%\input{extras/fonts}
+\input{extras/floats}
+% index não é necessário, mas deixamos aqui para usar os mesmos
+% passos de compilação que a tese
+\input{extras/index}
+\input{extras/hyperlinks}
+\input{extras/source-code}
+\input{extras/utils}
+
+% Diretórios onde estão as figuras; com isso, não é preciso colocar o caminho
+% completo em \includegraphics (e nem a extensão).
+\graphicspath{{figuras/},{logos/}}
+
+% Comandos rápidos para mudar de língua:
+% \en -> muda para o inglês
+% \br -> muda para o português
+% \texten{blah} -> o texto "blah" é em inglês
+% \textbr{blah} -> o texto "blah" é em português
+\babeltags{br = brazil, en = english}
+
+% Espaçamento simples
+\singlespacing
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% APARÊNCIA DO BEAMER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{appendixnumberbeamer}
+
+% Tema metropolis com algumas modificações
+\dowithsubdir{extras/}{\usetheme{imeusp}}
+
+% O padrão usa um tom de vermelho escuro como cor principal; a opção
+% "greeny" troca essa cor por um tom de verde; a opção "sandy" usa o
+% mesmo tom de verde mas modifica a cor padrão dos blocos para um
+% tom amarelado.
+\dowithsubdir{extras/}{\usecolortheme[greeny]{imeusp}}
+% Desabilita a cor de rodapé
+\setbeamercolor{footline}{fg=,bg=}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% COMANDOS PARA O USUÁRIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\col{\column{.5\textwidth}}
+
+% A cada nova seção, recapitula o sumário
+% Para desabilitar, é só comentar este trecho
+\AtBeginSection[]{
+  \begin{frame}<beamer>{Overview}
+    \intermezzo
+  \end{frame}
+}
+
+% Blocos de cor personalizada
+\newenvironment{coloredblock}[2]%
+{
+    \setbeamercolor{block title}{fg=white,bg=#1!80!white}
+    \setbeamercolor{block body}{fg=darkgray,bg=#1!20!white}
+    \setbeamercolor{local structure}{fg=darkgray,bg=#1!20!white}
+    \begin{block}{#2}
+}{
+    \end{block}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAFIA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% O estilo de citação e de lista de referências usado por biblatex
+\PassOptionsToPackage{
+  % Estilo similar a plainnat
+  %bibstyle=extras/plainnat-ime,
+  %citestyle=extras/plainnat-ime,
+  % Estilo similar a alpha
+  %bibstyle=alphabetic,
+  %citestyle=alphabetic,
+  % O estilo numérico é comum em artigos
+  %bibstyle=numeric,
+  %citestyle=numeric,
+  % Um estilo que busca ser compatível com a ABNT:
+  %bibstyle=abnt,
+  %citestyle=abnt,
+  style=bwl-FU,
+}{biblatex}
+
+% Para personalizar outros aspectos da bibliografia e citações ou
+% para utilizar bibtex, modifique este arquivo.
+\input{extras/bibconfig}
+
+% A configuração do arquivo acima foi definida para teses/dissertações;
+% vamos mudar algumas opções
+\ExecuteBibliographyOptions{
+  backref=false,
+  maxbibnames=2,
+}
+
+\AtBeginBibliography{
+  % Numa apresentação, a bibliografia pode ficar em tamanho menor
+  \footnotesize
+}
+
+% O arquivo com os dados bibliográficos; você pode usar este comando
+% mais de uma vez para acrescentar múltiplos arquivos
+\addbibresource{bibliografia.bib}
+
+% Este comando permite acrescentar itens à lista de referências sem incluir
+% uma referência de fato no texto (pode ser usado em qualquer lugar do texto)
+%\nocite{bronevetsky02,schmidt03:MSc, FSF:GNU-GPL, CORBA:spec, MenaChalco08}
+% Com este comando, todos os itens do arquivo .bib são incluídos na lista
+% de referências
+%\nocite{*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INÍCIO DO CONTEÚDO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%\input{conteudo-exemplo/corpo-apresentacao}
+\input{conteudo/corpo-apresentacao}
+% Um parágrafo em LaTeX termina com uma linha vazia; como não é possível ter
+% certeza que um arquivo incluído (neste caso, "corpo-apresentacao") terminou
+% com uma linha vazia, é recomendável usar o comando "par" após "input" para
+% garantir que o último parágrafo do arquivo incluído realmente terminou.
+\par
+
+% Como o local da bibliografia em uma apresentação pode variar, os comandos
+% relacionados estão em corpo-apresentacao.tex e não aqui.
+
+\end{document}

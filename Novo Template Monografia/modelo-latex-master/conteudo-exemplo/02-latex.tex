@@ -1,0 +1,185 @@
+%!TeX root=../tese.tex
+%("dica" para o editor de texto: este arquivo é parte de um documento maior)
+% para saber mais: https://tex.stackexchange.com/q/78101/183146
+
+\chapter{Usando o \LaTeX{} e este modelo}
+
+Não é necessário que o texto seja redigido usando \LaTeX{}, mas é fortemente
+recomendado o uso dessa ferramenta, pois ela facilita diversas etapas do
+trabalho e o resultado final é muito bom\footnote{O uso de um sistema de
+controle de versões, como mercurial (\url{mercurial-scm.org}) ou git
+(\url{git-scm.com}), também é altamente recomendado.}. Este modelo inclui
+vários comentários explicativos e pacotes interessantes para auxiliá-lo com
+ele, sendo composto dos arquivos principais de cada exemplo
+(\texttt{tese.tex}, \texttt{artigo.tex},
+\texttt{apresentacao.tex} e \texttt{poster.tex}) e de
+vários arquivos auxiliares:
+
+\begin{itemize}
+  \item Arquivos com o conteúdo do trabalho:
+  \begin{itemize}
+    \item \texttt{conteudo/folhas-de-rosto.tex} (capa, dedicatória etc.)
+    \item \texttt{conteudo/resumo-abstract.tex}
+    \item \texttt{conteudo/capitulos.tex}, \texttt{conteudo/apendices.tex},
+          \texttt{conteudo/anexos.tex} e demais arquivos carregados por eles
+          (\texttt{XX-*.tex}, \texttt{apendice-pseudocodigo.tex}, \texttt{anexo-soft-livre.tex})
+    \item \texttt{bibliografia.bib} (dados bibliográficos)
+  \end{itemize}
+
+  \item Arquivos com as \textit{packages} usadas e suas configurações (leia
+        os comentários neles se quiser modificar algum aspecto do
+        documento ou acrescentar alguma \textit{package}):
+  \begin{itemize}
+    \item \texttt{extras/basics.tex} (\textit{packages} e configurações essenciais),
+          \texttt{extras/fonts.tex} (definição das fontes do documento) e
+          \texttt{extras/floats.tex} (configurações e melhorias para \textit{floats})
+    \item \texttt{extras/thesis-formatting.tex} (aparência: espaçamento, sumário etc.)
+    \item \texttt{extras/index.tex} (configuração do índice remissivo)
+    \item \texttt{extras/hyperlinks.tex} (configuração das referências cruzadas)
+    \item \texttt{extras/source-code.tex} (exibição de código-fonte e pseudocódigo)
+    \item \texttt{extras/utils.tex} (\textit{packages} adicionais diversas)
+    \item \texttt{extras/bibconfig.tex} (configuração da bibliografia)
+  \end{itemize}
+
+  \item Outros arquivos auxiliares (geralmente não precisam ser editados):
+  \begin{itemize}
+    \item \texttt{extras/imeusp-capa.sty} (formatação da capa e demais páginas iniciais)
+    \item \texttt{extras/imeusp-headers.sty} (formatação dos cabeçalhos)
+    \item \texttt{extras/lstpseudocode.sty} (suporte a pseudocódigo com \textsf{listings})
+    \item \texttt{extras/annex.sty} (permite adicionar anexos) e
+          \texttt{extras/appendixlabel.sty} (melhora a lista de
+          apêndices/anexos no sumário)
+    \item \texttt{extras/beamer*.sty} (\textit{layouts} e cores para
+          apresentações e \textit{posters})
+    \item \texttt{extras/plainnat-ime.*} (estilo plainnat para bibliografias)\index{biblatex}
+    \item \texttt{extras/alpha-ime.bst} (estilo alpha para bibliografias com
+          bibtex)\index{bibtex}
+    \item \texttt{extras/natbib-ime.sty} (tradução da \textit{package}
+          padrão natbib)\index{natbib}
+    \item \texttt{hyperxindy.xdy} (configuração para xindy) e
+          \texttt{mkidxhead.ist} (configuração para makeindex)
+    \item \texttt{latexmkrc} e \texttt{Makefile} (automatizam a geração do
+          documento com os comandos \textsf{latexmk} e \textsf{make} respectivamente)
+  \end{itemize}
+\end{itemize}
+
+Para compilar o documento, basta executar o comando \textsf{latexmk} (ou
+\textsf{make})\footnote{Você também pode usar \textsf{latexmk poster},
+\textsf{make apresentacao} etc.}. Talvez seu editor ofereça uma
+opção de menu para compilar o documento, mas ele provavelmente depende do
+\textsf{latexmk} para isso. \LaTeX{} gera diversos arquivos auxiliares
+durante a compilação que, em algumas raras situações, podem ficar
+inconsistentes (causando erros de compilação ou erros no PDF gerado, como
+referências faltando ou numeração de páginas incorreta no sumário). Nesse
+caso, é só usar o comando \textsf{latexmk -C} (ou \textsf{make clean}),
+que apaga todos os arquivos auxiliares gerados, e em seguida rodar
+\textsf{latexmk} (ou \textsf{make}) novamente.
+
+\section{Instalação do \LaTeX{}}
+\label{sec:install}
+
+\enlargethispage{-.5\baselineskip}
+
+\LaTeX{} é, na verdade, um conjunto de programas. Ao invés de procurar e
+baixar cada um deles, o mais comum é baixar um pacote com todos eles juntos.
+Há dois pacotes desse tipo disponíveis: MiK\TeX{} (\url{miktex.org}) e
+\TeX{}Live (\url{www.tug.org/texlive}). Ambos funcionam em Linux, Windows e
+MacOS X. Em Linux, \TeX{}Live costuma estar disponível para instalação junto
+com os demais opcionais do sistema. Em MacOS X, o mais popular é o Mac\TeX{}
+(\url{www.tug.org/mactex/}), a versão do \TeX{}Live para MacOS X.  Em Windows,
+o mais comumente usado é o MiK\TeX{}.
+
+Por padrão, eles não instalam tudo que está disponível, mas sim apenas os
+componentes mais usados, e oferecem um gestor de pacotes que permite adicionar
+outros. Embora uma instalação completa do \LaTeX{} seja relativamente grande
+(perto de 5GB), em geral vale a pena instalar a maior parte dos pacotes. Se
+você preferir uma instalação mais ``enxuta'', não deixe de incluir todos os
+pacotes necessários para este modelo, como indicado no arquivo README.md.
+
+Também é muito importante ter o \textsf{latexmk} (ou o \textsf{make}). No Linux,
+a instalação é similar à de outros programas. No MacOS X e no Windows,
+\textsf{latexmk} pode ser instalado pelo gestor de pacotes do MiK\TeX{} ou
+\TeX{}Live. Observe que ele depende da linguagem \textsf{perl}, que precisa ser
+instalada à parte no Windows (\url{www.perl.org/get.html}).
+
+\section{Documentação sobre \LaTeX}
+\label{sec:docs}
+
+Existem diversos bons livros sobre \LaTeX{} (embora em geral um tanto
+antigos), dos quais destacamos dois:
+
+\begin{enumerate}
+
+  \item A quarta edição de ``A Guide to \LaTeX'', de Helmut Kopka e
+        Patrick W. Daly (publicada em 2003), além de uma ótima
+        introdução, aborda vários tópicos relativamente avançados e
+        úteis\footnote{Um dos autores disponibiliza uma versão não-final
+        em \url{www2.mps.mpg.de/homes/daly/GTL/gtl_20030512.pdf}.}.
+  \item A segunda edição de ``The \LaTeX{} Companion'' (publicada em
+        2004) é um livro quase obrigatório, pois discute em detalhes
+        praticamente todos os recursos e \textit{packages} importantes
+        de \LaTeX{}, servindo tanto para o aprendizado quanto como
+        material de referência.
+
+\end{enumerate}
+
+\enlargethispage{-.5\baselineskip}
+
+Além de livros, há muito material sobre \LaTeX{} na Internet, mas também há
+muita informação obsoleta. Em particular, você pode ignorar explicações sobre
+como converter arquivos no formato DVI gerados por \LaTeX{} em PDF: versões
+modernas de \LaTeX{} geram arquivos PDF diretamente. Quanto a imagens, os
+formatos de arquivo PS/EPS (PostScript e Encapsulated PostScript) não são mais
+aceitos; hoje em dia \LaTeX{} trabalha com arquivos de imagem nos formatos PDF,
+PNG e JPEG. Finalmente, recursos gráficos não usam mais \textit{packages} como
+\textsf{pstricks}, \textsf{eepic} ou outras tradicionalmente citadas; ao invés
+disso, \textsf{PGF/TikZ} é a ferramenta mais comum.
+
+Dentre o material online, o conteúdo em \url{overleaf.com/learn} é excelente,
+incluindo um rápido tutorial (de escopo similar ao Capítulo~\ref{chap:tutorial}
+deste modelo) e várias páginas sobre como utilizar recursos específicos. Um
+tutorial bastante abrangente e detalhado está disponível em
+\url{tug.org/twg/mactex/tutorials/ltxprimer-1.0.pdf} (há outros, como
+\url{tug.org/tutorials/tugindia},
+\url{www.maths.tcd.ie/~dwilkins/LaTeXPrimer/GSWLaTeX.pdf} e
+\url{www.andy-roberts.net/writing/latex}). Em português, você pode consultar
+\url{polignu.org/sites/polignu.org/files/latex/latex-fflch.pdf} e
+\url{git.febrace.org.br/material-latex/material-latex} (este precisa ser
+baixado e compilado). O sítio \url{tex.stackexchange.com} é
+um fórum de perguntas e respostas sobre \LaTeX{} muito útil, pois os
+principais desenvolvedores do sistema participam das discussões, e o sítio
+\url{texfaq.org} é bastante abrangente e atualizado. O canal
+\url{youtube.com/c/anteroneves} tem vários vídeos instrutivos em português.
+
+Como dito anteriormente, \LaTeX{} é, na verdade, um conjunto de programas e,
+normalmente, instalamos pacotes pré-prontos com todos eles. Esses pacotes (em
+geral, \TeX{}Live e MiK\TeX{}) contém também a documentação das
+\textit{packages} incluídas: Basta digitar \textsf{texdoc nome-da-package}
+(\TeX{}Live) ou \textsf{mthelp nome-da-package} (MiK\TeX{}) para ter acesso à
+documentação correspondente. \textsf{texdoc/mthelp} incluem também alguns
+tutoriais e textos introdutórios, como ``The Not So Short Introduction to
+\LaTeXe{}'' (\textsf{texdoc lshort-eng}; há uma versão em português, mas não
+está em dia com o original), ``Getting up and running with \AmS-\LaTeX{}''
+(\textsf{texdoc amshelp}) e ``A Simplified Introduction to \LaTeX{}''
+(\textsf{texdoc simplified-intro}). Versões recentes do \LaTeX{} incluem
+também o ``\LaTeXe{} via exemplos'' (\textsf{texdoc latex-via-exemplos}),
+em português. O sítio \url{texdoc.net} oferece acesso online a essa mesma
+documentação de maneira organizada e o sítio \url{ctan.org} é o
+repositório semi-oficial das \textit{packages} \LaTeX{} e sua documentação.
+
+A documentação de referência de \LaTeX{} pode ser acessada com \textsf{texdoc
+latex2e} e \textsf{texdoc source2e}; a documentação de referência das classes
+padrão (\textsf{article, book etc}), por sua vez, com \textsf{texdoc classes}.
+Você normalmente não vai usá-las, mas elas podem servir para esclarecer algum
+detalhe. \textsf{texdoc clsguide} é um guia para a criação de novas classes e
+\textit{packages}, e \textsf{texdoc fntguide} explica como funciona a gestão
+de fontes de \LaTeX{} (mas note que \LuaLaTeX{} e \XeLaTeX{} usam outro
+mecanismo). Você pode ver exemplos de fontes disponíveis para \LaTeX{} em
+\url{tug.org/FontCatalogue}.
+
+Quando você se tornar um usuário avançado, pode se interessar em conhecer
+melhor a linguagem \TeX{}, que está na base do \LaTeX{}. ``The \TeX{} book'',
+de Donald Knuth, é amplamente recomendado, mas há três livros completos a
+respeito que são instalados com \LaTeX{}: ``A gentle introduction to \TeX{}''
+(\textsf{texdoc gentle}), ``\TeX{} for the impatient'' (\textsf{texdoc
+impatient}) e ``\TeX{} by topic'' (\textsf{texdoc texbytopic}).
