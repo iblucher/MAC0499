@@ -12,6 +12,10 @@ O formato de dados utilizado nos experimentos é o FITS ou \textit{Flexible Imag
 
 Um arquivo FITS é composto por segmentos chamados de HDU (\textit{Header-Data Units}). Um arquivo FITS deve necessariamente ter um \textit{Primary HDU}, que armazena os dados científicos principais e pode ser acompanhado de HDUs adicionais, categorizados entre extensões de imagens, extensões de tabelas ASCII e extensões de tabelas binárias \citep{nasa-fits}.
 
+O \textit{header} de um arquivo FITS contém uma lista de palavras-chave em letra maiúscula, associadas a um valor e possivelmente seguidas de um comentário. Estas palavras-chave representam elementos dos dados que são importantes, como a data de observação do arquivo, seu autor, seu histórico de processamento, seu telescópio de origem e também podem representar elementos relacionados à física da observação, como a massa de ar no momento e local de observação, temperatura ambiente, umidade e etc.
+
+O componente em sequência do cabeçalho, quando presente, possui um vetor que pode ter desde 1 a 999 dimensões \citep{pence2010definition}. 
+
 \section{Divisão do sinal estelar pelo telúrico}
 
 \section{DTW no sinal estelar}
