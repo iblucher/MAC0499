@@ -233,8 +233,9 @@ O algoritmo proposto, chamado de \textit{FastDTW}, depende de algumas operaçõe
 
 O algoritmo usa uma estratégia recursiva, na qual o caso base é o uso da DTW quadrática padrão. Uma análise da complexidade de tempo e espaço do pior caso em que ambas as séries temporais possuem $n$ elementos, resulta em $n(8r + 14)$ para tempo e $n(4r + 7)$ para espaço, ou seja, se o parâmetro $r$ é um valor constante pequeno ($<n$), podemos afirmar que a complexidade assintótica de ambos é $\mathcal{O}(n)$.
 
-Como pode ser visto nos algoritmos \ref{dtw-matrix} e \ref{dtw-path}, as saídas do \textit{Dynamic Time Warping} são a distância e o caminho ótimo entre duas sequências. Neste trabalho foi produzido um algoritmo que tem como objetivo produzir sequências alinhadas. Para isso éutilizado o caminho resultante da DTW e é feita uma aproximação do realinhamento de uma das sequências em relação à outra. 
+Como pode ser visto nos algoritmos \ref{dtw-matrix} e \ref{dtw-path}, as saídas do \textit{Dynamic Time Warping} são a distância e o caminho ótimo entre duas sequências. Neste trabalho foi produzido um algoritmo que tem como objetivo produzir sequências alinhadas. Para isso é utilizado o caminho resultante da DTW e é feita uma aproximação do realinhamento de uma das sequências em relação à outra. 
 
+(colocar pseudo-codigo aqui)
 
 \section{Conceitos de astronomia relevantes para este trabalho}
 

@@ -14,7 +14,30 @@ Um arquivo FITS é composto por segmentos chamados de HDU (\textit{Header-Data U
 
 O \textit{header} de um arquivo FITS contém uma lista de palavras-chave em letra maiúscula, associadas a um valor e possivelmente seguidas de um comentário. Estas palavras-chave representam elementos dos dados que são importantes, como a data de observação do arquivo, seu autor, seu histórico de processamento, seu telescópio de origem e também podem representar elementos relacionados à física da observação, como a massa de ar no momento e local de observação, temperatura ambiente, umidade e etc.
 
-O componente em sequência do cabeçalho, quando presente, possui um vetor que pode ter desde 1 a 999 dimensões \citep{pence2010definition}. 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/fits_header.png}
+\caption{O trecho do cabeçalho do arquivo FITS da estrela }
+\label{fig:fits-header}
+\end{figure}
+
+O componente em sequência do cabeçalho, quando presente, possui um vetor que pode ter desde 1 a 999 dimensões. Esta seção representa o dado astronômico capturado, como os valores do fluxo de um espectro estelar ou uma imagem de um objeto celeste. Os dados podem ter um de 5 possíveis tipos de dados \citep{pence2010definition}:
+
+\begin{enumerate}
+    \item Inteiros de 8 bits
+    \item Inteiros de 16 bits
+    \item Inteiros de 32 bits
+    \item Números reais de ponto flutuante de 32 bits
+    \item Números reais de ponto flutuante de 64 bits
+\end{enumerate}
+
+Nesta seção será descrito o processo de conhecimento e ambientação com os dados astronômicos fornecidos e seu formato. Alguns conjuntos de dados fornecidos para isto são de observações reais do nosso Sol, da estrela Arcturus, de um referencial telúrico para ambas e de estrelas capturadas pelo espectrógrafo UVES \footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/uves.html}} \citep{2000SPIE.4008..534D}, que também faz parte do \textit{Very Large Telescope Array} \footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}}. 
+
+Para leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}\footnote{\url{http://www.astropy.org}}, que é amplamente usado para processar computacionalmente diversos dados astronômicos \citep{astropy:2018}. 
+
+Com a combinação dos dados fornecidos com o ferramental correto, foi possível abrir, analisar e visualizar o espectro de diversas estrelas.
+
+(espectros de algumas estrelas selecionadas e comentarios no formato e na facilidade de leitura)
 
 \section{Divisão do sinal estelar pelo telúrico}
 
