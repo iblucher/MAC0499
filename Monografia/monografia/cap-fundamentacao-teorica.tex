@@ -85,7 +85,7 @@ O espectro resultante da redução de dados é unidimensional no domínio do com
 Também é possível observar que a figura \ref{fig:x0319-obs-spectrum} tem o formato esperado de um espectro estelar mencionado na seção \ref{astronomic-spectroscopy}: um espectro contínuo com a presença de várias linhas de absorção.
 
 
-\section{Contaminação Telúrica}
+\section{Contaminação Telúrica} \label{telluric-contamination}
 
 Como as estrelas do \textit{X-Shooter Spectral Library}, a maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo. Nesse caso, nem toda luz irradiada por um objeto celestre consegue ser capturada pelo espectrógrafo. Isto acontece pois, ao atravessar a atmosfera terrestre o sinal astronômico interage com moléculas como vapor de água e oxigênio, o que resulta na formação de novas linhas no espectro observado. Estas linhas são chamadas de linhas telúricas. 
 \pc{acho que cabe mencionar que regioes diferentes de comprimento de onda sao mais ou menos sensiveis aa atmosfera, e mostrar um grafico ilustrando um espectro telurico. pode ser da literatura, assim mostramos um observado (ao contrario dos que voce tem sao modelos). }
@@ -233,9 +233,43 @@ O algoritmo proposto, chamado de \textit{FastDTW}, depende de algumas operaçõe
 
 O algoritmo usa uma estratégia recursiva, na qual o caso base é o uso da DTW quadrática padrão. Uma análise da complexidade de tempo e espaço do pior caso em que ambas as séries temporais possuem $n$ elementos, resulta em $n(8r + 14)$ para tempo e $n(4r + 7)$ para espaço, ou seja, se o parâmetro $r$ é um valor constante pequeno ($<n$), podemos afirmar que a complexidade assintótica de ambos é $\mathcal{O}(n)$.
 
-Como pode ser visto nos algoritmos \ref{dtw-matrix} e \ref{dtw-path}, as saídas do \textit{Dynamic Time Warping} são a distância e o caminho ótimo entre duas sequências. Neste trabalho foi produzido um algoritmo que tem como objetivo produzir sequências alinhadas. Para isso é utilizado o caminho resultante da DTW e é feita uma aproximação do realinhamento de uma das sequências em relação à outra. 
+Como pode ser visto nos algoritmos \ref{dtw-matrix} e \ref{dtw-path}, as saídas do \textit{Dynamic Time Warping} são a distância e o caminho ótimo entre duas sequências. Neste trabalho foi produzido um algoritmo que tem como objetivo produzir sequências alinhadas. Para isso é utilizado o caminho resultante da DTW e é feita uma aproximação do realinhamento de uma das sequências em relação à outra. O algoritmo implementado, usa os índices repetidos no caminho da DTW e tira a média entre os elementos correspondentes para criar um valor representativo da correspondência de uma região maior de uma sequência com uma região menor de outra.
 
-(colocar pseudo-codigo aqui)
+Em termos matemáticos temos as sequências $a$ e $o$, definidas na seção \ref{telluric-contamination}, queremos $\overline{a}$ que representa a sequência $a$ realinhada em relação à sequência $o$. Para obter este $\overline{a}$, o procedimento é
+
+\begin{equation*}
+    \overline{a}_l = \parbox[t]{1.8cm}{média de} \{a_k\}_{k \in L}, \quad  l = 0, \cdots, n
+\end{equation*}
+
+\noindent onde
+
+\begin{equation*}
+  L = \{m | (m, l) \in P\}
+\end{equation*}
+
+\noindent e $P$ representa o caminho resultante da DTW entre $a$ e $o$.
+
+O pseudo-código resultante desta lógica pode ser visto no algoritmo \ref{dtw-realignment}
+
+\begin{algorithm}
+\caption{Sequence alignment}\label{dtw-realignment}
+\begin{algorithmic}[1]
+\Procedure{align\_sequence\_dtw\_path}{$P$, $s$}
+    \Comment{Seja $P$ uma lista de tuplas e $s$ o vetor a ser realinhado}
+    \State $d \gets \emptyset$ \Comment{Seja $d$ uma associação chave-valor vazia}
+    \State $aligned \gets \emptyset$
+    \For{$(i, j)$ in $P$}
+        \State insere $i$ na lista $d[j]$
+    \EndFor
+    \For{$(j, lista)$}
+        \State $m \gets$ média dos valores de $s$ associados aos índices na lista $d[j]$
+        \State $aligned[j] \gets m$
+    \EndFor
+\State \textbf{return} $aligned$\Comment{Sequência realinhada}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
 
 \section{Conceitos de astronomia relevantes para este trabalho}
 
