@@ -80,15 +80,15 @@ M                       & 3000                                 \\ \hline
 Os tipos espectrais das estrelas continuam sendo uma parte essencial para a pesquisa em astronomia, seja para auxiliar na descoberta de exoplanetas ou na interpretação da história da evolução das galáxias \citep{Charbonneau_2002}. 
 % \pc{senti falta de uma referencia aqui. posso te ajudar, claro.}
 
-\pc{Pergunta para Isa e Marcelo: o quanto voces referenciam artigos em textos da Computacao? No texto abaixo, o meu impulso é adicionar uma referencia para cada conceito, como espectrografo, CCD etc... Posso ajudar nas referencias, claro, mas primeiro gostaria de saber se voces tb estao acostumados a adicionar referencia para quase cada conceito, ou se esse é um viés meu.}
+% \pc{Pergunta para Isa e Marcelo: o quanto voces referenciam artigos em textos da Computacao? No texto abaixo, o meu impulso é adicionar uma referencia para cada conceito, como espectrografo, CCD etc... Posso ajudar nas referencias, claro, mas primeiro gostaria de saber se voces tb estao acostumados a adicionar referencia para quase cada conceito, ou se esse é um viés meu.}
 
-\mqz{Concordamos que qualquer afirmação que não seja clara para nosso leitor em potencial, ou que demande informações adicionais para ser justificada, deveria ser seguida por uma referência. A granularidade de ocorrência dessas referências poderia ser discutida: na passagem a seguir talvez uma referência por parágrafo fosse suficiente, considerando que os parágrafos estejam organizados em torno de uma ideia única central (que pode ser um conceito como sinal espectral ou redução de dados, ou ainda um dispositivo como CCD ou um banco de dados como o XShooter). Minha sensação inicial é que os parágrafos a seguir talvez não estejam tão claramente segmentados, ou seja, amarrados cada um a uma ideia central. Uma técnica que sempre me ajuda é preparar uma lista de ``bullet points'' sobre essas ideias; por exemplo, talvez na sequência a seguir essas ideias-aglutinadoras-de-parágrafos pudessem ser:
-\begin{itemize}
-    \item espectrógrafo e sinal espectral
-    \item redução de dados
-    \item descrição da coleção XShooter (isso me pareceria mais natural numa seção sobre datasets, mas talvez pudesse ser introduzida brevemente num parágrafo aqui como elemento auxiliar nas ilustrações dos demais conceitos teóricos).
-\end{itemize}
-Por sinal, tudo o que aparece nessa seção caberia muito naturalmente (mais naturalmente?) na seção~\ref{astronomic-spectroscopy} ``Espectrografia Astronômica''.}
+% \mqz{Concordamos que qualquer afirmação que não seja clara para nosso leitor em potencial, ou que demande informações adicionais para ser justificada, deveria ser seguida por uma referência. A granularidade de ocorrência dessas referências poderia ser discutida: na passagem a seguir talvez uma referência por parágrafo fosse suficiente, considerando que os parágrafos estejam organizados em torno de uma ideia única central (que pode ser um conceito como sinal espectral ou redução de dados, ou ainda um dispositivo como CCD ou um banco de dados como o XShooter). Minha sensação inicial é que os parágrafos a seguir talvez não estejam tão claramente segmentados, ou seja, amarrados cada um a uma ideia central. Uma técnica que sempre me ajuda é preparar uma lista de ``bullet points'' sobre essas ideias; por exemplo, talvez na sequência a seguir essas ideias-aglutinadoras-de-parágrafos pudessem ser:
+% \begin{itemize}
+%     \item espectrógrafo e sinal espectral
+%     \item redução de dados
+%     \item descrição da coleção XShooter (isso me pareceria mais natural numa seção sobre datasets, mas talvez pudesse ser introduzida brevemente num parágrafo aqui como elemento auxiliar nas ilustrações dos demais conceitos teóricos).
+% \end{itemize}
+% Por sinal, tudo o que aparece nessa seção caberia muito naturalmente (mais naturalmente?) na seção~\ref{astronomic-spectroscopy} ``Espectrografia Astronômica''.}
 
 \section{Redução de Dados}
 
@@ -96,69 +96,113 @@ Por sinal, tudo o que aparece nessa seção caberia muito naturalmente (mais nat
 Pesquisas na área de espectroscopia astronômica são dependentes de uma sólida estrutura instrumental. Isto significa que para coletar dados de objetos celestes é necessário ter acesso a instrumentos de observação, equipamentos de \textit{hardware} sofisticado que são capazes de transformar a radiação eletromagnética que alcança a superfície terrestre em dados cientificamente interpretáveis.
 
 % ccd
-Estes instrumentos de observação muitas vezes estão munidos de um CCD ou \textit{charge-coupled device}, um sensor eletrônico constituído por vários quadrados fotossensíveis, que registram o sinal em pixels de uma imagem. CCDs respondem linearmente ao sinal que os atinge e registram uma imagem da região do céu que está sendo observada. A chegada de um fóton em um de seus pixels gera uma pequena carga elétrica armazenada para leitura posterior, e esta aumenta de forma proporcional à quantidade de fótons que atingem o aparelho \citep{davenhall20012}.
+Estes instrumentos de observação muitas vezes estão munidos de um CCD ou \textit{charge-coupled device}, um sensor eletrônico constituído por vários quadrados fotossensíveis, que registram o sinal em pixels de uma imagem. CCDs respondem linearmente ao sinal que os atinge e registram uma imagem da região do céu que está sendo observada. A chegada de cada fóton em um de seus pixels gera uma pequena carga elétrica armazenada para leitura posterior, e esta aumenta de forma proporcional à quantidade de fótons que atingem o aparelho \citep{davenhall20012}.
 
 % pros e contras de ccd
-Os benefícios de usar um CCD para capturar imagens celestes é que eles automaticamente fornecem uma imagem digitalizada capaz de ser exibida e processada em um computador. Porém, estes dados brutos contêm uma série de assinaturas instrumentais que devem ser eliminados antes que o dado possa ser usado para fins científicos \citep{davenhall20012}.  
+Os benefícios de se usar um CCD para capturar imagens celestes é que eles automaticamente fornecem uma imagem digitalizada capaz de ser exibida e processada por um computador. Porém, estes dados brutos contêm uma série de assinaturas instrumentais que devem ser eliminadas antes que o dado possa ser usado para fins científicos \citep{davenhall20012}.  
 
 % redução de dados
 O processo de correção das imagens capturadas pelo CCD é chamado redução de dados, e consiste de uma série de transformações aplicadas à imagem bruta. No final deste processo é obtida uma imagem científica utilizável e pronta para ser analisada.
 
 % redução de dados no caso estelar
-No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional a partir de uma imagem de CCD da estrela observada, também chamada de estrela de ciência. A figura~\ref{fig:x0319-obs-spectrum} ilustra o espectro de uma estrela da \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter}\footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/xshooter.html}}, parte do \textit{Very Large Telescope array}\footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}} (VLT), localizado no Cerro Paranal, Chile.  
+No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional a partir de uma imagem de CCD da estrela observada, também chamada de estrela de ciência. A figura ~\ref{fig:calibration-steps}, ilustra as imagens de CCD antes e depois do processo de redução.
+
+% A figura~\ref{fig:x0319-obs-spectrum} ilustra o espectro de uma estrela da \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter}\footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/xshooter.html}}, parte do \textit{Very Large Telescope array}\footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}} (VLT), localizado no Cerro Paranal, Chile.  
+
+% \begin{figure}[htb]
+% \centering
+% \includegraphics[width=15cm]{figuras/X0319_obs_spectrum.png}
+% \caption{O espectro observado da estrela X0319}
+% \label{fig:x0319-obs-spectrum}
+% \end{figure}
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=15cm]{figuras/X0319_obs_spectrum.png}
-\caption{O espectro observado da estrela X0319}
-\label{fig:x0319-obs-spectrum}
+\includegraphics[width=15cm]{figuras/calibration_steps.jpg}
+\caption{Redução de dados de uma imagem de CCD à um espectro unidimensional \citep{data-reduction-image}}
+\label{fig:calibration-steps}
 \end{figure}
 
-O espectro resultante da redução de dados é unidimensional no domínio do comprimento de onda da estrela e tem sua intensidade representada pelo fluxo. 
+% unidade do fluxo
+O espectro resultante deste processo é unidimensional no domínio do comprimento de onda da estrela e tem sua intensidade representada por um fluxo, cuja unidade é erg/cm\(^{2}\)/s/Å, que representa a intensidade por unidade de área, tempo e comprimento de onda \citep{astronomical-measurements}.
 
-O fluxo é capturado em unidades de contagem de fótons, também chamadas de ADUs (\textit{Analog Digital Units}), que são adimensionais. O fluxo de um espectro estelar pode ser reescalonado para o intervalo $[0, 1]$, porém nem sempre isto é feito, como pode ser visto na imagem \ref{fig:x0319-obs-spectrum}. 
+% tentativa da explicação da adimensionalidade do fluxo antes do final da redução de dados
 
-Também é possível observar que a figura \ref{fig:x0319-obs-spectrum} tem o formato esperado de um espectro estelar mencionado na seção \ref{astronomic-spectroscopy}: um espectro contínuo com a presença de várias linhas de absorção.
+
+
+% O fluxo é capturado em unidades de contagem de fótons, também chamadas de ADUs (\textit{Analog Digital Units}), que são adimensionais. O fluxo de um espectro estelar pode ser reescalonado para o intervalo $[0, 1]$, porém nem sempre isto é feito, como pode ser visto na imagem \ref{fig:x0319-obs-spectrum}. Também é possível observar que a figura \ref{fig:x0319-obs-spectrum} tem o formato esperado de um espectro estelar mencionado na seção \ref{astronomic-spectroscopy}: um espectro contínuo com a presença de várias linhas de absorção.
 
 
 \section{Contaminação Telúrica} \label{telluric-contamination}
 
-Como as estrelas do \textit{X-Shooter Spectral Library}, a maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo. Nesse caso, nem toda luz irradiada por um objeto celestre pode ser capturada pelo espectrógrafo. Isto acontece porque, ao atravessar a atmosfera terrestre, o sinal astronômico interage com moléculas como vapor de água e oxigênio, o que resulta na formação de novas linhas no espectro observado, chamadas de linhas telúricas. 
-\pc{acho que cabe mencionar que regioes diferentes de comprimento de onda sao mais ou menos sensiveis aa atmosfera, e mostrar um grafico ilustrando um espectro telurico. pode ser da literatura, assim mostramos um observado (ao contrario dos que voce tem sao modelos). }
+% voltar na menção da contaminação telúrica no começo do capítulo e juntar com a parte instrumental da seção anterior
+Como mencionado na seção ~\ref{astronomic-spectroscopy}, a maioria das observações astronômicas são feitas a partir do solo e, neste caso, nem toda luz irradiada por uma estrela consegue ser capturada por instrumentos de observação. 
 
-As linhas telúricas, quando misturadas no espectro original, contribuem para a criação de uma observação distorcida ou contaminada. A menos que seja corrigida, esta contaminação pode produzir erros de interpretação e ruídos que reduzem a precisão dos dados observados, e consequentemente, dificultam o avanço de diversas pesquisas astronômicas.
+% contaminação telúrica no observado
+A principal consequência da interação da radiação eletromagnética estelar com a atmosfera terrestre é que novas linhas espectrais são formadas no espectro capturado instrumentalmente. As moléculas presentes na atmosfera terrestre formam linhas de absorção no espectro observado, denominadas de linhas telúricas.  
 
-Existem alguns procedimentos típicos usados hoje em dia para remover as linhas telúricas de um espectro de ciência. Um método popular consiste em aplicar uma divisão simples entre o espectro da observação e uma referência telúrica, quando satisfeita a condição de que o referencial telúrico tenha as mesmas assinaturas instrumentais do espectro de ciência. \pc{essa ultima frase que eu adicionei tem a ver com alguma conversa que tivemos, o Marcelo explicou disso na lousa. vou rever as conversas e as fotos da lousa pra podermos expandir se / quando necessario}. Esta referência telúrica pode ser obtida de duas maneiras: através da observação de uma estrela padrão, ou pela simulação de um espectro atmosférico teórico, conforme detalhado a seguir.
+% como a atmosfera afeta certas regiões de comprimento de onda
+No espectro estelar, regiões diferentes de comprimentos de onda possuem diferentes sensibilidades à atmosfera. Isso implica que em certas regiões do espectro de ciência existe uma maior presença das linhas telúricas do que em outras.
 
-As estrelas padrão são estrelas quentes em rotação rápida de tipo espectral B ou A. Elas são escolhidas pois seus espectros não possuem características marcantes além de fortes linhas de hidrogênio. Para que o espectro de uma estrela padrão seja usado como uma referência telúrica, é necessário observá-la em condições muito próximas (tempo, posição no céu e condições atmosféricas) daquelas referentes ao espectro de ciência. Contudo, existem várias limitações fundamentais no nível de correção que pode ser obtido com o método da estrela padrão. Primeiramente, características estelares ainda podem estar presentes no espectro da estrela padrão, evidenciando que ela não é um modelo preciso da transmissão radiativa da atmosfera. Além disso, o tempo e a direção de observação das duas estrelas nunca será exatamente o mesmo, o que significa que a assinatura atmosférica de ambos os espectros também será necessariamente diferente.
+%% INCLUIR FIGURA DA LITERATURA AQUI %%
 
-Devido às limitações das estrelas padrão, foi criado um método mais sofisticado e automatizado para produzir uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)} \citep{2005JQSRT..91..233C}, que fornece cálculos de radiância espectral com precisão e eficiência. Este modelo utiliza o HITRAN \citep{rothman2009hitran}, um acrônimo para \textit{High-resolution Transmission molecular absorption database}, uma base de dados de linhas e parâmetros espectroscópicos. 
+% Como as estrelas do \textit{X-Shooter Spectral Library}, a maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo. Nesse caso, nem toda luz irradiada por um objeto celeste pode ser capturada pelo espectrógrafo. Isto acontece porque, ao atravessar a atmosfera terrestre, o sinal astronômico interage com moléculas como vapor de água e oxigênio, o que resulta na formação de novas linhas de absorção no espectro observado, chamadas de linhas telúricas. 
 
+% \pc{acho que cabe mencionar que regioes diferentes de comprimento de onda sao mais ou menos sensiveis aa atmosfera, e mostrar um grafico ilustrando um espectro telurico. pode ser da literatura, assim mostramos um observado (ao contrario dos que voce tem sao modelos). }
+
+% efeitos da contaminação telúrica no espectro
+As linhas telúricas  contribuem para a criação de uma observação distorcida ou contaminada. A menos que seja corrigida, esta contaminação pode produzir erros de interpretação e ruídos que reduzem a precisão dos dados observados, e consequentemente, dificultam o avanço de diversas pesquisas astronômicas.
+
+% procedimentos atuais para correção telúrica
+Existem alguns procedimentos típicos usados hoje em dia para remover as linhas telúricas de um espectro de ciência. Um método popular consiste em aplicar uma divisão simples entre o espectro da observação e uma referência telúrica, que consiste em uma função representando a transmissão radiativa da atmosfera terrestre para cada comprimento de onda, desde que satisfeita a condição de que o referencial telúrico tenha as mesmas assinaturas instrumentais do espectro de ciência. Esta referência telúrica pode ser obtida de duas maneiras: através da observação de uma estrela padrão, ou pela simulação de um espectro atmosférico teórico, conforme detalhado a seguir.
+
+% estrelas padrão
+As estrelas padrão são estrelas quentes em rotação rápida de tipo espectral B ou A. Elas são escolhidas pois seus espectros não possuem características marcantes além de fortes linhas de hidrogênio. Para que o espectro de uma estrela padrão seja usado como uma referência telúrica, é necessário observá-la em condições muito próximas (tempo, posição no céu e condições atmosféricas) daquelas referentes ao espectro de ciência. Contudo, existem várias limitações fundamentais no nível de correção que pode ser obtido com o método da estrela padrão. Primeiramente, outras características estelares além das linhas de hidrogênio ainda podem estar presentes no espectro da estrela padrão, evidenciando que ela não é um modelo preciso da transmissão radiativa da atmosfera. Além disso, o tempo e a direção de observação das duas estrelas nunca será exatamente o mesmo, o que significa que a assinatura atmosférica de ambos os espectros também será necessariamente diferente.
+
+% espectros de transmissão atmosférica sintéticos
+Devido às limitações no uso das estrelas padrão, foi criado um método mais sofisticado e automatizado para produzir uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)} \citep{2005JQSRT..91..233C}, que fornece cálculos de radiância espectral com precisão e eficiência. Este modelo utiliza o HITRAN \citep{rothman2009hitran}, um acrônimo para \textit{High-resolution Transmission molecular absorption database}, uma base de dados de linhas e parâmetros espectroscópicos. 
+
+% exemplo do molecfit
 Um exemplo de software de simulação do espectro atmosférico é o Molecfit \citep{smette2015molecfit}, uma ferramenta para a modelagem de linhas telúricas desenvolvido por astrônomos do \textit{European Southern Observatory}. De acordo com seus criadores, o Molecfit recupera o perfil atmosférico mais compatível com o instante da observação da estrela de ciência. Isto envolve a utilização de um modelo de transmissão radiativa da atmosfera com uma base de dados espectral para recuperar atributos como a variação na temperatura, pressão e umidade em função da altitude da observação.
 
-Independentemente de como é gerado o referencial telúrico, 
-a divisão simples do espectro observado por este referencial indica que a ação da atmosfera na estrela é de natureza linear e multiplicativa. \pc{é mesmo a divisao dos espectros que indica isso? }\mqzinline{Não... conversamos.} Em termos matemáticos, consideramos os espectros de ciência, telúrico e estelar sem contaminação como vetores $o$ (observado), $a$ (atmosfera) e $s$ (estrela), tais que:
+% o que o referencial telúrico representa em termos da absorção da radiação pela atmosfera
+Independentemente de como é gerado o referencial telúrico, considera-se que ele representa coeficientes de transmissão da radiação através da atmosfera, no sentido que, para cada comprimento de onda, a quantidade de radiação que consegue atravessar a atmosfera e chegar ao instrumento é dada pelo percentual -- representado pelo coeficiente de transmissão -- da radiação propagada desde a estrela até sua entrada na atmosfera terrestre\footnote{Isso está de acordo com o princípio da superposição e equivale à hipótese de linearidade do processo de transmissão radiativa no vácuo, sob a qual a transmissão pode ser modelada independentemente para cada frequência ou comprimento de onda.}. \mqzinline{Paula, você poderia ler e verificar se esse trecho (+footnote) tem algum erro grosseiro?}
+
+% operacionalização do problema da contaminação telúrica
+Em termos matemáticos, consideramos os espectros de ciência, telúrico e estelar sem contaminação como vetores $o$ (observado), $a$ (atmosfera) e $s$ (estrela),
 
 \begin{equation*}
-    o := \{o_1, o_2, \cdots, o_{n}\} \qquad a := \{a_1, a_2, \cdots, a_{n}\} \qquad s := \{s_1, s_2, \cdots, s_{n}\} 
+    o = (o_1, o_2, \cdots, o_{n}) \qquad a = (a_1, a_2, \cdots, a_{n}) \qquad s = (s_1, s_2, \cdots, s_{n}), 
 \end{equation*}
 
-\noindent onde $n$ representa o comprimento igual dos vetores e estes representam valores discretos do fluxo estelar ou atmosférico em intervalos igualmente espaçados de comprimento de onda. A contaminação telúrica do espectro de ciência nesta representação é a multiplicação dos elementos do vetor telúrico pelo estelar:
+\noindent representando valores discretos do fluxo estelar ou atmosférico em $n$ comprimentos de onda específicos (geralmente equi-espaçados). A contaminação telúrica do espectro de ciência se refere então à equação
 
 \begin{equation*}
-    o = a \circ s
+    o = a \circ s \qquad \left(\mbox{ou equivalentemente:} \qquad o_i = a_i\cdot s_i,\ \forall i\right),
 \end{equation*}
 
-\noindent onde $\circ$ representa o produto de Hadamard, ou o produto par a par dos elementos do vetor. Esta representação tem como objetivo relaxar as restrições físicas do problema, de forma que seja possível aplicar algoritmos nos sinais que dependem da suposição de linearidade da contaminação telúrica.
+\noindent onde $\circ$ representa o produto de Hadamard entre o espectro estelar original e o referencial telúrico, e a equação pressupõe que as três sequências estejam perfeitamente alinhadas, ou seja, que cada índice $i$ represente o mesmo comprimento de onda nos três espectros. Esse é um possível ponto de partida para o tratamento dos espectros estelares com técnicas computacionais associadas ao processamento de sinais digitais, abordadas a seguir.
+%Esta representação tem como objetivo relaxar as restrições físicas do problema, de forma que seja possível aplicar algoritmos nos sinais que dependem da suposição de linearidade da contaminação telúrica.
 
 
 \section{Similaridade e alinhamento de sinais}
 
-O estudo de séries temporais tem como objetivo extrair estatísticas e características significativas dos dados analisados. Um dos objetivos compreendidos pela análise de séries temporais é a mensuração da similaridade entre duas sequências. Esta medida de similaridade possui diversas aplicações em áreas como reconhecimento de fala, para saber se uma frase corresponde à outra, economia, para analisar similaridades em dados de investimentos de períodos diferentes, e etc. No caso dos espectros estelares, a similaridade entre sinais pode ser útil para alinhar regiões de contaminação atmosférica de moléculas específicas em um espectro de ciência com as regiões a contaminação correspondente no espectro telúrico.
+% processamento de sinais e similaridade
+O processamento de sinais digitais tem como objetivo extrair informações significativas dos sinais, bem como modificá-los a fim de atingir determinados objetivos. Uma das operações importantes na análise de sinais digitais é a mensuração da similaridade entre dois sinais. Medidas de similaridade possuem diversas aplicações em áreas como reconhecimento de fala, para saber se um sinal de voz corresponde a um determinado texto, ou em economia, para comparar investimentos em períodos diferentes, entre outras aplicações.
 
-Para se calcular a similaridade entre duas séries temporais pode ser usada a distância euclideana em pares de pontos de cada série que correspondem ao mesmo instante. Esta métrica funcionaria em sinais perfeitamente sincronizados no domínio do tempo e que se movem na mesma velocidade. No caso das sequências estarem dessincronizadas, pontos similares em cada uma delas começam a se afastar uns dos outros e a conclusão equivocada nesse caso é de que os sinais são pouco similares devido ao aumento da distância euclideana.
+% possiveis problemas na operacionalização do problema como descrito acima (mencionar os três problemas)
+% contexto do desalinhamento nos dados observados XSL
+Nas observações utilizadas no desenvolvimento deste trabalho...
 
-Um algoritmo mais roubusto utilizado para determinar a similaridade entre duas séries temporais é o \textit{Dynamic Time Warping (DTW)}. Este algoritmo acha uma correspondência ótima entre duas séries temporais, ou quaisquer dados que podem ser representados como sequências lineares, mesmo que estejam dessincronizados. Isto é feito com o deslocamento elástico das sequências para medir a similaridade de trechos com diferentes fases \citep{shou2005fast}. A figura \ref{fig:euclidean-vs-dtw-matching} ilustra como o DTW encontra uma correspondência mais intuitiva do que a correspondência euclideana, juntando regiões das duas sequências com formatos similares mesmo que não estejam perfeitamente alinhadas.
+% similaridade no contexto dos espectros estelares
+No caso dos espectros estelares, o estudo da similaridade entre sinais pode ser útil para alinhar regiões de contaminação atmosférica de moléculas específicas em um espectro de ciência com as regiões correspondentes no espectro telúrico, antes de se estimar o espectro original pela técnica da divisão.
+
+% falhas da distancia euclideana como metrica de similaridade
+Uma medida tradicional de diferença entre informações numéricas que poderia ser usada como medida de similaridade entre dois sinais digitais é a distância euclideana entre os vetores correspondentes. Porém em sinais com flutuações rápidas é fácil perceber que mesmo um pequeno desalinhamento poderia provocar um grande aumento na distância entre os sinais.
+
+% introdução à DTW
+Um algoritmo robusto utilizado para determinar a similaridade entre dois sinais digitais é o \textit{Dynamic Time Warping (DTW)}. Este algoritmo acha uma correspondência ótima entre os índices dos dois vetores, de tal maneira a minimizar as distâncias entre os índices correspondentes. Essa correspondência equivale a um alinhamento entre as sequências que torna os sinais realinhados mais similares~\citep{shou2005fast}.
+% A figura \ref{fig:euclidean-vs-dtw-matching} ilustra como o DTW encontra uma correspondência mais intuitiva do que a correspondência euclideana, juntando regiões das duas sequências com formatos similares mesmo que não estejam perfeitamente alinhadas.
 
 \begin{figure}[htb]
 \centering
@@ -167,32 +211,38 @@ Um algoritmo mais roubusto utilizado para determinar a similaridade entre duas s
 \label{fig:euclidean-vs-dtw-matching}
 \end{figure}
 
-A formulação do problema \citep{salvador2007toward} do \textit{Dynamic Time Warping} é a seguinte: dadas duas sequências $X$ e $Y$, de comprimentos respectivos $n$ e $m$ tal que 
+A formulação do problema \citep{salvador2007toward} do \textit{Dynamic Time Warping} é a seguinte: dadas duas sequências $X$ e $Y$, de comprimentos respectivos $n$ e $m$,
 
 \begin{align*}
-    X = \{x_1, x_2, \cdots, x_n\} \\
-    Y = \{y_1, y_2, \cdots, y_m\}
+    X = (x_1, x_2, \cdots, x_n) \\
+    Y = (y_1, y_2, \cdots, y_m),
 \end{align*}
 
-construa um caminho $W$ de comprimento $k$ tal que
+construa um caminho $W$ de comprimento $k$
 
 \begin{equation*}
-    W = \{w_1, w_2, \cdots, w_k\}, \qquad max(n, m) \leq k < n + m
+    W = (w_1, w_2, \cdots, w_k, \qquad max(n, m) \leq k < n + m,
 \end{equation*}
 
-e o $k$-ésimo elemento do caminho $W$ é $w_k = (i, j)$ e $i$, $j$ são índices das sequências $X$ e $Y$, respectivamente. O caminho $W$ deve começar em $w_1 = (1, 1)$ e deve terminar em $w_k = (n. m)$, de forma a assegurar que todos os índices das duas sequências serão usados. Também há uma restrição no caminho $W$ que força $i$ e $j$ a serem monótonos não-decrescentes. Em termos matemáticos isso corresponde a
+\noindent que satisfaça as seguintes condições:
 
+\begin{itemize}
+\item o $k$-ésimo elemento do caminho $W$ é $w_k = (i_k, j_k)$, onde $i_k$, $j_k$ são índices das sequências $X$ e $Y$, respectivamente;
+\item o caminho $W$ deve começar em $w_1 = (1, 1)$ e deve terminar em $w_k = (n, m)$, de forma a assegurar que todos os índices das duas sequências serão usados;
+\item o caminho $W$ força $i_k$ e $j_k$ a serem monótonos não-decrescentes como funções de $k$; em termos matemáticos isso equivale a
 \begin{equation*}
-    w_k = (i, j),\, w_{k + 1} = (i', j') \qquad i \leq i' \leq i + 1,\, j\leq j' \leq j + 1
+    i_k \leq i_{k+1} \leq i_k + 1 \qquad \mbox{e} \qquad j_k\leq j_{k+1} \leq j_k + 1;
 \end{equation*}
-
-Esta descrição do problema possibilita a geração de infinitos caminhos, logo, o objetivo é encontrar o caminho ótimo entre as sequências $X$ e $Y$. O caminho ótimo do algoritmo é o caminho de distância mínima
-
+\item o caminho $W$ minimiza a função 
 \begin{equation*}
-    dist(W) = \sum_{d=1}^{d=k} dist(w_{di}, w_{dj})
+    dist(W) = \sum_{n=1}^{k} dist(x_{i_n}, y_{j_n})
 \end{equation*}
+onde $dist(x_{i_n}, y_{j_n})$ é uma medida de distância (tipicamente a euclideana) entre um par de elementos das sequências $X$ e $Y$.
+\end{itemize}
 
-onde $dist(W)$ é a distância do caminho $W$ selecionada (tipicamente a euclideana) e $dist(w_{di}, w_{dj})$ é a distância entre um par de dados das sequências $X$ e $Y$ no $d$-ésimo elemento do caminho $W$.
+As três primeiras condições definem uma enorme quantidade de caminhos/alinhamentos possíveis, ao passo que a quarta condição estabelece um critério de comparação entre dois alinhamentos distintos.
+
+% MQZ parou aqui...
 
 A implementação do algoritmo utiliza o paradigma da programação dinâmica, onde cada instância do problema é resolvida usando soluções de subinstâncias do problema original. O diferencial desta abordagem é que os resultados dos subproblemas são armazenados em uma tabela ou matriz. No caso da DTW é criada uma matrz de distância $D$ de dimensão $n \times m$, onde $D(i, j)$ armazena o valor da distância do caminho mínimo que pode ser construído entre as sequências $X' = \{x_1, \cdots, x_i\}$ e $Y' = \{y_1, \cdots, y_j\}$. Logo, o valor armazenado em $D(n, m)$ representa a distância do caminho mínimo que compreende as duas sequências inteiras. O preenchimento da matriz $D$ é feito com a seguinte lógica
 
