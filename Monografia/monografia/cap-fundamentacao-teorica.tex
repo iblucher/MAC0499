@@ -129,7 +129,6 @@ O espectro resultante deste processo é unidimensional no domínio do compriment
 % tentativa da explicação da adimensionalidade do fluxo antes do final da redução de dados
 
 
-
 % O fluxo é capturado em unidades de contagem de fótons, também chamadas de ADUs (\textit{Analog Digital Units}), que são adimensionais. O fluxo de um espectro estelar pode ser reescalonado para o intervalo $[0, 1]$, porém nem sempre isto é feito, como pode ser visto na imagem \ref{fig:x0319-obs-spectrum}. Também é possível observar que a figura \ref{fig:x0319-obs-spectrum} tem o formato esperado de um espectro estelar mencionado na seção \ref{astronomic-spectroscopy}: um espectro contínuo com a presença de várias linhas de absorção.
 
 
@@ -191,24 +190,27 @@ Em termos matemáticos, consideramos os espectros de ciência, telúrico e estel
 O processamento de sinais digitais tem como objetivo extrair informações significativas dos sinais, bem como modificá-los a fim de atingir determinados objetivos. Uma das operações importantes na análise de sinais digitais é a mensuração da similaridade entre dois sinais. Medidas de similaridade possuem diversas aplicações em áreas como reconhecimento de fala, para saber se um sinal de voz corresponde a um determinado texto, ou em economia, para comparar investimentos em períodos diferentes, entre outras aplicações.
 
 % possiveis problemas na operacionalização do problema como descrito acima (mencionar os três problemas)
+Como foi mencionado na seção ~\ref{telluric-contamination}, é possível assumir que o problema da contaminação telúrica pode ser operacionalizado como uma multiplicação simples partindo do pressuposto de que os sinais se encontram em uma situação ideal. Estabelece-se como uma situação ideal os sinais que: (i) possuem mesma intensidade, ou seja, que foram observados sem alterações da atmosfera; (ii) possuem mesma assinatura instrumental; (iii) possuem mesma resolução de comprimento de onda, ou seja, estão perfeitamente alinhados pixel a pixel. 
+
 % contexto do desalinhamento nos dados observados XSL
-Nas observações utilizadas no desenvolvimento deste trabalho...
+As observações utilizadas no desenvolvimento experimental deste trabalho são dados astronômicos reais provientes do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter}\footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/xshooter.html}}. Pesquisados que usaram estes dados para suas pesquisas relataram desalinhamentos nos comprimentos de onda dos espectros \citep{wavelength-shifts}.
 
 % similaridade no contexto dos espectros estelares
-No caso dos espectros estelares, o estudo da similaridade entre sinais pode ser útil para alinhar regiões de contaminação atmosférica de moléculas específicas em um espectro de ciência com as regiões correspondentes no espectro telúrico, antes de se estimar o espectro original pela técnica da divisão.
+Diante disso, é possível entender porque o estudo da similaridade entre sinais pode ser útil em espectros estelares: para alinhar regiões de contaminação atmosférica de moléculas específicas em um espectro de ciência com as regiões correspondentes no espectro telúrico. Em teoria, isto melhoraria o resultado da divisão entre o espectro de ciência observado e o telúrico, e consequentemente, a qualidade do espectro estelar sem contaminação.
 
-% falhas da distancia euclideana como metrica de similaridade
+% distancia euclideana e metricas de similaridade
 Uma medida tradicional de diferença entre informações numéricas que poderia ser usada como medida de similaridade entre dois sinais digitais é a distância euclideana entre os vetores correspondentes. Porém em sinais com flutuações rápidas é fácil perceber que mesmo um pequeno desalinhamento poderia provocar um grande aumento na distância entre os sinais.
 
 % introdução à DTW
-Um algoritmo robusto utilizado para determinar a similaridade entre dois sinais digitais é o \textit{Dynamic Time Warping (DTW)}. Este algoritmo acha uma correspondência ótima entre os índices dos dois vetores, de tal maneira a minimizar as distâncias entre os índices correspondentes. Essa correspondência equivale a um alinhamento entre as sequências que torna os sinais realinhados mais similares~\citep{shou2005fast}.
-% A figura \ref{fig:euclidean-vs-dtw-matching} ilustra como o DTW encontra uma correspondência mais intuitiva do que a correspondência euclideana, juntando regiões das duas sequências com formatos similares mesmo que não estejam perfeitamente alinhadas.
+Um algoritmo robusto utilizado para determinar a similaridade entre dois sinais digitais é o \textit{Dynamic Time Warping (DTW)}. Este algoritmo acha uma correspondência ótima entre os índices dos dois vetores, de tal maneira a minimizar as distâncias entre os índices correspondentes. Essa correspondência equivale a um alinhamento entre as sequências que torna os sinais realinhados mais similares~\citep{shou2005fast}. 
+
+A figura ~\ref{fig:matlab-dtw} ilustra o alinhamento ótimo encontrado pelo DTW entre um sinal cuja frequência aumenta com o tempo e uma sinusoide. O alinhamento encontrado corresponde à distância euclideana mínima entre as duas sequências, de forma que regiões com formatos similares estejam o mais próximas possíveis no alinhamento.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=7cm]{figuras/Euclidean_vs_DTW.jpg}
-\caption{Diferença entre a correspondência euclideana e da DTW em sinais similares \citep{dtwmatching}}
-\label{fig:euclidean-vs-dtw-matching}
+\includegraphics[width=12cm]{figuras/DynamicTimeWarpingOfRealChirpAndSinusoidExample_01.png}
+\caption{Sinais originais e alinhados com a DTW com a distância euclideana final \citep{matlab-dtw}}
+\label{fig:matlab-dtw}
 \end{figure}
 
 A formulação do problema \citep{salvador2007toward} do \textit{Dynamic Time Warping} é a seguinte: dadas duas sequências $X$ e $Y$, de comprimentos respectivos $n$ e $m$,
@@ -337,7 +339,7 @@ Em termos matemáticos temos as sequências $a$ e $o$, definidas na seção \ref
 
 O pseudo-código resultante desta lógica pode ser visto no algoritmo \ref{dtw-realignment}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Sequence alignment}\label{dtw-realignment}
 \begin{algorithmic}[1]
 \Procedure{align\_sequence\_dtw\_path}{$P$, $s$}
