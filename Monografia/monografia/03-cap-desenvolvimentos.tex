@@ -42,11 +42,8 @@ Para o desenvolvimento dos experimentos destre trabalho, foram fornecidos alguns
 % datasets fornecidos: ardata, uves, molecfit e xsl (principal conjunto de dados)
 Os conjuntos de dados estelares fornecidos englobam tanto observações reais de estrelas quando espectros telúricos sintéticos. Algumas das observações reais são: uma tabela FITS com observações reais do Sol, de Arcturus e de um referencial telúrico para ambos; dois pares de arquivos FITS contendo as estrelas de ciência HD110379 e HD110379 e seus respectivos referenciais telúricos, que foram capturadas pelo espectrógrafo UVES \footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/uves.html}} \citep{2000SPIE.4008..534D}, parte do \textit{Very Large Telescope Array} \footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}}, no Cerro Paranal, Chile.  
 
-% seleção do xsl como dataset principal
-Porém, como foi mencionado na seção ~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos.
-
 % leitura dos dados
-Mas antes de qualquer teste foi necessário um processo de conhecimento e ambientação com os dados astronômicos. Para leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}\footnote{\url{http://www.astropy.org}}, que é amplamente usado para processar computacionalmente diversos dados astronômicos \citep{astropy:2018}. 
+Antes de qualquer teste foi necessário um processo de conhecimento e ambientação com os dados astronômicos. Para leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}\footnote{\url{http://www.astropy.org}}, que é amplamente usado para processar computacionalmente diversos dados astronômicos \citep{astropy:2018}. 
 
 % exemplos de estrelas mencionadas acima
 Com a combinação dos dados fornecidos e o ferramental correto, foi possível abrir, analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras ~\ref{fig:two-stars-hd110379} e ~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol.
@@ -73,11 +70,74 @@ Com a combinação dos dados fornecidos e o ferramental correto, foi possível a
 % espectros e suas diferenças (formato do espectro, fonte, normalização, etc)
 É possível observar nestas figuras que características dos espectros são alteradas devido à diferença de suas fontes e processo de redução de dados, ou seja, o dado espectral é relativo ao seu instrumento de observação e processamento consequente. Analogamente, é possível ver que conjuntos de dados da mesma fonte (par estrela de ciência e telúrica) possuem formatos similares.
 
-% talvez seria mais interessante plotar os espectros nas unidades que vieram e depois mostrar que é possível interpolar os sinais para o intervalo de comprimento de onda correto usando dados do cabeçalho (fazer amanhã)
+% seleção do xsl como dataset principal
+Além das estrelas acima, como foi mencionado na seção ~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Deste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
+
+
+% mais detalhes sobre os dados do xsl (4 estrelas de ciencia, 4 teluricas sinteticas do molecfit e 4 corrigidas, dividas entre as regioes do espectro eletromagnetico infravermelho, visivel, ultravioleta)
+\begin{itemize}
+    \item *X\_N\_E.fits ou *X\_O\_E.fits: o espectro da estrela com contaminação telúrica, separado em 3 arquivos que cobrem intervalos de comprimento de ondas diferentes (X no nome do arquivo será U = ultravioleta, V = visível ou N = infravermelho)
+    \item *TRA.fits: modelo Molecfit que representa o espectro telúrico correspondente ao dia da observação, também separado em 3 arquivos que cobrem comprimentos de ondas diferentes
+    \item *TAC.fits ou *TAC\_final.fits: espectros das estrelas corrigidos pelo modelo Molecfit e já considerando que as distorções observadas em comprimento de onda foram corrigidas, também separado em três arquivos
+\end{itemize}
+
+\noindent o que resulta em 36 arquivos no total.
+
+% plotar os espectros do xsl nas unidades que vieram e falar das diferenças entre os obs e teluricos (escalase formatos) e diferenca com figuras anteriores
+\begin{figure}[htb]
+  \centering
+  \subfloat[X0319 observado]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e.png}\label{fig:x0319-v-o-e}}
+  \hfill
+  \subfloat[Referência telúrica para X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra.png}\label{fig:x0319-v-o-e-tra}}
+  \caption{Espectro de ciência e telúrico de X0319 na região visível de comprimento de onda}
+  \label{fig:x0319-visible}
+\end{figure}
+
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[X0386 observado]{\includegraphics[width=0.5\textwidth]{figuras/x0386_n_n_e.png}\label{fig:x0386-n-n-e}}
+  \hfill
+  \subfloat[Referência telúrica para X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_n_n_e_tra.png}\label{fig:x0386-n-n-e-tra}}
+  \caption{Espectro de ciência e telúrico de X0386 na região infravermelho de comprimento de onda}
+  \label{fig:x0386-infrared}
+\end{figure}
+
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[X0538 observado]{\includegraphics[width=0.5\textwidth]{figuras/x0538_u_n_e.png}\label{fig:x0538-u-n-e}}
+  \hfill
+  \subfloat[Referência telúrica para X0538]{\includegraphics[width=0.5\textwidth]{figuras/x0538_u_n_e_tra.png}\label{fig:x0538-u-n-e-tra}}
+  \caption{Espectro de ciência e telúrico de X0538 na região ultravioleta de comprimento de onda}
+  \label{fig:x0538-ultraviolet}
+\end{figure}
+
+As figuras ~\ref{fig:x0319-visible}, ~\ref{fig:x0386-infrared} e ~\ref{fig:x0538-ultraviolet} ilustram exemplos de alguns espectros do conjunto de dados do \textit{X-Shooter}, tanto de diferentes estrelas quanto de diferentes regiões de comprimentos de onda. 
+
+% falar sobre diferença no eixo y 
+Uma das diferenças entre o espectro observado e o telúrico de uma mesma estrela é a diferença de ordem de magnitude da escala do eixo y dos gráficos. Como foi mencionado na seção ~\ref{data-reduction}, os espectros observados possuem uma unidade física ao final do processo de redução de dados. No caso das observações do conjunto de dados do \textit{X-Shooter}, os espectros não passaram pelo processo de redução de dados por completo, o que significa que o eixo y não possui o mesmo significado físico de intensidade por unidade de área, tempo e comprimento de onda. 
+
+% tentar introduzir o significado do eixo e explicação da adimensionalidade do fluxo antes do final da redução de dados
+Como o fluxo é capturado pelo CCD através corrente elétrica produzida por uma certa contagem de fótons, o processo de conversão entre a tensão produzida no instrumento, um número digital e finalmente, uma unidade fisicamente interpretável é extremamente sofisticado em termos de \textit{hardware} e não será explicado em profundidade neste trabalho. Para os experimentos realizados neste capítulo é importante notar que o eixo y é relacionado tanto ao fluxo da estrela quanto à assinatura instrumental do espectrógrafo. 
+
+% espectro do molecfit e normalização pro intervalo [0,1]
+Já nos espectros telúricos sintéticos do Molefit, o eixo y do gráfico representa um mapa de transmitância da atmosfera, ou seja, uma série de fatores de absorção que quando interagem com o sinal estelar capturam parte da sua emissão. O resultado do Molefit tem seu eixo y normalizado para o intervalo $[0, 1]$, porém estes números são artificiais. Para facilitar no restante dos experimentos, as observações do \textit{X-Shooter} também tiveram seus intervalos normalizados de forma a facilitar a manipulação dos dados.
 
 \section{Divisão do sinal estelar pelo telúrico}
 
+% introdução à motivação por tras deste experimento
+% queremos validar com os dados em maos que a divisão de fato não é a melhor solução para o problema e entender qual seria a consequencia dela nestas observações
 
+% recapitular pq podemos dividir os espectros
+
+% mostrar resultados de alguns conjuntos de dados que ilustrem bem a criação de artefatos 
+
+% picos de sinal podem ter sido causados pos shifts em regiões do espectro
+
+% shifts foram de fatos observados nestes dados então faz sentido que estamos vendo eles aqui
+
+% passar pra dtw e a tentativa de resolver os desalinhamentos
 
 \section{DTW no sinal estelar}
 
