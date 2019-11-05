@@ -46,7 +46,7 @@ Os conjuntos de dados estelares fornecidos englobam tanto observações reais de
 Antes de qualquer teste foi necessário um processo de conhecimento e ambientação com os dados astronômicos. Para leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}\footnote{\url{http://www.astropy.org}}, que é amplamente usado para processar computacionalmente diversos dados astronômicos \citep{astropy:2018}. 
 
 % exemplos de estrelas mencionadas acima
-Com a combinação dos dados fornecidos e o ferramental correto, foi possível abrir, analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras ~\ref{fig:two-stars-hd110379} e ~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol.
+Com a combinação dos dados fornecidos e o ferramental correto, foi possível abrir, analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras~\ref{fig:two-stars-hd110379} e~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol.
 
 % observado e o telurico de cada um (ardata e uves)
 \begin{figure}[htb]
@@ -71,7 +71,7 @@ Com a combinação dos dados fornecidos e o ferramental correto, foi possível a
 É possível observar nestas figuras que características dos espectros são alteradas devido à diferença de suas fontes e processo de redução de dados, ou seja, o dado espectral é relativo ao seu instrumento de observação e processamento consequente. Analogamente, é possível ver que conjuntos de dados da mesma fonte (par estrela de ciência e telúrica) possuem formatos similares.
 
 % seleção do xsl como dataset principal
-Além das estrelas acima, como foi mencionado na seção ~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Deste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
+Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Deste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
 
 
 % mais detalhes sobre os dados do xsl (4 estrelas de ciencia, 4 teluricas sinteticas do molecfit e 4 corrigidas, dividas entre as regioes do espectro eletromagnetico infravermelho, visivel, ultravioleta)
@@ -113,10 +113,10 @@ Além das estrelas acima, como foi mencionado na seção ~\ref{similarity-and-si
   \label{fig:x0538-ultraviolet}
 \end{figure}
 
-As figuras ~\ref{fig:x0319-visible}, ~\ref{fig:x0386-infrared} e ~\ref{fig:x0538-ultraviolet} ilustram exemplos de alguns espectros do conjunto de dados do \textit{X-Shooter}, tanto de diferentes estrelas quanto de diferentes regiões de comprimentos de onda. 
+As figuras~\ref{fig:x0319-visible},~\ref{fig:x0386-infrared} e~\ref{fig:x0538-ultraviolet} ilustram exemplos de alguns espectros do conjunto de dados do \textit{X-Shooter}, tanto de diferentes estrelas quanto de diferentes regiões de comprimentos de onda. 
 
 % falar sobre diferença no eixo y 
-Uma das diferenças entre o espectro observado e o telúrico de uma mesma estrela é a diferença de ordem de magnitude da escala do eixo y dos gráficos. Como foi mencionado na seção ~\ref{data-reduction}, os espectros observados possuem uma unidade física ao final do processo de redução de dados. No caso das observações do conjunto de dados do \textit{X-Shooter}, os espectros não passaram pelo processo de redução de dados por completo, o que significa que o eixo y não possui o mesmo significado físico de intensidade por unidade de área, tempo e comprimento de onda. 
+Uma das diferenças entre o espectro observado e o telúrico de uma mesma estrela é a diferença de ordem de magnitude da escala do eixo y dos gráficos. Como foi mencionado na seção~\ref{data-reduction}, os espectros observados possuem uma unidade física ao final do processo de redução de dados. No caso das observações do conjunto de dados do \textit{X-Shooter}, os espectros não passaram pelo processo de redução de dados por completo, o que significa que o eixo y não possui o mesmo significado físico de intensidade por unidade de área, tempo e comprimento de onda. 
 
 % tentar introduzir o significado do eixo e explicação da adimensionalidade do fluxo antes do final da redução de dados
 Como o fluxo é capturado pelo CCD através corrente elétrica produzida por uma certa contagem de fótons, o processo de conversão entre a tensão produzida no instrumento, um número digital e finalmente, uma unidade fisicamente interpretável é extremamente sofisticado em termos de \textit{hardware} e não será explicado em profundidade neste trabalho. Para os experimentos realizados neste capítulo é importante notar que o eixo y é relacionado tanto ao fluxo da estrela quanto à assinatura instrumental do espectrógrafo. 
@@ -128,8 +128,12 @@ Já nos espectros telúricos sintéticos do Molefit, o eixo y do gráfico repres
 
 % introdução à motivação por tras deste experimento
 % queremos validar com os dados em maos que a divisão de fato não é a melhor solução para o problema e entender qual seria a consequencia dela nestas observações
+Seguidamente do processo de familiarização com os dados astronômicos fornecidos, o primeiro experimento idealizado neste trabalho foi a divisão dos espectros estelares observados pelas suas respectivas referências telúricas. 
 
 % recapitular pq podemos dividir os espectros
+Como mencionado na seção~\ref{telluric-contamination}, por causa da natureza multiplicativa do problema, a correção telúrica atual é a divisão simples entre os espectros de ciência e telúrico. A motivação por trás deste experimento é observar que na prática esta solução não é ideal e cria artefatos no espectro estelar. 
+
+Dois efeitos desta divisão que têm origem instrumental e que já são esperados pelos astrônomos são o alargamento das linhas espectrais, desconsiderando o alargamento Doppler \citep{LEVENHAGEN2008}, e a criação de deslocamentos no domínio de comprimento de onda.
 
 % mostrar resultados de alguns conjuntos de dados que ilustrem bem a criação de artefatos 
 
@@ -138,6 +142,7 @@ Já nos espectros telúricos sintéticos do Molefit, o eixo y do gráfico repres
 % shifts foram de fatos observados nestes dados então faz sentido que estamos vendo eles aqui
 
 % passar pra dtw e a tentativa de resolver os desalinhamentos
+Os resultados das divisões nesta seção ilustram as dificuldades conhecidas no processo atual de correção telúrica e deixam explícita a necessidade propor soluções alternativas que melhorariam a qualidade dos dados observados.
 
 \section{DTW no sinal estelar}
 
