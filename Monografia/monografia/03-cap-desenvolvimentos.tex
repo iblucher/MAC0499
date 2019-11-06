@@ -133,17 +133,46 @@ Seguidamente do processo de familiarização com os dados astronômicos fornecid
 % recapitular pq podemos dividir os espectros
 Como mencionado na seção~\ref{telluric-contamination}, por causa da natureza multiplicativa do problema, a correção telúrica atual é a divisão simples entre os espectros de ciência e telúrico. A motivação por trás deste experimento é observar que na prática esta solução não é ideal e cria artefatos no espectro estelar. 
 
-Dois efeitos desta divisão que têm origem instrumental e que já são esperados pelos astrônomos são o alargamento das linhas espectrais, desconsiderando o alargamento Doppler \citep{LEVENHAGEN2008}, e a criação de deslocamentos no domínio de comprimento de onda.
+Algumas explicações do porquê o método da correção telúrica atual não funciona como proposto no modelo teórico são distorções do sinal que possuem origem instrumental. Alguns exemplos de distorções esperadas pelos astrônomos em suas observações são o alargamento das linhas espectrais, desconsiderando o alargamento Doppler \citep{LEVENHAGEN2008}, e a criação de deslocamentos no domínio de comprimento de onda.
 
 % mostrar resultados de alguns conjuntos de dados que ilustrem bem a criação de artefatos 
+A primeira divisão realizada foi do conjunto de dados do espectrógrafo UVES, na estrela HD110379. 
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[HD110379]{\includegraphics[width=0.5\textwidth]{figuras/hd110379_spectrum_scaled.png}\label{fig:hd110379-spectrum-scaled}}
+  \hfill
+  \subfloat[Resultado da correção telúrica HD110379]{\includegraphics[width=0.5\textwidth]{figuras/hd110379_divided.png}\label{fig:hd110379-divided}}
+  \caption{Espectros de ciência e dividido de HD110379 pelo seu referencial telúrico}
+  \label{fig:hd110379-division}
+\end{figure}
+
+Na figura~\ref{fig:hd110379-division}, temos o espectro de ciência original da estrela HD110379 e o resultado da correção telúrica que é a divisão simples entre os espectros. Ambos tiveram seus eixos y redimensionados de modo a facilitar a inspeção visual dos resultados.  A correção telúrica neste caso, de fato diminui algumas das linhas de absorção do espectro, principalmente na região dos 6500$\mathrm{\AA}$ aos 8500$\mathrm{\AA}$ de comprimento de onda. Porém, é visivelmente perceptível que ela também cria artefatos como picos no espectro resultante, sendo alguns menores e outros maiores quando comparados ao intervalo [0, 1] do fluxo estelar.
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_scaled.png}\label{fig:x0319-spectrum-scaled}}
+  \hfill
+  \subfloat[Resultado da correção telúrica X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_divided.png}\label{fig:x0319-divided}}
+  \caption{Espectros de ciência e dividido de X0319 pelo seu referencial telúrico}
+  \label{fig:x0319-division}
+\end{figure}
+
+A figura~\ref{fig:x0319-division} mostra mais um exemplo de correção telúrica feita nos dados fornecidos, desta vez na estrela X0319 do espectrógrafo \textit{X-Shooter}. Novamente, os eixos dos gráficos dos espectros foram redimensionados, de modo a facilitar a visualização dos efeitos da divisão do observado pelo telúrico. Neste caso, é possível observar tanto a diminuição das linhas de absorção ao longo do espectro, quanto a criação de picos no mesmo, principalmente na região entre 900nm e 1000nm, na qual o pico resultante tem uma escala aproximadamente três vezes maior que a do espectro original.
 
 % picos de sinal podem ter sido causados pos shifts em regiões do espectro
+Os artefatos criados pelas correções telúricas das figuras acima não deveriam existir na situação ideal do problema, onde, elemento a elemento, o fluxo do espectro de ciência deveria ser maior ou igual à absorção atmosférica representada pelo espectro telúrico. Isto indica a presença de um dos efeitos esperados deste tipo de operação: o desalinhamento entre o espectro estelar e o telúrico. Supor que os efeitos gerados pelas correções telúricas faz sentido principalmente no caso da estrela do \textit{X-Shooter}, onde pesquisadores observaram estes mesmos problemas \citep{wavelength-shifts}.   
 
-% shifts foram de fatos observados nestes dados então faz sentido que estamos vendo eles aqui
 
 % passar pra dtw e a tentativa de resolver os desalinhamentos
 Os resultados das divisões nesta seção ilustram as dificuldades conhecidas no processo atual de correção telúrica e deixam explícita a necessidade propor soluções alternativas que melhorariam a qualidade dos dados observados.
 
 \section{DTW no sinal estelar}
+
+Os resultados do experimento de correção telúrica através da divisão de um espectro estelar pelo seu referencial telúrico, esclarecem a necessidade de pensar em melhorias ao processo atual. Como foi visto, um dos problemas nos dados é a falta de alinhamento entre os sinais, e a consequente criação de artefatos e distorções nos espectros corrigidos. O experimento desta seção propõe uma solução alternativa a uma das dificuldades conhecidas das observações: o desalinhamento dos espectros.
+
+
+
+
 
 \section{DTW no sinal atmosférico}

@@ -105,7 +105,7 @@ Os benefícios de se usar um CCD para capturar imagens celestes é que eles auto
 O processo de correção das imagens capturadas pelo CCD é chamado redução de dados, e consiste de uma série de transformações aplicadas à imagem bruta. No final deste processo é obtida uma imagem científica utilizável e pronta para ser analisada.
 
 % redução de dados no caso estelar
-No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional a partir de uma imagem de CCD da estrela observada, também chamada de estrela de ciência. A figura ~\ref{fig:calibration-steps}, ilustra as imagens de CCD antes e depois do processo de redução.
+No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional a partir de uma imagem de CCD da estrela observada, também chamada de estrela de ciência. A figura~\ref{fig:calibration-steps}, ilustra as imagens de CCD antes e depois do processo de redução.
 
 % A figura~\ref{fig:x0319-obs-spectrum} ilustra o espectro de uma estrela da \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter}\footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/xshooter.html}}, parte do \textit{Very Large Telescope array}\footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}} (VLT), localizado no Cerro Paranal, Chile.  
 
@@ -135,15 +135,21 @@ O espectro resultante deste processo é unidimensional no domínio do compriment
 \section{Contaminação Telúrica} \label{telluric-contamination}
 
 % voltar na menção da contaminação telúrica no começo do capítulo e juntar com a parte instrumental da seção anterior
-Como mencionado na seção ~\ref{astronomic-spectroscopy}, a maioria das observações astronômicas são feitas a partir do solo e, neste caso, nem toda luz irradiada por uma estrela consegue ser capturada por instrumentos de observação. 
+Como mencionado na seção~\ref{astronomic-spectroscopy}, a maioria das observações astronômicas são feitas a partir do solo e, neste caso, nem toda luz irradiada por uma estrela consegue ser capturada por instrumentos de observação. 
 
 % contaminação telúrica no observado
 A principal consequência da interação da radiação eletromagnética estelar com a atmosfera terrestre é que novas linhas espectrais são formadas no espectro capturado instrumentalmente. As moléculas presentes na atmosfera terrestre formam linhas de absorção no espectro observado, denominadas de linhas telúricas.  
 
 % como a atmosfera afeta certas regiões de comprimento de onda
-No espectro estelar, regiões diferentes de comprimentos de onda possuem diferentes sensibilidades à atmosfera. Isso implica que em certas regiões do espectro de ciência existe uma maior presença das linhas telúricas do que em outras.
+No espectro estelar, regiões diferentes de comprimentos de onda possuem diferentes sensibilidades à atmosfera. Isso implica que em certas regiões do espectro de ciência existe uma maior presença das linhas telúricas do que em outras. Na figura~\ref{fig:molectfit-telluric-reference}, é possível ver estas linhas telúricas e suas respectivas moléculas responsáveis em uma grande extensão de comprimentos de onda.
 
 %% INCLUIR FIGURA DA LITERATURA AQUI %%
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=15cm]{figuras/telluric_reference_molecfit.png}
+\caption{Espectro de absorção sintético criado pelo Molecfit que ilustra como diferentes moléculas interagem com diferentes regiões de comprimento de onda \citep{smette2015molecfit}}
+\label{fig:molectfit-telluric-reference}
+\end{figure}
 
 % Como as estrelas do \textit{X-Shooter Spectral Library}, a maioria das observações astronômicas são feitas em telescópios terrestres, ou seja, a partir do solo. Nesse caso, nem toda luz irradiada por um objeto celeste pode ser capturada pelo espectrógrafo. Isto acontece porque, ao atravessar a atmosfera terrestre, o sinal astronômico interage com moléculas como vapor de água e oxigênio, o que resulta na formação de novas linhas de absorção no espectro observado, chamadas de linhas telúricas. 
 
@@ -190,7 +196,7 @@ Em termos matemáticos, consideramos os espectros de ciência, telúrico e estel
 O processamento de sinais digitais tem como objetivo extrair informações significativas dos sinais, bem como modificá-los a fim de atingir determinados objetivos. Uma das operações importantes na análise de sinais digitais é a mensuração da similaridade entre dois sinais. Medidas de similaridade possuem diversas aplicações em áreas como reconhecimento de fala, para saber se um sinal de voz corresponde a um determinado texto, ou em economia, para comparar investimentos em períodos diferentes, entre outras aplicações.
 
 % possiveis problemas na operacionalização do problema como descrito acima (mencionar os três problemas)
-Como foi mencionado na seção ~\ref{telluric-contamination}, é possível assumir que o problema da contaminação telúrica pode ser operacionalizado como uma multiplicação simples partindo do pressuposto de que os sinais se encontram em uma situação ideal. Estabelece-se como uma situação ideal os sinais que: (i) possuem mesma intensidade, ou seja, que foram observados sem alterações da atmosfera; (ii) possuem mesma assinatura instrumental; (iii) possuem mesma resolução de comprimento de onda, ou seja, estão perfeitamente alinhados pixel a pixel. 
+Como foi mencionado na seção~\ref{telluric-contamination}, é possível assumir que o problema da contaminação telúrica pode ser operacionalizado como uma multiplicação simples partindo do pressuposto de que os sinais se encontram em uma situação ideal. Estabelece-se como uma situação ideal os sinais que: (i) possuem mesma intensidade, ou seja, que foram observados sem alterações da atmosfera; (ii) possuem mesma assinatura instrumental; (iii) possuem mesma resolução de comprimento de onda, ou seja, estão perfeitamente alinhados pixel a pixel. 
 
 % contexto do desalinhamento nos dados observados XSL
 As observações utilizadas no desenvolvimento experimental deste trabalho são dados astronômicos reais provientes do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter}\footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/xshooter.html}}. Pesquisados que usaram estes dados para suas pesquisas relataram desalinhamentos nos comprimentos de onda dos espectros \citep{wavelength-shifts}.
@@ -205,7 +211,7 @@ Uma medida tradicional de diferença entre informações numéricas que poderia 
 Um algoritmo robusto utilizado para determinar a similaridade entre dois sinais digitais é o \textit{Dynamic Time Warping (DTW)}. Este algoritmo acha uma correspondência ótima entre os índices dos dois vetores, de tal maneira a minimizar as distâncias entre os índices correspondentes. Essa correspondência equivale a um alinhamento entre as sequências que torna os sinais realinhados mais similares~\citep{shou2005fast}. 
 
 % explicacao da dtw pela imagem 
-A figura ~\ref{fig:matlab-dtw} ilustra o alinhamento ótimo encontrado pelo DTW entre um sinal cuja frequência aumenta com o tempo e uma sinusoide. O alinhamento encontrado corresponde à distância euclideana mínima entre as duas sequências, de forma que regiões com formatos similares estejam o mais próximas possíveis no alinhamento.
+A figura~\ref{fig:matlab-dtw} ilustra o alinhamento ótimo encontrado pelo DTW entre um sinal cuja frequência aumenta com o tempo e uma sinusoide. O alinhamento encontrado corresponde à distância euclideana mínima entre as duas sequências, de forma que regiões com formatos similares estejam o mais próximas possíveis no alinhamento.
 
 \begin{figure}[htb]
 \centering
