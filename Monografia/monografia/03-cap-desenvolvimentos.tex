@@ -38,12 +38,17 @@ Dentro de uma HDU em um arquivo FITS, o componente em sequência ao \textit{head
 
 \section{Ambiente e ferramentas}
 
-- python
-- jupyter notebooks
-- astropy (falar sobre fits)
-- numpy
-- matplotlib
-- funcoes do utils (compilado de funcoes, falar sobre cada uma)
+%introduzir seção
+A realização dos experimentos deste trabalho foi dependente de um conjunto de bibliotecas especializadas. Esta seção descreve as ferramentas utilizadas e detalhes da implementação dos experimentos.
+
+% linguagem de programação: python
+A linguagem de programação de escolha para a implementação dos experimentos foi o \textit{Python}, por esta permitir o uso de bibliotecas especializadas para o processamento de sinais e manipulação de dados astronômicos.
+
+% jupyter notebooks
+Os experimentos foram implementados em \textit{notebooks} do \textit{Jupyter}\footnote{\url{https://jupyter.org/}} \citep{Kluyver:2016aa}, um projeto de código-aberto com o objetivo de oferecer suporte à ciência de dados e computação científica interativa. Neste ambiente computacional é possível escrever código em células que podem ser executadas de forma independente. Esta interatividade faz com que os \textit{notebooks} sejam ambientes perfeitos para uma programação de natureza exploratória, já que é possível executar experimentos e apresentar resultados e gráficos entre várias células de código.
+
+% pacotes python
+Estabelecidos a linguagem e o ambiente dos experimentos, foram usadas diversas bibliotecas de \textit{Python} para ler, manipular e visualizar os dados estelares. Os pacotes utilizados foram: o \textit{NumPy}\footnote{\url{https://numpy.org/}} \citep{oliphant2006guide}, uma biblioteca fundamental de computação científica performática com suporte para vetores e matrizes grandes e multidimensionais, além de diversas funções matemáticas de alto nível; o \textit{Matplotlib}\footnote{\url{https://matplotlib.org/}} \citep{Hunter:2007}, uma biblioteca gráfica que permite a visualização de dados em diversos tipos de gráficos; e finalmente o \textit{Astropy}\footnote{\url{http://www.astropy.org}} \citep{astropy:2018}, uma biblioteca que é amplamente usado para processar computacionalmente diversos dados astronômicos e tem funcionalidades como leitura de arquivos FITS, conversões de unidades e quantidades físicas e computações cosmológicas.
 
 \section{Conjuntos de dados}
 
@@ -59,13 +64,13 @@ Para o desenvolvimento dos experimentos destre trabalho, foram obtidos alguns co
 \end{itemize}
 
 % leitura dos dados
-Antes de qualquer teste foi necessário um processo de ambientação e familiarização com os dados astronômicos. Para a leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}\footnote{\url{http://www.astropy.org}}, que é amplamente usado para processar computacionalmente diversos dados astronômicos \citep{astropy:2018}. 
+Antes de qualquer teste foi necessário um processo de ambientação e familiarização com os dados astronômicos. Para a leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}.
 
 % exemplos de estrelas mencionadas acima
-A combinação dos dados com o ferramental adequado, possibilitouju analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras~\ref{fig:two-stars-hd110379} e~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol. Além dos espectros completos, a figura~\ref{fig:two-stars-zoom-hd110379} ilustra dois painéis aumentados dos espectros observado e telúrico de HD110379, asim é possível ver as linhas espectrais com mais detalhes e compreender qual informação é perdida para a contaminação telúrica.
+A combinação dos dados com o ferramental adequado, possibilitou analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras~\ref{fig:two-stars-hd110379} e~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol. Além dos espectros completos, a figura~\ref{fig:two-stars-zoom-hd110379} ilustra dois painéis aumentados dos espectros observado e telúrico de HD110379, asim é possível ver as linhas espectrais com mais detalhes e compreender qual informação é perdida para a contaminação telúrica.
 
 % observado e o telurico de cada um (ardata e uves)
-\begin{figure}[htb]
+\begin{figure}[!htb]
   \centering
   \subfloat[HD110379]{\includegraphics[width=0.5\textwidth]{figuras/hd110379_spectrum.png}\label{fig:hd110379}}
   \hfill
@@ -94,11 +99,8 @@ A combinação dos dados com o ferramental adequado, possibilitouju analisar e v
 
 % \mqz{Na figura 3.3 do Sol, o item (a) não é um espectro contaminado? O termo ``estrela de ciência'' é adequado para se referir a esse espectro?}
 
-% espectros e suas diferenças (formato do espectro, fonte, normalização, etc)
-É possível observar nestas figuras que características dos espectros são alteradas devido à diferença de suas fontes e ao processo de redução de dados; em outras palavras, o dado espectral sempre traz marcas do seu instrumento de observação e do processamento consequente. Analogamente, é possível ver que conjuntos de dados da mesma fonte (par estrela de ciência e telúrica) possuem formatos similares.
-
 % seleção do xsl como dataset principal
-Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Deste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
+Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Neste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
 
 % mais detalhes sobre os dados do xsl (4 estrelas de ciencia, 4 teluricas sinteticas do molecfit e 4 corrigidas, dividas entre as regioes do espectro eletromagnetico infravermelho, visivel, ultravioleta)
 \begin{itemize}
@@ -186,8 +188,7 @@ Na figura~\ref{fig:hd110379-division}, temos o espectro de ciência original da 
 A figura~\ref{fig:x0319-division} mostra mais um exemplo de correção telúrica feita nos dados fornecidos, desta vez na estrela X0319 do espectrógrafo \textit{X-Shooter}. Novamente, os eixos dos gráficos dos espectros foram redimensionados, de modo a facilitar a visualização dos efeitos da divisão do observado pelo telúrico. Neste caso, é possível observar tanto a diminuição das linhas de absorção ao longo do espectro, quanto a criação de picos no mesmo, principalmente na região entre 900nm e 1000nm, na qual o pico resultante tem uma escala aproximadamente três vezes maior que a do espectro original.
 
 % picos de sinal podem ter sido causados pos shifts em regiões do espectro
-Os artefatos criados pelas correções telúricas das figuras acima não deveriam existir na situação ideal do problema, onde, elemento a elemento, o fluxo do espectro de ciência deveria ser maior ou igual ao fluxo após a absorção atmosférica representada pelo espectro telúrico. Isto indica a presença de um dos efeitos esperados deste tipo de operação: o desalinhamento entre o espectro estelar e o telúrico. Supor que os efeitos gerados pelas correções telúricas faz sentido principalmente no caso da estrela do \textit{X-Shooter}, onde pesquisadores observaram estes mesmos problemas \citep{wavelength-shifts}.   
-
+Os artefatos criados pelas correções telúricas das figuras acima não deveriam existir na situação ideal do problema, onde, elemento a elemento, o fluxo do espectro de ciência deveria ser maior ou igual ao fluxo após a absorção atmosférica representada pelo espectro telúrico. Isto indica a presença de um dos efeitos esperados deste tipo de operação: o desalinhamento entre o espectro estelar e o telúrico. Os resultados das correções telúricas e os seus efeitos resultantes fazem sentido, principalmente no caso da estrela do \textit{X-Shooter}, onde pesquisadores observaram estes mesmos problemas \citep{unpublished-xshooter-data-release, wavelength-shifts}
 
 % passar pra dtw e a tentativa de resolver os desalinhamentos
 Os resultados das divisões nesta seção ilustram as dificuldades conhecidas no processo atual de correção telúrica e deixam explícita a necessidade propor soluções alternativas que melhorariam a qualidade dos dados observados.
