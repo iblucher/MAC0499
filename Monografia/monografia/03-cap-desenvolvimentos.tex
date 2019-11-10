@@ -195,10 +195,44 @@ Os resultados das divisões nesta seção ilustram as dificuldades conhecidas no
 
 \section{DTW no sinal estelar}
 
+% introdução da seção
 Os resultados do experimento de correção telúrica através da divisão de um espectro estelar pelo seu referencial telúrico esclarecem a necessidade de pensar em melhorias ao processo atual. Como foi visto, um dos problemas nos dados é a falta de alinhamento entre os sinais, e a consequente criação de artefatos e distorções nos espectros corrigidos. O experimento desta seção propõe uma solução alternativa a uma das dificuldades conhecidas das observações: o desalinhamento dos espectros.
 
 % MQZ parou aqui.
 
+% decisão de usar dtw
+Como foi explicado na seção~\ref{similarity-and-signal-alignment}, podemos usar o algoritmo \textit{Dynamic Time Warping} para encontrar o alinhamento ótimo entre dois sinais. Assim, seria possível realinhar o espectro da observação estelar com o espectro telúrico para resultar em uma divisão de maior qualidade e menor perda de informação e criação de artefatos. 
 
+% dados utilizados no experimento e versão da dtw
+Para este experimento o conjunto de dados utilizado foi o XSL e a implementação do DTW foi a \textit{FastDTW}, de modo a conseguir aplicar o algoritmo nos espectros inteiros e maximizar sua performance.
+
+% primeiro experimento
+O primeiro exemplo da aplicação da DTW nos dados da XSL é no intervalo visível de comprimento de onda da estrela X0319, cujos espectros são ilustrados na figura~\ref{fig:x0319-visible}. O algoritmo foi aplicado nos espectros estelar e telúrico inteiros, e o caminho gerado pela DTW algoritmo está na figura~\ref{fig:x0319-warp-path}.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/x0319_warp_path.png}
+\caption{Caminho da DTW para o espectro estelar e telúrico de X0319}
+\label{fig:x0319-warp-path}
+\end{figure}
+
+O caminho resultante do algoritmo já indica uma série de regiões problemáticas dos espectros que não puderam ser alinhadas de maneira ótima. Idealmente o caminho deveria se distanciar pouco da diagonal secundária da matriz de similaridade, mas neste caso são claras as regiões onde as sequências não são similares, como a linha horizontal que ocupa a maioria do caminho, seguida de um avanço quase vertical.
+
+O espectro telúrico original do Molecfit e o realinhado em relação à observação estelar que foi reconstruído a partir do caminho da DTW estão na figura~ \ref{fig:x0319-realigned-telluric}.
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[Modelo telúrico do Molefit de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra.png}}
+  \hfill
+  \subfloat[Espectro telúrico de X0319 realinhado]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_aligned.png}}
+  \caption{Espectro telúrico de X0319 e espectro telúrico realinhado a partir do caminho da DTW}
+  \label{fig:x0319-realigned-telluric}
+\end{figure}
+
+É possível ver que o espectro telúrico realinhado da estrela X0319 tem um formato muito diferente do modelo original do Molecfit. O espectro resultante tem uma forte distorção em relação ao seu formato original e exibe a formação de ângulos retos nas linhas espectrais.
+
+% mais um exemplo em outra estrela 
+
+% mais um exemplo com zoom no espectro para mostrar as linhas e os efeitos no nível micro (falar que a contaminação é subpixel)
 
 \section{DTW no sinal atmosférico}
