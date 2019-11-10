@@ -2,20 +2,21 @@
 \chapter{Desenvolvimento Experimental}
 \label{cap:desenvolvimentos}
 
-Este trabalho tem o objetivo de desenvolver uma solução que seja capaz de remover a contaminação telúrica de espectros astronômicos capturados a partir do solo. Para fazer isso é necessário um conhecimento extenso sobre os dados coletados, desde como foram criados e compostos até sua semântica e nuances astronômicas.  
+Este trabalho tem o objetivo de explorar possíveis soluções computacionais que sejam capazes de remover ou atenuar a contaminação telúrica de espectros astronômicos capturados a partir do solo. Para fazer isso é necessário um conhecimento aprofundado dos dados coletados, desde os procedimentos adotados na aquisição e redução de dados até interpretações astronômicas de características morfológicas desses sinais.
 
-Neste capítulo são descritos os dados utilizados e os experimentos realizados durante o desenvolvimento do trabalho. Os experimentos foram úteis para compreender e visualizar os espectros de ciência e telúrico, testar o realinhamento de sinais e aprender características fundamentais dos espectros na solução do problema da contaminação telúrica.  
+Neste capítulo são descritos os dados utilizados e os experimentos realizados durante o desenvolvimento do trabalho. Os experimentos foram úteis para permitir a visualização e compreensão dos espectros de ciência e telúrico, o teste do realinhamento de sinais como possível coadjuvante na remoção da contaminação telúrica, e o aprendizado de características fundamentais dos espectros na solução do problema da contaminação telúrica.  
+
 
 \section{Formato de dados}
 
 % o que é o formato fits
-O formato de dados utilizado nos experimentos é o FITS ou \textit{Flexible Image Transfer System}. Este formato de arquivo digital facilita o armazenamento, processamento e transmissão de dados científicos e foi projetado para armazenar conjuntos de dados $n$-dimensionais que consistem em matrizes e tabelas. Este é o formato de dados mais utilizado na astronomia, e inclusive possui recursos adicionais para incluir informações de calibração fotométrica e espacial e metadados de origem do arquivo \citep{pence2010definition}.
+O formato de dados utilizado nos experimentos é o FITS ou \textit{Flexible Image Transfer System}~\citep{pence2010definition}. Este formato de arquivo digital facilita o armazenamento, processamento e transmissão de dados científicos e foi projetado para armazenar conjuntos de dados $n$-dimensionais que consistem em matrizes e tabelas. Este é o formato de dados mais utilizado na astronomia, possuindo recursos específicos para incluir informações de calibração fotométrica e espacial e outros metadados astronômicos relativos aos sinais armazenados.
 
 % composição do arquivo fits
 Um arquivo FITS é composto por segmentos chamados de HDU (\textit{Header-Data Units}) e ele deve necessariamente ter um \textit{Primary HDU}, que armazena os dados científicos principais. O \textit{PrimaryHDU} pode ser acompanhado de HDUs adicionais, categorizados entre extensões de imagens, extensões de tabelas ASCII e extensões de tabelas binárias \citep{nasa-fits}.
 
 % header
-O \textit{header} de um arquivo FITS contém uma lista de palavras-chave em letra maiúscula, associadas a um valor e possivelmente seguidas de um comentário. Estas palavras-chave representam elementos dos dados que são importantes, como a data de observação do arquivo, seu autor, seu histórico de processamento, seu telescópio de origem e também podem representar elementos relacionados à física da observação, como a massa de ar no momento e local de observação, temperatura ambiente, umidade e etc.
+O \textit{header} de um arquivo FITS contém uma lista de palavras-chave em letra maiúscula, associadas a um valor e possivelmente seguidas de um comentário. Estas palavras-chave representam elementos dos dados que são importantes, como a data de observação do arquivo, seu autor, seu histórico de processamento, seu telescópio de origem e também podem representar elementos relacionados à física da observação, como a massa de ar no momento e local de observação, temperatura ambiente, umidade e etc. A Fig. \ref{fig:fits-header} ilustra o \textit{header} típico de estrelas de ciência. 
 
 \begin{figure}[htb]
 \centering
@@ -25,7 +26,7 @@ O \textit{header} de um arquivo FITS contém uma lista de palavras-chave em letr
 \end{figure}
 
 % data e tipos de dados
-O componente em sequência do cabeçalho, quando presente, possui um vetor que pode ter desde 1 a 999 dimensões. Esta seção representa o dado astronômico capturado, como os valores do fluxo de um espectro estelar ou uma imagem de um objeto celeste. Os dados podem ter um de 5 possíveis tipos de dados \citep{pence2010definition}:
+Dentro de uma HDU em um arquivo FITS, o componente em sequência ao \textit{header}, quando presente, possui um vetor que pode ter desde 1 até 999 dimensões. Esta seção representa o dado astronômico capturado, como os valores do fluxo de um espectro estelar ou uma imagem de um objeto celeste. Os dados podem ter um de 5 possíveis tipos de dados \citep{pence2010definition}:
 
 \begin{enumerate}
     \item Inteiros de 8 bits
@@ -35,27 +36,51 @@ O componente em sequência do cabeçalho, quando presente, possui um vetor que p
     \item Números reais de ponto flutuante de 64 bits
 \end{enumerate}
 
+\section{Ambiente e ferramentas}
+
+- python
+- jupyter notebooks
+- astropy (falar sobre fits)
+- numpy
+- matplotlib
+- funcoes do utils (compilado de funcoes, falar sobre cada uma)
+
 \section{Conjuntos de dados}
 
-Para o desenvolvimento dos experimentos destre trabalho, foram fornecidos alguns conjuntos de dados estelares. Todos os arquivos destes conjuntos estão no formato FITS.
-
 % datasets fornecidos: ardata, uves, molecfit e xsl (principal conjunto de dados)
-Os conjuntos de dados estelares fornecidos englobam tanto observações reais de estrelas quando espectros telúricos sintéticos. Algumas das observações reais são: uma tabela FITS com observações reais do Sol, de Arcturus e de um referencial telúrico para ambos; dois pares de arquivos FITS contendo as estrelas de ciência HD110379 e HD110379 e seus respectivos referenciais telúricos, que foram capturadas pelo espectrógrafo UVES \footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/uves.html}} \citep{2000SPIE.4008..534D}, parte do \textit{Very Large Telescope Array} \footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}}, no Cerro Paranal, Chile.  
+Para o desenvolvimento dos experimentos destre trabalho, foram obtidos alguns conjuntos de dados estelares. Todos os arquivos destes conjuntos estão no formato FITS. Estes conjuntos de dados estelares englobam tanto observações reais de estrelas quando espectros telúricos sintéticos. A lista a seguir descreve estes conjuntos.
+
+% lista dos dados 
+\begin{itemize}
+    \item UVES: dois pares de arquivos FITS contendo observações das estrelas HD110379 e HD110379 e seus respectivos referenciais telúricos. Estes dados foram capturados pelo espectrógrafo UVES \footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/uves.html}} \citep{2000SPIE.4008..534D}, parte do \textit{Very Large Telescope Array} \footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}}, no Cerro Paranal, Chile.
+    \item FTS: uma tabela FITS contendo observações reais do Sol, da estrela Arcturus e um referencial telúrico para ambas.
+    \item XSL: dados de observações do \textit{X-Shooter} \citep{Chen2014TheXS}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. Mais detalhes sobre este conjunto de dados são explicados nesta seção (Anaïs Gonneau, comunicação privada).
+    \item Molecfit: dados telúricos sintéticos gerados com a ferramenta Molecfit \citep{smette2015molecfit} 
+\end{itemize}
 
 % leitura dos dados
-Antes de qualquer teste foi necessário um processo de conhecimento e ambientação com os dados astronômicos. Para leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}\footnote{\url{http://www.astropy.org}}, que é amplamente usado para processar computacionalmente diversos dados astronômicos \citep{astropy:2018}. 
+Antes de qualquer teste foi necessário um processo de ambientação e familiarização com os dados astronômicos. Para a leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}\footnote{\url{http://www.astropy.org}}, que é amplamente usado para processar computacionalmente diversos dados astronômicos \citep{astropy:2018}. 
 
 % exemplos de estrelas mencionadas acima
-Com a combinação dos dados fornecidos e o ferramental correto, foi possível abrir, analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras~\ref{fig:two-stars-hd110379} e~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol.
+A combinação dos dados com o ferramental adequado, possibilitouju analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras~\ref{fig:two-stars-hd110379} e~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol. Além dos espectros completos, a figura~\ref{fig:two-stars-zoom-hd110379} ilustra dois painéis aumentados dos espectros observado e telúrico de HD110379, asim é possível ver as linhas espectrais com mais detalhes e compreender qual informação é perdida para a contaminação telúrica.
 
 % observado e o telurico de cada um (ardata e uves)
 \begin{figure}[htb]
   \centering
-  \subfloat[Sol]{\includegraphics[width=0.5\textwidth]{figuras/hd110379_spectrum.png}\label{fig:hd110379}}
+  \subfloat[HD110379]{\includegraphics[width=0.5\textwidth]{figuras/hd110379_spectrum.png}\label{fig:hd110379}}
   \hfill
   \subfloat[Referência telúrica para HD110379]{\includegraphics[width=0.5\textwidth]{figuras/hd110379_telluric.png}\label{fig:hd110379-tel}}
-  \caption{Estrela de ciência e telúrica HD110379}
+  \caption{Espectro observado com contaminação e espectro telúrico de HD110379}
   \label{fig:two-stars-hd110379}
+\end{figure}
+
+\begin{figure}[!htb]
+  \centering
+  \subfloat[HD110379]{\includegraphics[width=0.5\textwidth]{figuras/hd110379_spectrum_zoom.png}\label{fig:hd110379-zoom}}
+  \hfill
+  \subfloat[Referência telúrica para HD110379]{\includegraphics[width=0.5\textwidth]{figuras/hd110379_telluric_zoom.png}\label{fig:hd110379-tel-zoom}}
+  \caption{Parte do espectro observado com contaminação e espectro telúrico de HD110379 no intervalo de comprimento de onda de 7400\mathrm{\AA} a 7800\mathrm{\AA}}
+  \label{fig:two-stars-zoom-hd110379}
 \end{figure}
 
 \begin{figure}[htb]
@@ -63,25 +88,27 @@ Com a combinação dos dados fornecidos e o ferramental correto, foi possível a
   \subfloat[Sol]{\includegraphics[width=0.5\textwidth]{figuras/sun_spectrum.png}\label{fig:sun}}
   \hfill
   \subfloat[Referência telúrica para o Sol]{\includegraphics[width=0.5\textwidth]{figuras/sun_telluric.png}\label{fig:sun-tel}}
-  \caption{Estrela de ciência e telúrica do Sol}
+  \caption{Espectro observado com contaminação e espectro telúrico do Sol}
   \label{fig:two-stars-sun}
 \end{figure}
 
+% \mqz{Na figura 3.3 do Sol, o item (a) não é um espectro contaminado? O termo ``estrela de ciência'' é adequado para se referir a esse espectro?}
+
 % espectros e suas diferenças (formato do espectro, fonte, normalização, etc)
-É possível observar nestas figuras que características dos espectros são alteradas devido à diferença de suas fontes e processo de redução de dados, ou seja, o dado espectral é relativo ao seu instrumento de observação e processamento consequente. Analogamente, é possível ver que conjuntos de dados da mesma fonte (par estrela de ciência e telúrica) possuem formatos similares.
+É possível observar nestas figuras que características dos espectros são alteradas devido à diferença de suas fontes e ao processo de redução de dados; em outras palavras, o dado espectral sempre traz marcas do seu instrumento de observação e do processamento consequente. Analogamente, é possível ver que conjuntos de dados da mesma fonte (par estrela de ciência e telúrica) possuem formatos similares.
 
 % seleção do xsl como dataset principal
-Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Deste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
-
+Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Deste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
 
 % mais detalhes sobre os dados do xsl (4 estrelas de ciencia, 4 teluricas sinteticas do molecfit e 4 corrigidas, dividas entre as regioes do espectro eletromagnetico infravermelho, visivel, ultravioleta)
 \begin{itemize}
-    \item *X\_N\_E.fits ou *X\_O\_E.fits: o espectro da estrela com contaminação telúrica, separado em 3 arquivos que cobrem intervalos de comprimento de ondas diferentes (X no nome do arquivo será U = ultravioleta, V = visível ou N = infravermelho)
-    \item *TRA.fits: modelo Molecfit que representa o espectro telúrico correspondente ao dia da observação, também separado em 3 arquivos que cobrem comprimentos de ondas diferentes
-    \item *TAC.fits ou *TAC\_final.fits: espectros das estrelas corrigidos pelo modelo Molecfit e já considerando que as distorções observadas em comprimento de onda foram corrigidas, também separado em três arquivos
+    \item *X\_N\_E.fits ou *X\_O\_E.fits: o espectro da estrela com contaminação telúrica, separado em 3 arquivos que cobrem intervalos de comprimento de ondas diferentes (X no nome do arquivo será U = ultravioleta, V = visível ou N = infravermelho);
+    \item *TRA.fits: modelo Molecfit que representa o espectro telúrico correspondente ao dia da observação, também separado em 3 arquivos que cobrem comprimentos de ondas diferentes;
+    \item *TAC.fits ou *TAC\_final.fits: espectros das estrelas corrigidos pelo modelo Molecfit e já considerando que as distorções observadas em comprimento de onda foram corrigidas, também separado em três arquivos.
 \end{itemize}
 
-\noindent o que resulta em 36 arquivos no total.
+% desnecessário:
+%\noindent o que resulta em 36 arquivos no total.
 
 % plotar os espectros do xsl nas unidades que vieram e falar das diferenças entre os obs e teluricos (escalase formatos) e diferenca com figuras anteriores
 \begin{figure}[htb]
@@ -89,7 +116,7 @@ Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-sig
   \subfloat[X0319 observado]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e.png}\label{fig:x0319-v-o-e}}
   \hfill
   \subfloat[Referência telúrica para X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra.png}\label{fig:x0319-v-o-e-tra}}
-  \caption{Espectro de ciência e telúrico de X0319 na região visível de comprimento de onda}
+  \caption{Espectro observado com contaminação e espectro telúrico de X0319 na região visível de comprimento de onda}
   \label{fig:x0319-visible}
 \end{figure}
 
@@ -99,7 +126,7 @@ Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-sig
   \subfloat[X0386 observado]{\includegraphics[width=0.5\textwidth]{figuras/x0386_n_n_e.png}\label{fig:x0386-n-n-e}}
   \hfill
   \subfloat[Referência telúrica para X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_n_n_e_tra.png}\label{fig:x0386-n-n-e-tra}}
-  \caption{Espectro de ciência e telúrico de X0386 na região infravermelho de comprimento de onda}
+  \caption{Espectro observado com contaminação e espectro telúrico de X0386 na região infravermelho de comprimento de onda}
   \label{fig:x0386-infrared}
 \end{figure}
 
@@ -109,7 +136,7 @@ Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-sig
   \subfloat[X0538 observado]{\includegraphics[width=0.5\textwidth]{figuras/x0538_u_n_e.png}\label{fig:x0538-u-n-e}}
   \hfill
   \subfloat[Referência telúrica para X0538]{\includegraphics[width=0.5\textwidth]{figuras/x0538_u_n_e_tra.png}\label{fig:x0538-u-n-e-tra}}
-  \caption{Espectro de ciência e telúrico de X0538 na região ultravioleta de comprimento de onda}
+  \caption{Espectro observado com contaminação e espectro telúrico de X0538 na região ultravioleta de comprimento de onda}
   \label{fig:x0538-ultraviolet}
 \end{figure}
 
@@ -119,22 +146,20 @@ As figuras~\ref{fig:x0319-visible},~\ref{fig:x0386-infrared} e~\ref{fig:x0538-ul
 Uma das diferenças entre o espectro observado e o telúrico de uma mesma estrela é a diferença de ordem de magnitude da escala do eixo y dos gráficos. Como foi mencionado na seção~\ref{data-reduction}, os espectros observados possuem uma unidade física ao final do processo de redução de dados. No caso das observações do conjunto de dados do \textit{X-Shooter}, os espectros não passaram pelo processo de redução de dados por completo, o que significa que o eixo y não possui o mesmo significado físico de intensidade por unidade de área, tempo e comprimento de onda. 
 
 % tentar introduzir o significado do eixo e explicação da adimensionalidade do fluxo antes do final da redução de dados
-Como o fluxo é capturado pelo CCD através corrente elétrica produzida por uma certa contagem de fótons, o processo de conversão entre a tensão produzida no instrumento, um número digital e finalmente, uma unidade fisicamente interpretável é extremamente sofisticado em termos de \textit{hardware} e não será explicado em profundidade neste trabalho. Para os experimentos realizados neste capítulo é importante notar que o eixo y é relacionado tanto ao fluxo da estrela quanto à assinatura instrumental do espectrógrafo. 
+Como o fluxo é capturado pelo CCD através da corrente elétrica produzida por uma certa contagem de fótons, o processo de conversão entre a tensão produzida no instrumento e finalmente uma unidade fisicamente interpretável é extremamente sofisticado em termos de \textit{hardware} e não será abordado neste trabalho. Para os experimentos realizados neste capítulo é importante notar que o eixo y é relacionado tanto ao fluxo da estrela quanto à assinatura instrumental do espectrógrafo. 
 
 % espectro do molecfit e normalização pro intervalo [0,1]
-Já nos espectros telúricos sintéticos do Molefit, o eixo y do gráfico representa um mapa de transmitância da atmosfera, ou seja, uma série de fatores de absorção que quando interagem com o sinal estelar capturam parte da sua emissão. O resultado do Molefit tem seu eixo y normalizado para o intervalo $[0, 1]$, porém estes números são artificiais. Para facilitar no restante dos experimentos, as observações do \textit{X-Shooter} também tiveram seus intervalos normalizados de forma a facilitar a manipulação dos dados.
+Já nos espectros telúricos sintéticos do Molecfit, o eixo y do gráfico é normalizado para o intervalo $[0, 1]$ e representa um mapa de transmitância da atmosfera, ou seja, uma série de fatores de absorção que quando interagem com o sinal estelar capturam parte da sua emissão. Para facilitar o restante dos experimentos, as observações do \textit{X-Shooter} também tiveram seus intervalos normalizados de forma a simplificar a manipulação dos dados.
 
 \section{Divisão do sinal estelar pelo telúrico}
 
 % introdução à motivação por tras deste experimento
 % queremos validar com os dados em maos que a divisão de fato não é a melhor solução para o problema e entender qual seria a consequencia dela nestas observações
-Seguidamente do processo de familiarização com os dados astronômicos fornecidos, o primeiro experimento idealizado neste trabalho foi a divisão dos espectros estelares observados pelas suas respectivas referências telúricas. 
-
+Após o processo de exploração e familiarização com os dados astronômicos fornecidos, o primeiro experimento idealizado neste trabalho foi a divisão dos espectros estelares observados pelas suas respectivas referências telúricas, a fim de evidenciar as limitações desse processo.
 % recapitular pq podemos dividir os espectros
-Como mencionado na seção~\ref{telluric-contamination}, por causa da natureza multiplicativa do problema, a correção telúrica atual é a divisão simples entre os espectros de ciência e telúrico. A motivação por trás deste experimento é observar que na prática esta solução não é ideal e cria artefatos no espectro estelar. 
+Como mencionado na seção~\ref{telluric-contamination}, por causa da natureza multiplicativa do modelo físico da transmissão da radiação estelar através da atmosfera, a correção telúrica corresponderia de fato à divisão simples entre os espectros de ciência e telúrico. A motivação por trás deste experimento é observar que na prática esta solução não é ideal e cria artefatos no espectro estelar. 
 
-Algumas explicações do porquê o método da correção telúrica atual não funciona como proposto no modelo teórico são distorções do sinal que possuem origem instrumental. Alguns exemplos de distorções esperadas pelos astrônomos em suas observações são o alargamento das linhas espectrais, desconsiderando o alargamento Doppler \citep{LEVENHAGEN2008}, e a criação de deslocamentos no domínio de comprimento de onda.
-
+Algumas explicações do porquê o método da correção telúrica pela divisão simples de espectros não funciona como proposto no modelo teórico provêm das distorções do sinal que possuem origem instrumental. Alguns exemplos de distorções esperadas pelos astrônomos em suas observações são o alargamento das linhas espectrais, desconsiderando o alargamento Doppler \citep{LEVENHAGEN2008}, e a criação de deslocamentos no domínio de comprimento de onda.
 % mostrar resultados de alguns conjuntos de dados que ilustrem bem a criação de artefatos 
 A primeira divisão realizada foi do conjunto de dados do espectrógrafo UVES, na estrela HD110379. 
 
@@ -147,7 +172,7 @@ A primeira divisão realizada foi do conjunto de dados do espectrógrafo UVES, n
   \label{fig:hd110379-division}
 \end{figure}
 
-Na figura~\ref{fig:hd110379-division}, temos o espectro de ciência original da estrela HD110379 e o resultado da correção telúrica que é a divisão simples entre os espectros. Ambos tiveram seus eixos y redimensionados de modo a facilitar a inspeção visual dos resultados.  A correção telúrica neste caso, de fato diminui algumas das linhas de absorção do espectro, principalmente na região dos 6500$\mathrm{\AA}$ aos 8500$\mathrm{\AA}$ de comprimento de onda. Porém, é visivelmente perceptível que ela também cria artefatos como picos no espectro resultante, sendo alguns menores e outros maiores quando comparados ao intervalo [0, 1] do fluxo estelar.
+Na figura~\ref{fig:hd110379-division}, temos o espectro de ciência original da estrela HD110379 e o resultado da correção telúrica que é a divisão simples entre os espectros. Ambos tiveram seus eixos y redimensionados de modo a facilitar a inspeção visual dos resultados.  A correção telúrica neste caso de fato diminui algumas das linhas de absorção do espectro, principalmente na região dos 6500$\mathrm{\AA}$ aos 8500$\mathrm{\AA}$ de comprimento de onda. Porém, é visivelmente perceptível que ela também cria artefatos como picos no espectro resultante, sendo alguns menores e outros maiores quando comparados ao intervalo [0, 1] do fluxo estelar.
 
 \begin{figure}[htb]
   \centering
@@ -161,7 +186,7 @@ Na figura~\ref{fig:hd110379-division}, temos o espectro de ciência original da 
 A figura~\ref{fig:x0319-division} mostra mais um exemplo de correção telúrica feita nos dados fornecidos, desta vez na estrela X0319 do espectrógrafo \textit{X-Shooter}. Novamente, os eixos dos gráficos dos espectros foram redimensionados, de modo a facilitar a visualização dos efeitos da divisão do observado pelo telúrico. Neste caso, é possível observar tanto a diminuição das linhas de absorção ao longo do espectro, quanto a criação de picos no mesmo, principalmente na região entre 900nm e 1000nm, na qual o pico resultante tem uma escala aproximadamente três vezes maior que a do espectro original.
 
 % picos de sinal podem ter sido causados pos shifts em regiões do espectro
-Os artefatos criados pelas correções telúricas das figuras acima não deveriam existir na situação ideal do problema, onde, elemento a elemento, o fluxo do espectro de ciência deveria ser maior ou igual à absorção atmosférica representada pelo espectro telúrico. Isto indica a presença de um dos efeitos esperados deste tipo de operação: o desalinhamento entre o espectro estelar e o telúrico. Supor que os efeitos gerados pelas correções telúricas faz sentido principalmente no caso da estrela do \textit{X-Shooter}, onde pesquisadores observaram estes mesmos problemas \citep{wavelength-shifts}.   
+Os artefatos criados pelas correções telúricas das figuras acima não deveriam existir na situação ideal do problema, onde, elemento a elemento, o fluxo do espectro de ciência deveria ser maior ou igual ao fluxo após a absorção atmosférica representada pelo espectro telúrico. Isto indica a presença de um dos efeitos esperados deste tipo de operação: o desalinhamento entre o espectro estelar e o telúrico. Supor que os efeitos gerados pelas correções telúricas faz sentido principalmente no caso da estrela do \textit{X-Shooter}, onde pesquisadores observaram estes mesmos problemas \citep{wavelength-shifts}.   
 
 
 % passar pra dtw e a tentativa de resolver os desalinhamentos
@@ -169,9 +194,9 @@ Os resultados das divisões nesta seção ilustram as dificuldades conhecidas no
 
 \section{DTW no sinal estelar}
 
-Os resultados do experimento de correção telúrica através da divisão de um espectro estelar pelo seu referencial telúrico, esclarecem a necessidade de pensar em melhorias ao processo atual. Como foi visto, um dos problemas nos dados é a falta de alinhamento entre os sinais, e a consequente criação de artefatos e distorções nos espectros corrigidos. O experimento desta seção propõe uma solução alternativa a uma das dificuldades conhecidas das observações: o desalinhamento dos espectros.
+Os resultados do experimento de correção telúrica através da divisão de um espectro estelar pelo seu referencial telúrico esclarecem a necessidade de pensar em melhorias ao processo atual. Como foi visto, um dos problemas nos dados é a falta de alinhamento entre os sinais, e a consequente criação de artefatos e distorções nos espectros corrigidos. O experimento desta seção propõe uma solução alternativa a uma das dificuldades conhecidas das observações: o desalinhamento dos espectros.
 
-
+% MQZ parou aqui.
 
 
 
