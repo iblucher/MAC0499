@@ -229,10 +229,32 @@ O espectro telúrico original do Molecfit e o realinhado em relação à observa
   \label{fig:x0319-realigned-telluric}
 \end{figure}
 
-É possível ver que o espectro telúrico realinhado da estrela X0319 tem um formato muito diferente do modelo original do Molecfit. O espectro resultante tem uma forte distorção em relação ao seu formato original e exibe a formação de ângulos retos nas linhas espectrais.
+% resultado do espectro telurico realinhado
+É possível ver que o espectro telúrico realinhado da estrela X0319 tem um formato muito diferente do modelo do Molecfit. O espectro resultante tem uma forte distorção em relação ao seu formato original e exibe a formação de ângulos retos nas linhas espectrais.
 
-% mais um exemplo em outra estrela 
+% mais um exemplo em outra estrela no espectro completo
 
 % mais um exemplo com zoom no espectro para mostrar as linhas e os efeitos no nível micro (falar que a contaminação é subpixel)
+Uma hipótese do motivo pelo qual a aplicação do DTW no espectro como um todo não mostrou bons resultados é que os desalinhamentos em diferentes regiões não são os mesmos pixel a pixel. Assim, mostrou-se necessário testar o algoritmo de realinhamento em regiões menores do espectro. Foi aplicado o DTW no espectro da estrela X0319, no intervalo de comprimento de onda entre 834nm e 841nm e as figuras~\ref{fig:x0319-warp-path-zoom} e~\ref{fig:x0319-realigned-telluric-zoom} mostram o caminho resultante na matriz de similaridade e o espectro telúrico original e realinhado. 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/x0319_warp_path_zoom.png}
+\caption{Caminho da DTW para o espectro estelar e telúrico de X0319 no intervalo de 834nm a 841nm}
+\label{fig:x0319-warp-path-zoom}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \subfloat[Modelo telúrico do Molefit de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra_zoom.png}}
+  \hfill
+  \subfloat[Espectro telúrico de X0319 realinhado]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_aligned_zoom.png}}
+  \caption{Espectro telúrico de X0319 e espectro telúrico realinhado a partir do caminho da DTW no intervalo de 834nm a 841nm}
+  \label{fig:x0319-realigned-telluric-zoom}
+\end{figure}
+
+Neste experimento são observados os mesmos resultados dos experimentos anteriores em menor escala. Em um intervalo de comprimento de onda que abrange 9nm de espectro estelar ocorrem os mesmos deslocamentos horizontais e verticais no caminho da matriz de similaridades e no espectro telúrico realinhado também ocorre a formação de ângulos retos nas linhas de absorção.
+
+% introduzir experimento seguinte
 
 \section{DTW no sinal atmosférico}
