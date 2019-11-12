@@ -233,13 +233,43 @@ O espectro telúrico original do Molecfit e o realinhado em relação à observa
 É possível ver que por mais que o espectro telúrico realinhado da estrela X0319 tem o formato geral do modelo do Molecfit, ele possui uma forte distorção em relação às linhas espectrais originais e exibe a formação de ângulos retos que não são características deste tipo de dado.
 
 % mais um exemplo em outra estrela no espectro completo
-O próximo teste também foi feito em uma estrela do XSL, a estrela X0386, no intervalo visível de comprimento de onda do espectro. A escolha desta região espectral se deve ao fato de que a contaminação telúrica ainda é presente, mas menos intensa e de difícil correção do que na região de comprimento de onda infravermelho. Quanto à região ultravioleta, esta parece ser menos sensível aos efeitos da atmosfera terrestre. 
+O próximo teste também foi feito em uma estrela do XSL, a estrela X0386, no intervalo visível de comprimento de onda do espectro. A escolha desta região espectral se deve ao fato de que a contaminação telúrica é presente, porém menos intensa e de difícil correção do que na região de comprimento de onda infravermelho. Quanto à região ultravioleta, esta parece ser menos sensível aos efeitos da atmosfera terrestre. 
 
-% caminho da dtw e observação (juntos?)
+% espectro observado, porque não foi mostrado antes
+A figura~\ref{fig:x0386-v-n-e} a seguir ilustra a observação estelar de X0386, para que se tenha uma noção do formato do espectro contaminado.
 
-% telurico original do molefit e realinhado
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/x0386_v_n_e_spectrum.png}
+\caption{Espectro observado com contaminação telúrica de X0386}
+\label{fig:x0386-v-n-e}
+\end{figure}
 
-% mais um exemplo com zoom no espectro para mostrar as linhas e os efeitos no nível micro (falar que a contaminação é subpixel)
+% comentarios do caminho da dtw
+Nesta observação e no seu referencial telúrico foi aplicado o DTW e a figura~\ref{fig:x0386-warp-path} contém o caminho resultante do algoritmo. Neste caso também é possível observar que o caminho apresenta uma grande distorção em relação à diagonal ideal na maioria do caminho, o que significa que o sinal estelar e telúrico não possuem um alinhamento ótimo que ajudaria na divisão simples dos espectros.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/x0386_warp_path.png}
+\caption{Caminho da DTW para o espectro estelar e telúrico de X0386}
+\label{fig:x0386-warp-path}
+\end{figure}
+
+% resultados do algoritmo no realinhamento 
+Os efeitos da distorção causada pelo realinhamento de espectro telúrico usando o caminho resultante do DTW podem ser vistos na figura~\ref{fig:x0386-realigned-telluric}. O espectro telúrico realinhado sofre um grande perda de informação nas suas linhas espectrais e é possível ver que apenas se assemelha ao modelo original no intervalo entre 900nm e 1000nm, a mesma região do caminho da DTW que se aproxima da diagonal secundária da matriz de similaridade.
+
+% espectro telurico e realinhado de x0386
+\begin{figure}[H]
+  \centering
+  \subfloat[Modelo telúrico do Molefit de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra.png}}
+  \hfill
+  \subfloat[Espectro telúrico de X0386 realinhado]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_aligned.png}}
+  \caption{Espectro telúrico de X0386 e espectro telúrico realinhado a partir do caminho da DTW}
+  \label{fig:x0386-realigned-telluric}
+\end{figure}
+
+
+% mais um exemplo com zoom no espectro para mostrar as linhas e os efeitos no nível micro
 Uma hipótese do motivo pelo qual a aplicação do DTW no espectro como um todo não mostrou bons resultados é que os desalinhamentos em diferentes regiões não são os mesmos pixel a pixel. Assim, mostrou-se necessário testar o algoritmo de realinhamento em regiões menores do espectro. Foi aplicado o DTW no espectro da estrela X0319, no intervalo de comprimento de onda entre 834nm e 841nm e as figuras~\ref{fig:x0319-warp-path-zoom} e~\ref{fig:x0319-realigned-telluric-zoom} mostram o caminho resultante na matriz de similaridade e o espectro telúrico original e realinhado. 
 
 \begin{figure}[htb]
@@ -260,6 +290,14 @@ Uma hipótese do motivo pelo qual a aplicação do DTW no espectro como um todo 
 
 Neste experimento são observados os mesmos resultados dos experimentos anteriores em menor escala. Em um intervalo de comprimento de onda que abrange 9nm de espectro estelar ocorrem os mesmos deslocamentos horizontais e verticais no caminho da matriz de similaridades e no espectro telúrico realinhado também ocorre a formação de ângulos retos nas linhas de absorção.
 
-% introduzir experimento seguinte
+% conclusoes deste experimento
+A aplicação do \textit{Dynamic Time Warping} para realinhar o sinal estelar com o modelo telúrico não se mostrou ideal para minimizar a quantidade de informação perdida na correção telúrica. O algoritmo, por tentar juntar os sinais pixel a pixel nos elementos de maior similaridade, não atua da melhor maneira em sinais que não representam a mesma informação porém compartilham regiões com linhas de absorção de origens equivalentes. O DTW hipoteticamente poderia funcionar em um caso onde é possível isolar setores muito pequenos com linhas de absorção bem separadas.
+
 
 \section{DTW no sinal atmosférico}
+
+% introdução do experimento
+O uso do \textit{Dynamic Time Warping} como ferramenta de realinhamento entre o sinal estelar e o referencial telúrico contribuiu para um maior conhecimento sobre os dados usados neste trabalho e também introduziu dúvidas sobre o sinal atmosférico obtido do Molecfit.
+
+% resgatar atm' e por que
+
