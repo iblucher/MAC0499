@@ -309,11 +309,71 @@ Com os dados fornecidos dos espectros estelares corrigidos que são considerados
 \noindent onde $a'$ representa o espectro telúrico com correção dos desalinhamentos observados.
 
 % desalinhamento entre os espectros atmosfericos gt e molecfit
-O estudo do sinal atmosférico corrigido em relação ao modelo telúrico dado do Molecfit permite obter mais informações sobre os dados e entender o quão grande é o desalinhamento entre estes espectros. Os experimentos desta seção se propõem a resgatar o sinal atmosférico correspondente ao \textit{ground-truth} e compará-lo com o sinal atmosférico obtido com o conjunto de dados do XSL.
+O estudo do sinal atmosférico corrigido em relação ao modelo telúrico do Molecfit permite obter mais informações sobre os dados e entender o quão grande é o desalinhamento entre estes espectros. Os experimentos desta seção se propõem a resgatar o sinal atmosférico correspondente ao \textit{ground-truth} e compará-lo com o sinal atmosférico obtido com o conjunto de dados do XSL.
+
+% estrelas usadas
+As estrelas utilizadas para os este experimento são a X0319 e a X0386 do \textit{X-Shooter Spectral Library}, na região visível de comprimento de onda. As figuras~\ref{fig:x0319-gt-telluric} e~\ref{fig:x0386-gt-telluric} mostram os espectros telúricos sintéticos dados e os seus respectivos espectros telúricos \textit{ground-truth} resgatados à partir da divisão entre a observação estelar com contaminação telúrica e o espectro corrigido pelos pesquisadores \citep{unpublished-xshooter-data-release}.
 
 % mostrar os gts recuperados para duas estrelas
+\begin{figure}[htb]
+  \centering
+  \subfloat[Modelo telúrico do Molefit de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra.png}}
+  \hfill
+  \subfloat[Espectro telúrico ground-truth de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra_gt.png}}
+  \caption{Espectro telúrico dado e espectro telúrico corrigido de shifts de X0319}
+  \label{fig:x0319-gt-telluric}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[Modelo telúrico do Molefit de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra.png}}
+  \hfill
+  \subfloat[Espectro telúrico ground-truth de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra_gt.png}}
+  \caption{Espectro telúrico dado e espectro telúrico corrigido de shifts de X0386}
+  \label{fig:x0386-gt-telluric}
+\end{figure}
+
+% características dos sinais gt
+Por inspeção visual, é possível observar que os espectros corrigidos de desalinhamentos não possuem distorções perceptíveis em relação aos seus correspondentes modelos do Molefit. Isto indica que se existem desalinhamentos entre estes sinais e que estes devem ser pequenos. 
 
 % dtw nestes sinais: deveria funcionar bem melhor agora que os espectros representam a mesma informação 
+A presença de pequenos desalinhamentos entre os sinais sugere que estes dados são viáveis de se aplicar o algoritmo do \textit{Dynamic Time Warping}. Desta forma seria possível observar regiões com maior desalinhamento, e portanto, quais regiões do espectro tiveram correções de shifts feitas pelo grupo de pesquisadores que lidaram com estes espectros.
 
 % mostrar resultados da dtw nas duas estrelas e com zoom
+\begin{figure}[htb]
+  \centering
+  \subfloat[Caminho do DTW entre espectros telúricos de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_warp_path_gt.png}}
+  \hfill
+  \subfloat[Espectro telúrico de X0319 reconstruído com caminho do DTW]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_n_e_tra_dtw.png}}
+  \caption{Caminho do DTW e espectro telúrico reconstruído de X0319}
+  \label{fig:x0319-dtw-telluric}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \subfloat[Caminho do DTW entre espectros telúricos de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_warp_path_gt.png}}
+  \hfill
+  \subfloat[Espectro telúrico de X0319 reconstruído com caminho do DTW]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra_dtw.png}}
+  \caption{Caminho do DTW e espectro telúrico reconstruído de X0319}
+  \label{fig:x0386-dtw-telluric}
+\end{figure}
+
+% resultados dtw
+As figuras~\ref{fig:x0319-dtw-telluric} e~\ref{fig:x0386-dtw-telluric} mostram os caminhos resultantes da aplicação do DTW nos espectros telúricos do Molecfit e nos espectros telúricos \textit{ground-truth} de X0319 e X0386. Diferente dos caminhos resultantes do DTW quando aplicados no sinal estelar e telúrico, neste caso quase não existem distorções e o caminho se aproxima do caso ideal. Os pequenos picos no caminho resultante indicam desalinhamentos no sinal estelar que foram manualmente corrigido pelo grupo de pesquisadores. 
+
+% metrica de shift
+Para melhor compreender as regiões do espectro telúrico mais afetadas por desalinhamentos, foi criada uma métrica \textit{shift}, tal que, para cada par de índices $(i,j)$ do caminho $P$ do DTW, o \textit{shift} de cada par do caminho é representado por $j - i$. Desta forma é possível ver os desalinhamentos em termos de quantidade de elementos dos sinais telúricos.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{figuras/x0386_displacement.png}
+\caption{Desalinhamentos em número de elementos entre o modelo do Molefit e o telúrico groun-truth de X0386}
+\label{fig:x0386-displacement}
+\end{figure}
+
+% resultado do shift
+A figura~\ref{fig:x0386-displacement} ilustra os tamanhos dos desalinhamentos entre os espectro dado do Molefit e o espectro telúrico \textit{ground-truth} resgatado da estrela X0386. Os maiores desalinhamentos são adiantamentos ou atrasos em 200 elementos dos vetores que representam os espectros, o que representa desalinhamentos de aproximadamente 3nm. Isto acontece principalmente entre o elemento 5000 e 10000 dos vetores, que é a região de 608nm a 683nm.
+
+% conclusão do experimento (como melhorar?)
+Este resultado mostra que o algotritmo do Dynamic Time Warping é melhor aplicado em vetores que representam relativamente a mesma informação, e no caso de dados estelares, em regiões menores com linhas de absorção separadas. 
 
