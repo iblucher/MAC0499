@@ -349,7 +349,7 @@ A presença de pequenos desalinhamentos entre os sinais sugere que estes dados s
   \label{fig:x0319-dtw-telluric}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htb]
   \centering
   \subfloat[Caminho do DTW entre espectros telúricos de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_warp_path_gt.png}}
   \hfill
@@ -375,5 +375,5 @@ Para melhor compreender as regiões do espectro telúrico mais afetadas por desa
 A figura~\ref{fig:x0386-displacement} ilustra os tamanhos dos desalinhamentos entre os espectro dado do Molefit e o espectro telúrico \textit{ground-truth} resgatado da estrela X0386. Os maiores desalinhamentos são adiantamentos ou atrasos em 200 elementos dos vetores que representam os espectros, o que representa desalinhamentos de aproximadamente 3nm. Isto acontece principalmente entre o elemento 5000 e 10000 dos vetores, que é a região de 608nm a 683nm.
 
 % conclusão do experimento (como melhorar?)
-Este resultado mostra que o algotritmo do Dynamic Time Warping é melhor aplicado em vetores que representam relativamente a mesma informação, e no caso de dados estelares, em regiões menores com linhas de absorção separadas. 
+Este resultado mostra que o algotritmo do Dynamic Time Warping é melhor aplicado em vetores que representam relativamente a mesma informação, e no caso de dados estelares, quando aplicado em regiões menores dos espectros telúricos com linhas de absorção separadas. 
 

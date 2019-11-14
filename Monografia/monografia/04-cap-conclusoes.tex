@@ -2,8 +2,15 @@
 \chapter{Conclusão}
 \label{cap:conclusoes}
 
-Texto texto texto texto texto texto texto texto texto texto texto texto texto
-texto texto texto texto texto texto texto texto texto texto texto texto texto
-texto texto texto texto texto texto\footnote{Exemplo de referência para página
-Web: \url{www.vision.ime.usp.br/~jmena/stuff/tese-exemplo}}.
 
+% Breve resumo do tema e o que foi analisado no desenvolvimento da monografia
+Este trabalho possibilitou explorar um problema que une as áreas da Astronomia e da Computação e estudar dados estelares de uma perspectiva computacional. O problema da contaminação telúrica em espectros astronômicos é uma fonte de distorções em observações astronômicas feitas do solo, e algo que continua sendo um impedimento para a qualidade destes dados em pesquisas astronômicas. O desenvolvimento desta monografia tornou possível a exploração de dados reais de estrelas e a tentativa de propor uma solução para um dos problemas conhecidos destas observações, os desalinhamentos encontrados entre os espectros estelares e telúricos.  
+
+% Explicar a importância do tema, qual sua relevância para o meio acadêmico
+O tema da contaminação telúrica é relevante pois até hoje em dia representa um problema para o observador. Linhas de absorção de diferentes perfis e origens moleculares podem ser difíceis de remover com precisão, porém, essa remoção é fundamental para interpretar espectros, não só estelares, mas de outros objetos celestes. Inicialmente foi feita uma investigação exploratória dos dados para entender problemas e possível soluções com o intuito de minimizar a interferência atmosférica nestas observações.
+
+% Demonstrar se os objetivos propostos na seção de introdução da monografia foram concluídos. Se as perguntas e problemas apresentados inicialmente foram respondidas e/ou esclarecidas
+A abordagem escolhida com o algoritmo do \textit{Dynamic Time Warping} tinha como objetivo encontrar similaridades entre os sinais estelar e telúrico para reconstruir um espectro telúrico realinhado de modo a minimizar a quantidade de informação perdida e artefatos criados na divisão simples dos espectros. Embora a ideia de explorar uma métrica da similaridade entre os sinais explora os desalinhamentos nos espectros, o algoritmo selecionado é melhor aplicado em sinais que representam informações parecidas e que possuem formatos similares, o que não apresenta uma solução ideal e generalizável para as observações espectrais e seus respectivos referenciais telúricos.   
+
+% Apresentar sugestões para uma futura evolução da pesquisa sobre o assunto
+Esta pesquisa tem potencial de futura exploração e evolução, dada a quantidade de problemas observacionais além dos desalinhamentos nos sinais a importância da qualidade do espectro observado para pesquisas astronômicas. Mas além disso, esta pesquisa tem importância pela sua natureza interdisciplinar, pelo esforço de aplicar teoria e métodos computacionais no auxílio da comunidade astronômica e por criar um vocabulário unificado entre importantes áreas do conhecimento.
