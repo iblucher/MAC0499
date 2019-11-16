@@ -2,44 +2,39 @@
 \chapter{Introdução}
 \label{cap:introducao}
 
+% computação como ferramenta importante para outas áreas da ciência 
+A Computação é a área do conhecimento que estuda técnicas, metodologias e instrumentos computacionais com o objetivo de automatizar processos e desenvolver soluções para uma variedade de problemas. Um dos grandes usos da Computação atualmente é como ferramenta no avanço de pesquisas científicas em diversas áreas, por exemplo em ciências naturais, nas áreas de física, biologia, geografia e etc.
+
+% computação na astronomia
+A ênfase deste trabalho é na aplicação de métodos computacionais em Astronomia. Com o passar do tempo e com uma constante evolução da tecnologia, as ferramentas astronômicas mudaram, desde como o universo e os objetos celestes são observados até como estes dados observacionais são processados e armazenados. Atualmente existem diversos desafios em astronomia que envolvem áreas da computação como aprendizado de máquina, ciência de dados, processamento de sinais digitais e \textit{Big Data}. 
+
+% o que este trabalho se propõe em fazer (recorte especifico da aplicacao da comp em astro)
+O recorte específico da computação na astronomia tratado nesta monografia é referente a espectroscopia estelar e remoção de contaminação telúrica nestes dados, apresentando métodos usados atualmente para fazer a correção telúrica dos sinais e experimentos que testam métodos de processamento de sinais digitais de forma a melhorar a qualidade desta correção.
+
 \section{Contextualização}
+
+% contexto das duas grandes áreas da astronomia
+A astronomia pode ser divida em duas grandes áreas de estudo: a astronomia teórica e a astronomia observacional. Em contraste com a astronomia teórica, que tem como foco a modelagem de fenômenos astronômicos e o cálculo de suas implicações no universo, a astronomia observacional tem como objetivo a observação e o registro de dados sobre o universo observável e o estudo e interpretação destas observações.  
+
+% astronomia observacional e uso de instrumentos
+Dentro do cenário da astronomia observacional, são estudados uma grande variedade objetos celestes através de suas fontes de informação: a emissão de luz, ou, radiação eletromagnética. Para observar e capturar esta radiação, astrônomos usam uma variedade de instrumentos que possuem a capacidade de transformar um sinal luminoso em informação cientificamente interpretável.
+
+% espectros: como são observados e usados em pesquisa
+Um exemplo de instrumento observacional muito usado em pesquisas astronômicas é o espectrógrafo, que transforma uma observação celeste em um espectro, através da divisão da radiação eletromagnética emitida em seus comprimentos de onda. O espectro de um objeto celeste, e no caso deste trabalho, das estrelas, é uma informação muito relevante em pesquisa, pois está relacionado diretamente a diversas características sobre a estrela, como sua composição química, temperatura e luminosidade.
+
+% dificuldades nas observações
+No entanto, a observação de espectros estelares não é um processo perfeito e o sinal capturado pode sofrer distorções tanto instrumentais quanto físicas. A radiação eletromagnética emitida por uma estrela, quando entra em contato com a atmosfera terrestre interage com as moléculas presentes. Esta interação cria artefatos no espectro capturado da estrela na forma de novas linhas de absorção, o que resulta em um espectro contaminado pela atmosfera terrestre.
+
+% o que o trabalho quer fazer
+Esta interação da atmosfera com a emissão estelar é chamada de contaminação telúrica e é um fenômeno que interfere com todas as observações estelares feitas a partir do solo terrestre. O objetivo geral deste trabalho consiste em estudar métodos existentes usados por astrônomos para corrigir espectros estelares de contaminação telúrica e investigar métodos computacionais com o potencial de auxiliar o este processo de correção .
+
 
 \section{Estrutura do Trabalho}
 
-% Uma monografia deve ter um capítulo inicial que é a Introdução e um
-% capítulo final que é a Conclusão. Entre esses dois capítulos poderá
-% ter uma sequência de capítulos que descrevem o trabalho em detalhes.
-% Após o capítulo de conclusão, poderá ter apêndices e ao final deverá
-% ter as referências bibliográficas.
+% como estão separados os capítulos
+O capítulo~\ref{cap:fundamentacao-teorica} apresenta a base teórica astronômica por trás da espectroscopia estelar e seu sistema de classificação, o processo de captura e redução de dados e a ciência da contaminação telúrica de espectros estelares. Além disso, é apresentado a base computacional da definição do problema de similaridade e alinhamento de sinais digitais e algoritmos usados neste campo.
 
+O capítulo~\ref{cap:desenvolvimentos} apresenta especificações sobre o formato de dados com o qual foi trabalhado, os conjuntos de dados públicos ou fornecidos por comunicação particular e as ferramentas computacionais utilizadas para a leitura e manipulação destes dados. Além disso, são descritos os experimento realizados no desenvolvimento deste trabalho e seus resultados.
 
-% Para a escrita de textos em Ciência da Computação, o livro de Justin Zobel, 
-% \emph{Writing for Computer Science} \citep{zobel:04} é uma leitura obrigatória. 
-% O livro \emph{Metodologia de Pesquisa para Ciência da Computação} de 
-% \citet{waz:09} também merece uma boa lida.
-
-% O uso desnecessário de termos em lingua estrangeira deve ser evitado. No entanto,
-% quando isso for necessário, os termos devem aparecer \emph{em itálico}.
-
-% \begin{small}
-% \begin{verbatim}
-% Modos de citação:
-% indesejável: [AF83] introduziu o algoritmo ótimo.
-% indesejável: (Andrew e Foster, 1983) introduziram o algoritmo ótimo.
-% certo : Andrew e Foster introduziram o algoritmo ótimo [AF83].
-% certo : Andrew e Foster introduziram o algoritmo ótimo (Andrew e Foster, 1983).
-% certo : Andrew e Foster (1983) introduziram o algoritmo ótimo.
-% \end{verbatim}
-% \end{small}
-
-% Uma prática recomendável na escrita de textos é descrever as legendas das
-% figuras e tabelas em forma auto-contida: as legendas devem ser razoavelmente
-% completas, de modo que o leitor possa entender a figura sem ler o texto onde a
-% figura ou tabela é citada.  
-
-% Apresentar os resultados de forma simples, clara e completa é uma tarefa que
-% requer inspiração. Nesse sentido, o livro de \citet{tufte01:visualDisplay},
-% \emph{The Visual Display of Quantitative Information}, serve de ajuda na
-% criação de figuras que permitam entender e interpretar dados/resultados de forma
-% eficiente.
-
+O capítulo~\ref{cap:conclusoes} expõe as conclusões finais sobre a pesquisa realizada, menciona as dificuldades encontradas e confronta os resultados com os objetivos iniciais.
+% perspectivas devia ser um cap próprio ou pode ser uma seção da conclusão?
