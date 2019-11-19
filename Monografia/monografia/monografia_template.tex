@@ -104,6 +104,9 @@ framexrightmargin=10pt
 \newcommand{\mqz}[1]{\\\medskip\noindent\begin{minipage}{\textwidth}\texttt{\textcolor{green}{[\qquad #1]}}\end{minipage}\\\medskip}
 \newcommand{\mqzinline}[1]{\texttt{\textcolor{green}{[#1]}}}
 
+\newcommand{\attrib}[1]{%
+  \nopagebreak{\raggedleft\footnotesize #1\par}}
+
 
 % ---------------------------------------------------------------------------- %
 % Definicoes comuns ao bibentries em astronomia
@@ -154,7 +157,7 @@ framexrightmargin=10pt
 
 
     \vspace*{3cm}
-    \Large{Isabela Blucher}
+    \Large{Isabela Blücher}
     
 
     \vspace{3cm}
@@ -199,8 +202,8 @@ framexrightmargin=10pt
     \end{center}
 \pagebreak
 
-% QUOTE DE ESTRELA??
 
+\clearpage
 
 \pagenumbering{roman}     % começamos a numerar 
 
@@ -208,18 +211,21 @@ framexrightmargin=10pt
 % Agradecimentos:
 % Se o candidato não quer fazer agradecimentos, deve simplesmente eliminar esta página 
 \chapter*{Agradecimentos}
-Texto texto texto texto texto texto texto texto texto texto texto texto texto
-texto texto texto texto texto texto texto texto texto texto texto texto texto
-texto texto texto texto texto texto texto texto texto texto texto texto texto
-texto texto texto texto. Texto opcional.
+À Universidade de São Paulo e ao Instituto de Matemática e Estatística pela oportunidade de cursar o Bacharelado em Ciência da Computação e por proporcionar um ambiente questionador e criativo para o desenvolvimento de pesquisas acadêmicas.
 
+Aos meus orientadores Profa. Dra. Paula Rodrigues Teixeira Coelho e Prof. Dr. Marcelo Gomes de Queiroz pela oportunidade de elaborar um trabalho que mescla minhas áreas preferidas do conhecimento e pelo paciente trabalho de ensino e revisão que fizeram comigo ao longo do ano.
 
+À Profa. Dra. Nina Sumiko Tomita Hirata, por coordenar a disciplina MAC0499 e pelo suporte no meu envolvimento com a Astronomia e o IAG durante a graduação.
+
+À minha família e amigos pelo apoio emocional, por me incentivarem a sempre dar o meu melhor e continuar estudando assuntos que me interessam.
+
+A todos que direta ou indiretamente fizeram parte da minha formação, o meu muito obrigada.
 
 % ---------------------------------------------------------------------------- %
 % Resumo
 \chapter*{Resumo}
 
-Na área da astronomia observacional, um dos principais dados usados em pesquisa são os espectros estelares, devido à grande quantidade de informação sobre a estrela contida nele. A maioria das observações estelares capturadas por espectrógrafos são feitas a partir do solo e estão sujeitas à interferência da atmosfera, denominada contaminação telúrica. Este trabalho usa dados estelares reais e dados telúricos sintéticos para testar o método de correção telúrica atual e usa o algoritmo \textit{Dynamic Time Warping} como uma abordagem para propor uma melhoria na correção dos espectros. Os resultados mostram que o algoritmo não performa idealmente entre o espectro estelar e o telúrico inteiros, mas que poderia potencialmente ser aplicado em linhas de absorção bem separadas.
+Na área da astronomia observacional, um dos principais dados usados em pesquisa são os espectros estelares, devido à grande quantidade de informação sobre a estrela contida nele. A maioria das observações estelares capturadas por espectrógrafos são feitas a partir do solo e estão sujeitas à interferência da atmosfera, denominada contaminação telúrica. Este trabalho usa dados estelares reais e dados telúricos sintéticos para testar o método de correção telúrica atual e usa o algoritmo \textit{Dynamic Time Warping} como uma abordagem para propor uma melhoria na correção dos espectros. Os resultados mostram que o algoritmo não performa idealmente \revise{quando aplicados nos espectros estelar e telúrico inteiros}, mas que poderia potencialmente ser aplicado \revise{em intervalos menores, para} linhas de absorção bem separadas.
 \\
 
 \noindent \textbf{Palavras-chave:} espectroscopia astronômica, contaminação telúrica, processamento de sinais digitais, realinhamento de sinais.
@@ -228,7 +234,7 @@ Na área da astronomia observacional, um dos principais dados usados em pesquisa
 % Abstract
 \chapter*{Abstract}
 
-In the context of observational astronomy, one of the main data used in research are stellar spectra, due to the amount of information it contains about the star. Most stellar observations are captured by ground-based spectrographs and are subject to atmospheric interference called telluric contamination. This work uses real stellar data and synthetic telluric data to test the currently used method for telluric correction and uses the Dynamic Time Wapring algorithm as an approach to potentially improve the current spectral correction. The results show that the algorithm does not perform optimally when applied between the full stellar and telluric spectra, but could potentially be used on well separated absorption lines.  
+In the context of observational astronomy, one of the main data used in research are stellar spectra, due to the amount of information it contains about the observed star. Most stellar observations are captured by ground-based spectrographs and \revise{therefore} are subject to atmospheric interference, \revise{commonly}  called telluric contamination. This work uses real stellar data and synthetic telluric data to test the currently used method for telluric correction and uses the Dynamic Time Wapring algorithm as an approach to potentially improve the current spectral correction. The results show that the algorithm does not perform optimally when applied between the full stellar and telluric spectra, but could potentially be used \revise{on smaller regions,} on well separated absorption lines.  
 \\
 
 \noindent \textbf{Keywords:} astronomical spectroscopy, telluric contamination, digital signal processing, signal realignment.
@@ -283,7 +289,7 @@ In the context of observational astronomy, one of the main data used in research
 % \input 04-cap-implementacao
 % \input cap-resultados
 \input 04-cap-conclusoes        % associado ao arquivo: 'cap-conclusoes.tex'
-\input 05-cap-perspectivas        % associado ao arquivo: 'cap-conclusoes.tex'
+% \input 05-cap-perspectivas        % associado ao arquivo: 'cap-conclusoes.tex'
 
 % cabeçalho para os apêndices
 \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\appendixname\ \thechapter}} {\MakeUppercase{#1}} }

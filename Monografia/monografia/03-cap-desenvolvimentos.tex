@@ -201,7 +201,7 @@ Os resultados do experimento de correção telúrica através da divisão de um 
 % MQZ parou aqui.
 
 % decisão de usar dtw
-Como foi explicado na seção~\ref{similarity-and-signal-alignment}, podemos usar o algoritmo \textit{Dynamic Time Warping} para encontrar o alinhamento ótimo entre dois sinais. Assim, seria possível realinhar o espectro da observação estelar com o espectro telúrico para resultar em uma divisão de maior qualidade e menor perda de informação e criação de artefatos. 
+Como foi explicado na seção~\ref{similarity-and-signal-alignment}, podemos usar o algoritmo \textit{Dynamic Time Warping}, representado pelos algoritmos~\ref{dtw-matrix} e~\ref{dtw-path} para encontrar o alinhamento ótimo entre dois sinais e o algoritmo~\ref{dtw-realignment}, para realinhar os sinais em relação ao resultado do DTW. Assim, seria possível realinhar o espectro da observação estelar com o espectro telúrico para resultar em uma divisão de maior qualidade e menor perda de informação e criação de artefatos. 
 
 % dados utilizados no experimento e versão da dtw
 Para este experimento o conjunto de dados utilizado foi o XSL e a implementação do DTW foi a \textit{FastDTW}, de modo a conseguir aplicar o algoritmo nos espectros inteiros e maximizar sua performance.
@@ -311,7 +311,7 @@ Com os dados fornecidos dos espectros estelares corrigidos que são considerados
 % desalinhamento entre os espectros atmosfericos gt e molecfit
 O estudo do sinal atmosférico corrigido em relação ao modelo telúrico do Molecfit permite obter mais informações sobre os dados e entender o quão grande é o desalinhamento entre estes espectros. Os experimentos desta seção se propõem a resgatar o sinal atmosférico correspondente ao \textit{ground-truth} e compará-lo com o sinal atmosférico obtido com o conjunto de dados do XSL.
 
-% estrelas usadasx
+% estrelas usadas
 As estrelas utilizadas para os este experimento são a X0319 e a X0386 do \textit{X-Shooter Spectral Library}, na região visível de comprimento de onda. As figuras~\ref{fig:x0319-gt-telluric} e~\ref{fig:x0386-gt-telluric} mostram os espectros telúricos sintéticos dados e os seus respectivos espectros telúricos \textit{ground-truth} resgatados à partir da divisão entre a observação estelar com contaminação telúrica e o espectro corrigido pelos pesquisadores \citep{unpublished-xshooter-data-release}.
 
 % mostrar os gts recuperados para duas estrelas
