@@ -48,7 +48,7 @@ A linguagem de programação de escolha para a implementação dos experimentos 
 Os experimentos foram implementados em \textit{notebooks} do \textit{Jupyter}\footnote{\url{https://jupyter.org/}} \citep{Kluyver:2016aa}, um projeto de código-aberto com o objetivo de oferecer suporte à ciência de dados e computação científica interativa. Neste ambiente computacional é possível escrever código em células que podem ser executadas de forma independente. Esta interatividade faz com que os \textit{notebooks} sejam ambientes perfeitos para uma programação de natureza exploratória, já que é possível executar experimentos e apresentar resultados e gráficos entre várias células de código.
 
 % pacotes python
-Estabelecidos a linguagem e o ambiente dos experimentos, foram usadas diversas bibliotecas de \textit{Python} para ler, manipular e visualizar os dados estelares. Os pacotes utilizados foram: o \textit{NumPy}\footnote{\url{https://numpy.org/}} \citep{oliphant2006guide}, uma biblioteca fundamental de computação científica performática com suporte para vetores e matrizes grandes e multidimensionais, além de diversas funções matemáticas de alto nível; o \textit{Matplotlib}\footnote{\url{https://matplotlib.org/}} \citep{Hunter:2007}, uma biblioteca gráfica que permite a visualização de dados em diversos tipos de gráficos; e finalmente o \textit{Astropy}\footnote{\url{http://www.astropy.org}} \citep{astropy:2018}, uma biblioteca que é amplamente usado para processar computacionalmente diversos dados astronômicos e tem funcionalidades como leitura de arquivos FITS, conversões de unidades e quantidades físicas e computações cosmológicas.
+Estabelecidos a linguagem e o ambiente dos experimentos, foram usadas diversas bibliotecas de \textit{Python} para ler, manipular e visualizar os dados estelares. Os pacotes utilizados foram: o \textit{NumPy}\footnote{\url{https://numpy.org/}} \citep{oliphant2006guide}, uma biblioteca fundamental de computação científica performática com suporte para vetores e matrizes grandes e multidimensionais, além de diversas funções matemáticas de alto nível; o \textit{Matplotlib}\footnote{\url{https://matplotlib.org/}} \citep{Hunter:2007}, uma biblioteca gráfica que permite a visualização de dados em diversos tipos de gráficos; e finalmente o \textit{Astropy}\footnote{\url{http://www.astropy.org}} \citep{astropy:2018}, uma biblioteca que é amplamente usado para processar computacionalmente diversos dados astronômicos e tem funcionalidades como leitura de arquivos FITS, conversões de unidades entre quantidades físicas e computações cosmológicas.
 
 \section{Conjuntos de dados}
 
@@ -57,10 +57,10 @@ Para o desenvolvimento dos experimentos destre trabalho, foram obtidos alguns co
 
 % lista dos dados 
 \begin{itemize}
-    \item UVES: dois pares de arquivos FITS contendo observações das estrelas HD110379 e HD110379 e seus respectivos referenciais telúricos. Estes dados foram capturados pelo espectrógrafo UVES \footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/uves.html}} \citep{2000SPIE.4008..534D}, parte do \textit{Very Large Telescope Array} \footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}}, no Cerro Paranal, Chile.
-    \item FTS: uma tabela FITS contendo observações reais do Sol, da estrela Arcturus e um referencial telúrico para ambas.
-    \item XSL: dados de observações do \textit{X-Shooter} \citep{Chen2014TheXS}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. Mais detalhes sobre este conjunto de dados são explicados nesta seção (Anaïs Gonneau, comunicação privada).
-    \item Molecfit: dados telúricos sintéticos gerados com a ferramenta Molecfit \citep{smette2015molecfit} 
+    \item UVES: dois pares de arquivos FITS contendo observações das estrelas HD110379 e HD110379 e seus respectivos referenciais telúricos. Estes dados foram capturados pelo espectrógrafo UVES \footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/uves.html}} \citep{2000SPIE.4008..534D}, instalado no \textit{Very Large Telescope Array} \footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}}, no Cerro Paranal, Chile. Os dados foram obtidos como parte do \textit{proposal} de observação 087.B-0308(B), PI P. Coelho.
+    \item FTS: uma tabela FITS contendo observações reais do Sol, da estrela Arcturus e um referencial telúrico para ambas \citep{arcturusflux:hinkle00}, observados pelo \textit{Fourier Transform Spectrometer} instalado no telescópio KPNO no National Optical Astronomy Observatory\footnote{\url{https://www.noao.edu/image_gallery/html/im0449.html}}.
+    \item XSL: dados de observações do \textit{X-Shooter} \citep{Chen2014TheXS, unpublished-xshooter-data-release}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. Mais detalhes sobre este conjunto de dados são explicados nesta seção (Anaïs Gonneau, comunicação privada).
+    \item\texttt{Molecfit}: dados telúricos sintéticos gerados com a ferramenta \texttt{Molecfit} \citep{smette2015molecfit} 
 \end{itemize}
 
 % leitura dos dados
@@ -105,8 +105,8 @@ Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-sig
 % mais detalhes sobre os dados do xsl (4 estrelas de ciencia, 4 teluricas sinteticas do molecfit e 4 corrigidas, dividas entre as regioes do espectro eletromagnetico infravermelho, visivel, ultravioleta)
 \begin{itemize}
     \item *X\_N\_E.fits ou *X\_O\_E.fits: o espectro da estrela com contaminação telúrica, separado em 3 arquivos que cobrem intervalos de comprimento de ondas diferentes (X no nome do arquivo será U = ultravioleta, V = visível ou N = infravermelho);
-    \item *TRA.fits: modelo Molecfit que representa o espectro telúrico correspondente ao dia da observação, também separado em 3 arquivos que cobrem comprimentos de ondas diferentes;
-    \item *TAC.fits ou *TAC\_final.fits: espectros das estrelas corrigidos pelo modelo Molecfit e já considerando que as distorções observadas em comprimento de onda foram corrigidas, também separado em três arquivos.
+    \item *TRA.fits: modelo \texttt{Molecfit} que representa o espectro telúrico correspondente ao dia da observação, também separado em 3 arquivos que cobrem comprimentos de ondas diferentes;
+    \item *TAC.fits ou *TAC\_final.fits: espectros das estrelas corrigidos pelo modelo \texttt{Molecfit} e já considerando que as distorções observadas em comprimento de onda foram corrigidas, também separado em três arquivos.
 \end{itemize}
 
 % desnecessário:
@@ -145,13 +145,13 @@ Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-sig
 As figuras~\ref{fig:x0319-visible},~\ref{fig:x0386-infrared} e~\ref{fig:x0538-ultraviolet} ilustram exemplos de alguns espectros do conjunto de dados do \textit{X-Shooter}, tanto de diferentes estrelas quanto de diferentes regiões de comprimentos de onda. 
 
 % falar sobre diferença no eixo y 
-Uma das diferenças entre o espectro observado e o telúrico de uma mesma estrela é a diferença de ordem de magnitude da escala do eixo y dos gráficos. Como foi mencionado na seção~\ref{data-reduction}, os espectros observados possuem uma unidade física ao final do processo de redução de dados. No caso das observações do conjunto de dados do \textit{X-Shooter}, os espectros não passaram pelo processo de redução de dados por completo, o que significa que o eixo y não possui o mesmo significado físico de intensidade por unidade de área, tempo e comprimento de onda. 
+Uma das diferenças entre o espectro observado e o telúrico de uma mesma estrela é a diferença de ordem de magnitude da escala do eixo y dos gráficos. Como foi mencionado na seção~\ref{data-reduction}, os espectros observados possuem uma unidade física ao final do processo de redução de dados. No caso das observações do conjunto de dados do \textit{X-Shooter} utilizadas nesse trabalho, os espectros não passaram pelo processo de redução de dados por completo. Nesse caso o eixo y não possui o mesmo significado físico de intensidade por unidade de área, tempo e comprimento de onda, mas é uma quantidade adimensional relacionada ao número de fótons detectado pelo CCD.
 
 % tentar introduzir o significado do eixo e explicação da adimensionalidade do fluxo antes do final da redução de dados
 Como o fluxo é capturado pelo CCD através da corrente elétrica produzida por uma certa contagem de fótons, o processo de conversão entre a tensão produzida no instrumento e finalmente uma unidade fisicamente interpretável é extremamente sofisticado em termos de \textit{hardware} e não será abordado neste trabalho. Para os experimentos realizados neste capítulo é importante notar que o eixo y é relacionado tanto ao fluxo da estrela quanto à assinatura instrumental do espectrógrafo. 
 
 % espectro do molecfit e normalização pro intervalo [0,1]
-Já nos espectros telúricos sintéticos do Molecfit, o eixo y do gráfico é normalizado para o intervalo $[0, 1]$ e representa um mapa de transmitância da atmosfera, ou seja, uma série de fatores de absorção que quando interagem com o sinal estelar capturam parte da sua emissão. Para facilitar o restante dos experimentos, as observações do \textit{X-Shooter} também tiveram seus intervalos normalizados de forma a simplificar a manipulação dos dados.
+Já nos espectros telúricos sintéticos do \texttt{Molecfit}, o eixo y do gráfico é normalizado para o intervalo $[0, 1]$ e representa um mapa de transmitância da atmosfera, ou seja, uma série de fatores de absorção que quando interagem com o sinal estelar capturam parte da sua emissão. Para facilitar o restante dos experimentos, as observações do \textit{X-Shooter} também tiveram seus intervalos normalizados de forma a simplificar a manipulação dos dados.
 
 \section{Divisão do sinal estelar pelo telúrico}
 
@@ -161,7 +161,7 @@ Após o processo de exploração e familiarização com os dados astronômicos f
 % recapitular pq podemos dividir os espectros
 Como mencionado na seção~\ref{telluric-contamination}, por causa da natureza multiplicativa do modelo físico da transmissão da radiação estelar através da atmosfera, a correção telúrica corresponderia de fato à divisão simples entre os espectros de ciência e telúrico. A motivação por trás deste experimento é observar que na prática esta solução não é ideal e cria artefatos no espectro estelar. 
 
-Algumas explicações do porquê o método da correção telúrica pela divisão simples de espectros não funciona como proposto no modelo teórico provêm das distorções do sinal que possuem origem instrumental. Alguns exemplos de distorções esperadas pelos astrônomos em suas observações são o alargamento das linhas espectrais, desconsiderando o alargamento Doppler \citep{LEVENHAGEN2008}, e a criação de deslocamentos no domínio de comprimento de onda.
+Algumas explicações do porquê o método da correção telúrica pela divisão simples de espectros não funciona como proposto no modelo teórico provêm das distorções do sinal que possuem origem instrumental. Alguns exemplos de distorções esperadas pelos astrônomos em suas observações são o alargamento das linhas espectrais, desconsiderando o alargamento Doppler \citep{LEVENHAGEN2008}, e a criação de deslocamentos no domínio de comprimento de onda provenientes de artefatos de \textit{hardware} \citep[e.g.][]{wavelength-shifts}.
 % mostrar resultados de alguns conjuntos de dados que ilustrem bem a criação de artefatos 
 A primeira divisão realizada foi do conjunto de dados do espectrógrafo UVES, na estrela HD110379. 
 
@@ -196,47 +196,45 @@ Os resultados das divisões nesta seção ilustram as dificuldades conhecidas no
 \section{DTW no sinal estelar}
 
 % introdução da seção
-Os resultados do experimento de correção telúrica através da divisão de um espectro estelar pelo seu referencial telúrico esclarecem a necessidade de pensar em melhorias ao processo atual. Como foi visto, um dos problemas nos dados é a falta de alinhamento entre os sinais, e a consequente criação de artefatos e distorções nos espectros corrigidos. O experimento desta seção propõe uma solução alternativa a uma das dificuldades conhecidas das observações: o desalinhamento dos espectros.
-
-% MQZ parou aqui.
+Os resultados do experimento de correção telúrica através da divisão de um espectro estelar pelo seu referencial telúrico esclarecem a necessidade de considerar melhorias ao processo atual. Como foi visto, um dos problemas nos dados é a falta de alinhamento entre os sinais, e a consequente criação de artefatos e distorções nos espectros corrigidos. O experimento desta seção propõe uma solução alternativa a uma das dificuldades conhecidas das observações: o desalinhamento dos espectros.
 
 % decisão de usar dtw
-Como foi explicado na seção~\ref{similarity-and-signal-alignment}, podemos usar o algoritmo \textit{Dynamic Time Warping}, representado pelos algoritmos~\ref{dtw-matrix} e~\ref{dtw-path} para encontrar o alinhamento ótimo entre dois sinais e o algoritmo~\ref{dtw-realignment}, para realinhar os sinais em relação ao resultado do DTW. Assim, seria possível realinhar o espectro da observação estelar com o espectro telúrico para resultar em uma divisão de maior qualidade e menor perda de informação e criação de artefatos. 
+Como foi explicado na seção~\ref{similarity-and-signal-alignment}, podemos usar o algoritmo \textit{Dynamic Time Warping}, representado pelos algoritmos~\ref{dtw-matrix} e~\ref{dtw-path}, para encontrar o alinhamento ótimo entre dois sinais, e o algoritmo~\ref{dtw-realignment} para realinhar os sinais em relação ao resultado do DTW. Assim, seria possível realinhar o espectro da observação estelar com o espectro telúrico para resultar em uma divisão de maior qualidade e menor perda de informação e criação de artefatos. 
 
-% dados utilizados no experimento e versão da dtw
-Para este experimento o conjunto de dados utilizado foi o XSL e a implementação do DTW foi a \textit{FastDTW}, de modo a conseguir aplicar o algoritmo nos espectros inteiros e maximizar sua performance.
+% dados utilizados no experimento e versão do DTW
+Para este experimento o conjunto de dados utilizado foi o XSL e a implementação do DTW foi a \textit{FastDTW}, de modo a permitir a aplicação do algoritmo nos espectros completos (ou seja, em todas as faixas de comprimentos de onda).
 
 % primeiro experimento
-O primeiro exemplo da aplicação da DTW nos dados da XSL é no intervalo visível de comprimento de onda da estrela X0319, cujos espectros são ilustrados na figura~\ref{fig:x0319-visible}. O algoritmo foi aplicado nos espectros estelar e telúrico inteiros, e o caminho gerado pela DTW algoritmo está na figura~\ref{fig:x0319-warp-path}.
+O primeiro exemplo da aplicação do DTW nos dados da XSL considera todo o intervalo visível de comprimento de onda da estrela X0319, cujos espectros são ilustrados na figura~\ref{fig:x0319-visible}. O algoritmo foi aplicado nos espectros estelar e telúrico, e o caminho gerado pelo DTW está na figura~\ref{fig:x0319-warp-path}.
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=10cm]{figuras/x0319_warp_path.png}
-\caption{Caminho da DTW para o espectro estelar e telúrico de X0319}
+\caption{Caminho do DTW para o espectro estelar e telúrico de X0319}
 \label{fig:x0319-warp-path}
 \end{figure}
 
-O caminho resultante do algoritmo já indica uma série de regiões problemáticas dos espectros que não puderam ser alinhadas de maneira ótima. Idealmente o caminho deveria se distanciar pouco da diagonal secundária da matriz de similaridade, mas neste caso são claras as regiões onde as sequências não são similares, como a linha horizontal que ocupa a maioria do caminho, seguida de um avanço quase vertical.
+O caminho resultante do algoritmo já indica uma série de regiões problemáticas dos espectros que não puderam ser alinhadas de maneira razoável. Idealmente o caminho deveria se distanciar pouco da diagonal secundária da matriz de similaridade, mas neste caso são claras as regiões onde as sequências simplesmente não são similares, como a linha horizontal que ocupa a maioria do caminho, seguida de um trecho quase vertical.
 
-O espectro telúrico original do Molecfit e o realinhado em relação à observação estelar que foi reconstruído a partir do caminho da DTW estão na figura~ \ref{fig:x0319-realigned-telluric}.
+O espectro telúrico original do \texttt{Molecfit} e o realinhado em relação à observação estelar que foi reconstruído a partir do caminho do DTW estão apresentados na figura~\ref{fig:x0319-realigned-telluric}.
 
 \begin{figure}[htb]
   \centering
-  \subfloat[Modelo telúrico do Molefit de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra.png}}
+  \subfloat[Modelo telúrico do \texttt{Molecfit} de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra.png}}
   \hfill
   \subfloat[Espectro telúrico de X0319 realinhado]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_aligned.png}}
-  \caption{Espectro telúrico de X0319 e espectro telúrico realinhado a partir do caminho da DTW}
+  \caption{Espectro telúrico de X0319 e espectro telúrico realinhado a partir do caminho do DTW}
   \label{fig:x0319-realigned-telluric}
 \end{figure}
 
 % resultado do espectro telurico realinhado
-É possível ver que por mais que o espectro telúrico realinhado da estrela X0319 tem o formato geral do modelo do Molecfit, ele possui uma forte distorção em relação às linhas espectrais originais e exibe a formação de ângulos retos que não são características deste tipo de dado.
+É possível ver que, por mais que o espectro telúrico realinhado da estrela X0319 tenha o formato geral do modelo do \texttt{Molecfit}, ele possui uma forte distorção em relação às linhas espectrais originais e exibe a formação de ângulos retos que não são característicos deste tipo de dado.
 
 % mais um exemplo em outra estrela no espectro completo
-O próximo teste também foi feito em uma estrela do XSL, a estrela X0386, no intervalo visível de comprimento de onda do espectro. A escolha desta região espectral se deve ao fato de que a contaminação telúrica é presente, porém menos intensa e de difícil correção do que na região de comprimento de onda infravermelho. Quanto à região ultravioleta, esta parece ser menos sensível aos efeitos da atmosfera terrestre. 
+O próximo teste também foi feito em uma estrela do XSL, a estrela X0386, no intervalo visível de comprimento de onda do espectro. A escolha desta região espectral se deve ao fato de que a contaminação telúrica está presente, porém é menos intensa e de mais difícil correção do que na região de comprimento de onda infravermelho. Quanto à região ultravioleta, esta parece ser menos sensível aos efeitos da atmosfera terrestre, como pode ser visualizado na figura \ref{fig:molectfit-telluric-reference}.
 
 % espectro observado, porque não foi mostrado antes
-A figura~\ref{fig:x0386-v-n-e} a seguir ilustra a observação estelar de X0386, para que se tenha uma noção do formato do espectro contaminado.
+A figura~\ref{fig:x0386-v-n-e} a seguir ilustra a observação estelar de X0386, para que se possa perceber o formato do espectro contaminado.
 
 \begin{figure}[htb]
 \centering
@@ -245,106 +243,108 @@ A figura~\ref{fig:x0386-v-n-e} a seguir ilustra a observação estelar de X0386,
 \label{fig:x0386-v-n-e}
 \end{figure}
 
-% comentarios do caminho da dtw
-Nesta observação e no seu referencial telúrico foi aplicado o DTW e a figura~\ref{fig:x0386-warp-path} contém o caminho resultante do algoritmo. Neste caso também é possível observar que o caminho apresenta uma grande distorção em relação à diagonal ideal na maioria do caminho, o que significa que o sinal estelar e telúrico não possuem um alinhamento ótimo que ajudaria na divisão simples dos espectros.
+% comentarios do caminho do DTW
+Nesta observação e no seu referencial telúrico foi aplicado o DTW, e a figura~\ref{fig:x0386-warp-path} contém o caminho resultante do algoritmo. Neste caso também é possível observar que o caminho apresenta uma grande distorção em relação à diagonal ideal, o que significa que o sinal estelar e telúrico não possuem um alinhamento razoável que permitiria a divisão simples dos espectros.
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=10cm]{figuras/x0386_warp_path.png}
-\caption{Caminho da DTW para o espectro estelar e telúrico de X0386}
+\caption{Caminho do DTW para o espectro estelar e telúrico de X0386}
 \label{fig:x0386-warp-path}
 \end{figure}
 
 % resultados do algoritmo no realinhamento 
-Os efeitos da distorção causada pelo realinhamento de espectro telúrico usando o caminho resultante do DTW podem ser vistos na figura~\ref{fig:x0386-realigned-telluric}. O espectro telúrico realinhado sofre um grande perda de informação nas suas linhas espectrais e é possível ver que apenas se assemelha ao modelo original no intervalo entre 900nm e 1000nm, a mesma região do caminho da DTW que se aproxima da diagonal secundária da matriz de similaridade.
+Os efeitos da distorção causada pelo realinhamento de espectro telúrico usando o caminho resultante do DTW podem ser vistos na figura~\ref{fig:x0386-realigned-telluric}. O espectro telúrico realinhado sofre um grande perda de informação nas suas linhas espectrais e é possível ver que ele se assemelha ao modelo original apenas no intervalo entre 900nm e 1000nm, a mesma região do caminho do DTW que se aproxima da diagonal secundária da matriz de similaridade.
 
 % espectro telurico e realinhado de x0386
 \begin{figure}[H]
   \centering
-  \subfloat[Modelo telúrico do Molefit de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra.png}}
+  \subfloat[Modelo telúrico do \texttt{Molecfit} de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra.png}}
   \hfill
   \subfloat[Espectro telúrico de X0386 realinhado]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_aligned.png}}
-  \caption{Espectro telúrico de X0386 e espectro telúrico realinhado a partir do caminho da DTW}
+  \caption{Espectro telúrico de X0386 e espectro telúrico realinhado a partir do caminho do DTW}
   \label{fig:x0386-realigned-telluric}
 \end{figure}
 
 
 % mais um exemplo com zoom no espectro para mostrar as linhas e os efeitos no nível micro
-Uma hipótese do motivo pelo qual a aplicação do DTW no espectro como um todo não mostrou bons resultados é que os desalinhamentos em diferentes regiões não são os mesmos pixel a pixel. Assim, mostrou-se necessário testar o algoritmo de realinhamento em regiões menores do espectro. Foi aplicado o DTW no espectro da estrela X0319, no intervalo de comprimento de onda entre 834nm e 841nm e as figuras~\ref{fig:x0319-warp-path-zoom} e~\ref{fig:x0319-realigned-telluric-zoom} mostram o caminho resultante na matriz de similaridade e o espectro telúrico original e realinhado. 
+Uma hipótese para explicar o baixo desempenho da aplicação do DTW nos espectros completos seriam as grandes diferenças de perfil global que se observam entre os espectros de ciência e os espectros telúricos: a intuição que levou à seleção do DTW como ferramenta de alinhamento entre esses espectros diferentes correspondia à similaridade observável nesses espectros entre as linhas de absorção correspondentes a elementos químicos específicos. Assim, um próximo passo natural correspondia a testar o algoritmo de realinhamento em regiões menores do espectro.
+
+Para verificar essa nova hipótese, foi aplicado o DTW no espectro da estrela X0319, no intervalo de comprimento de onda entre 834nm e 841nm. As figuras~\ref{fig:x0319-warp-path-zoom} e~\ref{fig:x0319-realigned-telluric-zoom} mostram o caminho resultante na matriz de similaridade e o espectro telúrico original e realinhado. 
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=10cm]{figuras/x0319_warp_path_zoom.png}
-\caption{Caminho da DTW para o espectro estelar e telúrico de X0319 no intervalo de 834nm a 841nm}
+\caption{Caminho do DTW para o espectro estelar e telúrico de X0319 no intervalo de 834nm a 841nm}
 \label{fig:x0319-warp-path-zoom}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \subfloat[Modelo telúrico do Molefit de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra_zoom.png}}
+  \subfloat[Modelo telúrico do \texttt{Molecfit} de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra_zoom.png}}
   \hfill
   \subfloat[Espectro telúrico de X0319 realinhado]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_aligned_zoom.png}}
-  \caption{Espectro telúrico de X0319 e espectro telúrico realinhado a partir do caminho da DTW no intervalo de 834nm a 841nm}
+  \caption{Espectro telúrico de X0319 e espectro telúrico realinhado a partir do caminho do DTW no intervalo de 834nm a 841nm}
   \label{fig:x0319-realigned-telluric-zoom}
 \end{figure}
 
-Neste experimento são observados os mesmos resultados dos experimentos anteriores em menor escala. Em um intervalo de comprimento de onda que abrange 9nm de espectro estelar ocorrem os mesmos deslocamentos horizontais e verticais no caminho da matriz de similaridades e no espectro telúrico realinhado também ocorre a formação de ângulos retos nas linhas de absorção.
+Neste experimento são observados os mesmos problemas dos experimentos anteriores em menor escala. Em um intervalo de comprimento de onda que abrange 9nm de espectro estelar ocorrem os mesmos deslocamentos horizontais e verticais no caminho da matriz de similaridades, e no espectro telúrico realinhado também ocorre a formação de ângulos retos nas linhas de absorção.
 
 % conclusoes deste experimento
-A aplicação do \textit{Dynamic Time Warping} para realinhar o sinal estelar com o modelo telúrico não se mostrou ideal para minimizar a quantidade de informação perdida na correção telúrica. O algoritmo, por tentar juntar os sinais pixel a pixel nos elementos de maior similaridade, não atua da melhor maneira em sinais que não representam a mesma informação porém compartilham regiões com linhas de absorção de origens equivalentes. O DTW hipoteticamente poderia funcionar em um caso onde é possível isolar setores muito pequenos com linhas de absorção bem separadas.
+A aplicação do \textit{Dynamic Time Warping} entre o sinal estelar e o modelo telúrico não se mostrou adequado para alinhar as linhas de absorção correspondentes nesses espectros permitindo assim a correção da distorção telúrica. O algoritmo, que se baseia na premissa de forte similaridade entre os conteúdos a serem alinhados, não produz alinhamentos razoáveis quando aplicado em sinais que não representam a mesma informação, embora compartilhem regiões com linhas de absorção de origens equivalentes. O DTW ainda poderia funcionar, hipoteticamente, em um caso onde fosse possível isolar setores muito pequenos, com linhas de absorção similares e claramente separadas.
 
 
 \section{DTW no sinal atmosférico}
 
 % introdução do experimento
-O uso do \textit{Dynamic Time Warping} como ferramenta de realinhamento entre o sinal estelar e o referencial telúrico contribuiu para um maior conhecimento sobre os dados usados neste trabalho e também introduziu dúvidas sobre o sinal atmosférico obtido do Molecfit.
+Os experimentos de uso do \textit{Dynamic Time Warping} como ferramenta de realinhamento entre o sinal estelar e o referencial telúrico contribuiram para uma maior familiarização em relação aos dados usados neste trabalho e também introduziram questionamentos sobre o sinal atmosférico obtido do \texttt{Molecfit}.
 
 % como resgatar atm' e por que
-Com os dados fornecidos dos espectros estelares corrigidos que são considerados como o \textit{ground-truth} relativo para este trabalho, é possível fazer um resgate to espectro telúrico \textit{ground-truth} a partir da divisão do espectro estelar observado pelo espectro estelar corrigido. Desta forma, se temos os vetores $o$, $c$ que representam a observação e o sinal corrigido
+Com os dados fornecidos dos espectros estelares corrigidos que são considerados como o \textit{ground-truth} neste trabalho, é possível resgatar o espectro telúrico realinhado a partir da divisão do espectro estelar observado pelo espectro estelar corrigido. Desta forma, se temos os vetores $o$ e $c$ que representam a observação contaminada e o espectro final corrigido, teríamos o espectro real de transmitância da atmosfera dado por
 
 \begin{equation*}
-    a' = o / c \qquad \left(\mbox{ou equivalentemente:} \qquad a'_{i} = o_i / c_i,\ \forall i\right)
+    a' = o \oslash c \qquad \left(\mbox{ou equivalentemente:} \qquad a'_{i} = o_i / c_i,\ \forall i\right),
 \end{equation*}
 
-\noindent onde $a'$ representa o espectro telúrico com correção dos desalinhamentos observados.
+\noindent onde $a'$ representa o espectro telúrico com correção dos desalinhamentos observados ($\oslash$ denota a divisão de Hadamard).
 
 % desalinhamento entre os espectros atmosfericos gt e molecfit
-O estudo do sinal atmosférico corrigido em relação ao modelo telúrico do Molecfit permite obter mais informações sobre os dados e entender o quão grande é o desalinhamento entre estes espectros. Os experimentos desta seção se propõem a resgatar o sinal atmosférico correspondente ao \textit{ground-truth} e compará-lo com o sinal atmosférico obtido com o conjunto de dados do XSL.
+O estudo do sinal atmosférico corrigido em relação ao modelo telúrico do \texttt{Molecfit} permite obter mais informações sobre os dados e entender o quão grande é o desalinhamento entre estes espectros. Os experimentos desta seção se propõem a resgatar o sinal atmosférico correspondente ao \textit{ground-truth} e compará-lo com o sinal atmosférico obtido com o conjunto de dados do XSL.
 
 % estrelas usadas
-As estrelas utilizadas para os este experimento são a X0319 e a X0386 do \textit{X-Shooter Spectral Library}, na região visível de comprimento de onda. As figuras~\ref{fig:x0319-gt-telluric} e~\ref{fig:x0386-gt-telluric} mostram os espectros telúricos sintéticos dados e os seus respectivos espectros telúricos \textit{ground-truth} resgatados à partir da divisão entre a observação estelar com contaminação telúrica e o espectro corrigido pelos pesquisadores \citep{unpublished-xshooter-data-release}.
+As estrelas utilizadas para este experimento são a X0319 e a X0386 do \textit{X-Shooter Spectral Library}, na região visível de comprimento de onda. As figuras~\ref{fig:x0319-gt-telluric} e~\ref{fig:x0386-gt-telluric} mostram os modelos telúricos dados e os seus respectivos espectros telúricos realinhados a partir da divisão entre a observação estelar com contaminação telúrica e o espectro corrigido \citep{unpublished-xshooter-data-release}.
 
 % mostrar os gts recuperados para duas estrelas
 \begin{figure}[htb]
   \centering
-  \subfloat[Modelo telúrico do Molefit de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra.png}}
+  \subfloat[Modelo telúrico do \texttt{Molecfit} de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra.png}}
   \hfill
-  \subfloat[Espectro telúrico ground-truth de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra_gt.png}}
+  \subfloat[Espectro telúrico de X0319 realinhado]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_o_e_tra_gt.png}}
   \caption{Espectro telúrico dado e espectro telúrico corrigido de shifts de X0319}
   \label{fig:x0319-gt-telluric}
 \end{figure}
 
 \begin{figure}[htb]
   \centering
-  \subfloat[Modelo telúrico do Molefit de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra.png}}
+  \subfloat[Modelo telúrico do \texttt{Molecfit} de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra.png}}
   \hfill
-  \subfloat[Espectro telúrico ground-truth de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra_gt.png}}
+  \subfloat[Espectro telúrico de X0386 realinhado]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra_gt.png}}
   \caption{Espectro telúrico dado e espectro telúrico corrigido de shifts de X0386}
   \label{fig:x0386-gt-telluric}
 \end{figure}
 
 % características dos sinais gt
-Por inspeção visual, é possível observar que os espectros corrigidos de desalinhamentos não possuem distorções perceptíveis em relação aos seus correspondentes modelos do Molefit. Isto indica que se existem desalinhamentos entre estes sinais e que estes devem ser pequenos. 
+Por inspeção visual, é possível observar que os espectros corrigidos de desalinhamentos não possuem distorções perceptíveis em relação aos seus correspondentes modelos do \texttt{Molecfit}. Isto indica que se existem desalinhamentos entre estes sinais, estes devem ser pequenos. 
 
 % dtw nestes sinais: deveria funcionar bem melhor agora que os espectros representam a mesma informação 
-A presença de pequenos desalinhamentos entre os sinais sugere que estes dados são viáveis de se aplicar o algoritmo do \textit{Dynamic Time Warping}. Desta forma seria possível observar regiões com maior desalinhamento, e portanto, quais regiões do espectro tiveram correções de shifts feitas pelo grupo de pesquisadores que lidaram com estes espectros.
+A presença de pequenos desalinhamentos entre os sinais sugere que estes dados seriam adequados à aplicação do algoritmo do \textit{Dynamic Time Warping}. Desta forma seria possível observar regiões com maior desalinhamento, e portanto, quais regiões do espectro tiveram correções de shifts feitas pelo grupo de pesquisadores que lidaram com estes espectros.
 
-% mostrar resultados da dtw nas duas estrelas e com zoom
+% mostrar resultados do DTW nas duas estrelas e com zoom
 \begin{figure}[htb]
   \centering
   \subfloat[Caminho do DTW entre espectros telúricos de X0319]{\includegraphics[width=0.5\textwidth]{figuras/x0319_warp_path_gt.png}}
   \hfill
-  \subfloat[Espectro telúrico de X0319 reconstruído com caminho do DTW]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_n_e_tra_dtw.png}}
+  \subfloat[Espectro telúrico de X0319 reconstruído a partir do caminho do DTW]{\includegraphics[width=0.5\textwidth]{figuras/x0319_v_n_e_tra_dtw.png}}
   \caption{Caminho do DTW e espectro telúrico reconstruído de X0319}
   \label{fig:x0319-dtw-telluric}
 \end{figure}
@@ -353,27 +353,27 @@ A presença de pequenos desalinhamentos entre os sinais sugere que estes dados s
   \centering
   \subfloat[Caminho do DTW entre espectros telúricos de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_warp_path_gt.png}}
   \hfill
-  \subfloat[Espectro telúrico de X0319 reconstruído com caminho do DTW]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra_dtw.png}}
+  \subfloat[Espectro telúrico de X0319 reconstruído a partir do caminho do DTW]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra_dtw.png}}
   \caption{Caminho do DTW e espectro telúrico reconstruído de X0319}
   \label{fig:x0386-dtw-telluric}
 \end{figure}
 
 % resultados dtw
-As figuras~\ref{fig:x0319-dtw-telluric} e~\ref{fig:x0386-dtw-telluric} mostram os caminhos resultantes da aplicação do DTW nos espectros telúricos do Molecfit e nos espectros telúricos \textit{ground-truth} de X0319 e X0386. Diferente dos caminhos resultantes do DTW quando aplicados no sinal estelar e telúrico, neste caso quase não existem distorções e o caminho se aproxima do caso ideal. Os pequenos picos no caminho resultante indicam desalinhamentos no sinal estelar que foram manualmente corrigido pelo grupo de pesquisadores. 
+As figuras~\ref{fig:x0319-dtw-telluric} e~\ref{fig:x0386-dtw-telluric} mostram os caminhos resultantes da aplicação do DTW nos espectros telúricos do \texttt{Molecfit} e nos espectros telúricos \textit{ground-truth} de X0319 e X0386. Diferentemente dos caminhos resultantes do DTW quando aplicados no sinal estelar e telúrico, neste caso quase não existem distorções e o caminho se aproxima do caso ideal. Os pequenos desvios em relação à diagonal no caminho resultante indicam desalinhamentos no sinal estelar que foram manualmente corrigido pelo grupo de pesquisadores responsável pelo espectro final. 
 
 % metrica de shift
-Para melhor compreender as regiões do espectro telúrico mais afetadas por desalinhamentos, foi criada uma métrica \textit{shift}, tal que, para cada par de índices $(i,j)$ do caminho $P$ do DTW, o \textit{shift} de cada par do caminho é representado por $j - i$. Desta forma é possível ver os desalinhamentos em termos de quantidade de elementos dos sinais telúricos.
+Para melhor compreender as regiões do espectro telúrico mais afetadas por desalinhamentos, foi computada uma função \textit{shift} ao longo do caminho do DTW, tal que, para cada par de índices $(i,j)$ desse caminho, o valor do \textit{shift} é representado por $j - i$. Desta forma é possível ver os desalinhamentos em termos de quantidade de índices de desvio entre os respectivos sinais telúricos.
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=10cm]{figuras/x0386_displacement.png}
-\caption{Desalinhamentos em número de elementos entre o modelo do Molefit e o telúrico groun-truth de X0386}
+\caption{Desalinhamentos em número de elementos entre o modelo do \texttt{Molecfit} e o espectro telúrico realinhado de X0386}
 \label{fig:x0386-displacement}
 \end{figure}
 
 % resultado do shift
-A figura~\ref{fig:x0386-displacement} ilustra os tamanhos dos desalinhamentos entre os espectro dado do Molefit e o espectro telúrico \textit{ground-truth} resgatado da estrela X0386. Os maiores desalinhamentos são adiantamentos ou atrasos em 200 elementos dos vetores que representam os espectros, o que representa desalinhamentos de aproximadamente 3nm. Isto acontece principalmente entre o elemento 5000 e 10000 dos vetores, que é a região de 608nm a 683nm.
+A figura~\ref{fig:x0386-displacement} ilustra a magnitude dos desalinhamentos entre o espectro dado do \texttt{Molecfit} e o espectro telúrico realinhado da estrela X0386. Os maiores desalinhamentos são adiantamentos ou atrasos em 200 elementos dos vetores que representam os espectros, o que representa desalinhamentos em comprimento de onda de aproximadamente 3\,nm. Isto acontece principalmente entre o elemento 5000 e 10000 dos vetores, que é a região de 608\,nm a 683\,nm.
 
 % conclusão do experimento (como melhorar?)
-Este resultado mostra que o algotritmo do Dynamic Time Warping é melhor aplicado em vetores que representam relativamente a mesma informação, e no caso de dados estelares, quando aplicado em regiões menores dos espectros telúricos com linhas de absorção separadas. 
+Este resultado ilustra uma aplicação possível do algoritmo DTW em vetores que representam a mesma informação, nesse caso entre dois espectros telúricos antes e depois de um realinhamento realizado por especialistas. Tal aplicação poderia ser de interesse em tarefas de aprendizado automático relacionadas com correção de desalinhamentos instrumentais, por exemplo.
 

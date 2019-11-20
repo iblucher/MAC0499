@@ -105,7 +105,7 @@ Os benefícios de se usar um CCD para capturar imagens celestes é que eles auto
 O processo de corrigir as imagens capturadas pelo CCD pelas assinaturas instrumentais é chamado de \textbf{\textit{redução de dados}} pela comunidade astronômica, e consiste de uma série de transformações aplicadas à imagem bruta. No final deste processo é obtida uma imagem científica utilizável e pronta para ser analisada.
 
 % redução de dados no caso estelar
-No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional a partir de uma imagem de CCD da estrela observada, também chamada de estrela de ciência. A figura~\ref{fig:calibration-steps}, ilustra as imagens de CCD antes e depois do processo de redução (painéis à esquerda e ao meio, respectivamente), e as representações dos espectros unidimensionais extraídos (painéis à direita).
+No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional a partir de uma imagem de CCD da estrela observada, também chamada de estrela de ciência. A figura~\ref{fig:calibration-steps}, ilustra as imagens de CCD antes e depois do processo de redução (painéis à esquerda e ao meio, respectivamente), e as representações dos espectros extraídos (painéis à direita).
 
 % A figura~\ref{fig:x0319-obs-spectrum} ilustra o espectro de uma estrela da \textit{X-Shooter Spectral Library} \citep{Chen2014TheXS}, uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter}\footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/xshooter.html}}, parte do \textit{Very Large Telescope array}\footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}} (VLT), localizado no Cerro Paranal, Chile.  
 
@@ -124,7 +124,7 @@ No caso dos espectros estelares, a redução de dados implica na extração de u
 \end{figure}
 
 % unidade do fluxo
-O espectro resultante deste processo é unidimensional no domínio do comprimento de onda da estrela e tem sua intensidade representada por um fluxo, cuja unidade é erg/cm\(^{2}\)/s/Å, que representa a intensidade por unidade de área, tempo e comprimento de onda \citep{astronomical-measurements}.
+O espectro resultante deste processo é unidimensional no domínio do comprimento de onda da estrela e tem sua intensidade representada por um fluxo, cuja unidade é erg/cm\(^{2}\)/s/Å, que representa a intensidade de energia por unidade de área, tempo e comprimento de onda \citep{astronomical-measurements}.
 
 % tentativa da explicação da adimensionalidade do fluxo antes do final da redução de dados
 
@@ -146,8 +146,8 @@ No espectro estelar, regiões diferentes de comprimentos de onda possuem diferen
 %% INCLUIR FIGURA DA LITERATURA AQUI %%
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=15cm]{figuras/telluric_reference_molecfit.png}
-\caption{Espectro de absorção sintético criado pelo Molecfit que ilustra como diferentes moléculas interagem com diferentes regiões de comprimento de onda \citep{smette2015molecfit}}
+\includegraphics[width=15cm, trim=0 10 0 0, clip]{figuras/telluric_reference_molecfit.png}
+\caption{Espectro de absorção sintético criado pelo \texttt{Molecfit} que ilustra como diferentes moléculas interagem com diferentes regiões de comprimento de onda \citep{smette2015molecfit}}
 \label{fig:molectfit-telluric-reference}
 \end{figure}
 
@@ -168,10 +168,10 @@ As estrelas padrão são estrelas quentes em rotação rápida de tipo espectral
 Devido às limitações no uso das estrelas padrão, foi criado um método mais sofisticado e automatizado para produzir uma referência telúrica: softwares de simulação do espectro atmosférico. Estes softwares utilizam modelos de transmissão radiativa da atmosfera para criar um espectro telúrico sintético, cujas condições de simulação são muito próximas às condições de observação da estrela de ciência. O modelo de transmissão atmosférica mais utilizado hoje em dia é o \textit{Line-By-Line Radiative Transfer Model (LBLRTM)} \citep{2005JQSRT..91..233C}, que fornece cálculos de radiância espectral com precisão e eficiência. Este modelo utiliza o HITRAN \citep{rothman2009hitran}, um acrônimo para \textit{High-resolution Transmission molecular absorption database}, uma base de dados de linhas e parâmetros espectroscópicos. 
 
 % exemplo do molecfit
-Um exemplo de software de simulação do espectro atmosférico é o Molecfit \citep{smette2015molecfit}, uma ferramenta para a modelagem de linhas telúricas desenvolvido por astrônomos do \textit{European Southern Observatory}\footnote{\url{https://www.eso.org/public/}}. De acordo com seus criadores, o Molecfit recupera o perfil atmosférico mais compatível com o instante da observação da estrela de ciência. Isto envolve a utilização de um modelo de transmissão radiativa da atmosfera com uma base de dados espectral para recuperar atributos como a variação na temperatura, pressão e umidade em função da altitude da observação.
+Um exemplo de software de simulação do espectro atmosférico é o \texttt{Molecfit} \citep{smette2015molecfit}, uma ferramenta para a modelagem de linhas telúricas desenvolvido por astrônomos do \textit{European Southern Observatory}\footnote{\url{https://www.eso.org/public/}}. De acordo com seus criadores, o \texttt{Molecfit} recupera o perfil atmosférico mais compatível com o instante da observação da estrela de ciência. Isto envolve a utilização de um modelo de transmissão radiativa da atmosfera com uma base de dados de condições atmosféricas para recuperar atributos como a variação na temperatura, pressão e umidade em função da altitude da observação.
 
 % o que o referencial telúrico representa em termos da absorção da radiação pela atmosfera
-Independentemente de como é gerado o referencial telúrico, considera-se que ele representa coeficientes de transmissão da radiação através da atmosfera, no sentido que, para cada comprimento de onda, a quantidade de radiação que consegue atravessar a atmosfera e chegar ao instrumento é dada pelo percentual -- representado pelo coeficiente de transmissão -- da radiação propagada desde a estrela até sua entrada na atmosfera terrestre\footnote{Isso está de acordo com o princípio da superposição e equivale à hipótese de linearidade do processo de transmissão radiativa no vácuo, sob a qual a transmissão pode ser modelada independentemente para cada frequência ou comprimento de onda.}. %\mqzinline{Paula, você poderia ler e verificar se esse trecho (+footnote) tem algum erro grosseiro?}
+Independentemente de como é gerado o referencial telúrico, considera-se que ele representa coeficientes de transmissão da radiação através da atmosfera, no sentido que, para cada comprimento de onda, a quantidade de radiação propagada desde a estrela que consegue atravessar a atmosfera e chegar ao instrumento é dada em percentual, representado pelo coeficiente de transmissão\footnote{Isso está de acordo com o princípio da superposição e equivale à hipótese de linearidade do processo de transmissão radiativa no vácuo, sob a qual a transmissão pode ser modelada independentemente para cada frequência ou comprimento de onda.}. %\mqzinline{Paula, você poderia ler e verificar se esse trecho (+footnote) tem algum erro grosseiro?}
 
 % operacionalização do problema da contaminação telúrica
 Em termos matemáticos, consideramos os espectros de ciência, telúrico e estelar sem contaminação como vetores $o$ (observado), $a$ (atmosfera) e $s$ (estrela),
