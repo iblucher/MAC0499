@@ -109,9 +109,6 @@ Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-sig
     \item *TAC.fits ou *TAC\_final.fits: espectros das estrelas corrigidos pelo modelo \texttt{Molecfit} e já considerando que as distorções observadas em comprimento de onda foram corrigidas, também separado em três arquivos.
 \end{itemize}
 
-% desnecessário:
-%\noindent o que resulta em 36 arquivos no total.
-
 % plotar os espectros do xsl nas unidades que vieram e falar das diferenças entre os obs e teluricos (escalase formatos) e diferenca com figuras anteriores
 \begin{figure}[htb]
   \centering
@@ -254,7 +251,7 @@ Nesta observação e no seu referencial telúrico foi aplicado o DTW, e a figura
 \end{figure}
 
 % resultados do algoritmo no realinhamento 
-Os efeitos da distorção causada pelo realinhamento de espectro telúrico usando o caminho resultante do DTW podem ser vistos na figura~\ref{fig:x0386-realigned-telluric}. O espectro telúrico realinhado sofre um grande perda de informação nas suas linhas espectrais e é possível ver que ele se assemelha ao modelo original apenas no intervalo entre 900nm e 1000nm, a mesma região do caminho do DTW que se aproxima da diagonal secundária da matriz de similaridade.
+Os efeitos da distorção causada pelo realinhamento de espectro telúrico usando o caminho resultante do DTW podem ser vistos na figura~\ref{fig:x0386-realigned-telluric}. O espectro telúrico realinhado sofre uma grande perda de informação nas suas linhas espectrais e é possível ver que ele se assemelha ao modelo original apenas no intervalo entre 900nm e 1000nm, a mesma região do caminho do DTW que se aproxima da diagonal secundária da matriz de similaridade.
 
 % espectro telurico e realinhado de x0386
 \begin{figure}[H]
@@ -271,7 +268,6 @@ Os efeitos da distorção causada pelo realinhamento de espectro telúrico usand
 Uma hipótese para explicar o baixo desempenho da aplicação do DTW nos espectros completos seriam as grandes diferenças de perfil global que se observam entre os espectros de ciência e os espectros telúricos: a intuição que levou à seleção do DTW como ferramenta de alinhamento entre esses espectros diferentes correspondia à similaridade observável nesses espectros entre as linhas de absorção correspondentes a elementos químicos específicos. Assim, um próximo passo natural correspondia a testar o algoritmo de realinhamento em regiões menores do espectro.
 
 Para verificar essa nova hipótese, foi aplicado o DTW no espectro da estrela X0319, no intervalo de comprimento de onda entre 834nm e 841nm. As figuras~\ref{fig:x0319-warp-path-zoom} e~\ref{fig:x0319-realigned-telluric-zoom} mostram o caminho resultante na matriz de similaridade e o espectro telúrico original e realinhado. 
-
 \begin{figure}[htb]
 \centering
 \includegraphics[width=10cm]{figuras/x0319_warp_path_zoom.png}
@@ -297,7 +293,9 @@ A aplicação do \textit{Dynamic Time Warping} entre o sinal estelar e o modelo 
 \section{DTW no sinal atmosférico}
 
 % introdução do experimento
-Os experimentos de uso do \textit{Dynamic Time Warping} como ferramenta de realinhamento entre o sinal estelar e o referencial telúrico contribuiram para uma maior familiarização em relação aos dados usados neste trabalho e também introduziram questionamentos sobre o sinal atmosférico obtido do \texttt{Molecfit}.
+Os experimentos de uso do \textit{Dynamic Time Warping} como ferramenta de realinhamento entre o sinal estelar e o referencial telúrico contribuíram para uma maior familiarização em relação aos dados usados neste trabalho e também introduziram questionamentos sobre o sinal atmosférico obtido do \texttt{Molecfit}.
+
+% como os pesquisadores do xsl resolveram o problema dos desalinhamentos
 
 % como resgatar atm' e por que
 Com os dados fornecidos dos espectros estelares corrigidos que são considerados como o \textit{ground-truth} neste trabalho, é possível resgatar o espectro telúrico realinhado a partir da divisão do espectro estelar observado pelo espectro estelar corrigido. Desta forma, se temos os vetores $o$ e $c$ que representam a observação contaminada e o espectro final corrigido, teríamos o espectro real de transmitância da atmosfera dado por
@@ -337,7 +335,7 @@ As estrelas utilizadas para este experimento são a X0319 e a X0386 do \textit{X
 Por inspeção visual, é possível observar que os espectros corrigidos de desalinhamentos não possuem distorções perceptíveis em relação aos seus correspondentes modelos do \texttt{Molecfit}. Isto indica que se existem desalinhamentos entre estes sinais, estes devem ser pequenos. 
 
 % dtw nestes sinais: deveria funcionar bem melhor agora que os espectros representam a mesma informação 
-A presença de pequenos desalinhamentos entre os sinais sugere que estes dados seriam adequados à aplicação do algoritmo do \textit{Dynamic Time Warping}. Desta forma seria possível observar regiões com maior desalinhamento, e portanto, quais regiões do espectro tiveram correções de shifts feitas pelo grupo de pesquisadores que lidaram com estes espectros.
+A presença de pequenos desalinhamentos entre os sinais sugere que estes dados seriam adequados à aplicação do algoritmo do \textit{Dynamic Time Warping}. Desta forma seria possível observar regiões com maior desalinhamento, e portanto, quais regiões do espectro tiveram correções de \textit{shifts} feitas pelo grupo de pesquisadores que lidaram com estes espectros.
 
 % mostrar resultados do DTW nas duas estrelas e com zoom
 \begin{figure}[htb]
@@ -360,7 +358,6 @@ A presença de pequenos desalinhamentos entre os sinais sugere que estes dados s
 
 % resultados dtw
 As figuras~\ref{fig:x0319-dtw-telluric} e~\ref{fig:x0386-dtw-telluric} mostram os caminhos resultantes da aplicação do DTW nos espectros telúricos do \texttt{Molecfit} e nos espectros telúricos \textit{ground-truth} de X0319 e X0386. Diferentemente dos caminhos resultantes do DTW quando aplicados no sinal estelar e telúrico, neste caso quase não existem distorções e o caminho se aproxima do caso ideal. Os pequenos desvios em relação à diagonal no caminho resultante indicam desalinhamentos no sinal estelar que foram manualmente corrigido pelo grupo de pesquisadores responsável pelo espectro final. 
-
 % metrica de shift
 Para melhor compreender as regiões do espectro telúrico mais afetadas por desalinhamentos, foi computada uma função \textit{shift} ao longo do caminho do DTW, tal que, para cada par de índices $(i,j)$ desse caminho, o valor do \textit{shift} é representado por $j - i$. Desta forma é possível ver os desalinhamentos em termos de quantidade de índices de desvio entre os respectivos sinais telúricos.
 

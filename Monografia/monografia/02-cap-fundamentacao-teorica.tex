@@ -2,7 +2,7 @@
 \chapter{Fundamentação Teórica}
 \label{cap:fundamentacao-teorica}
 
-O problema de remoção de ruído telúrico em sinais astronômicos é de natureza interdisciplinar, o que implica na necessidade de compreender tanto aspectos da teoria astronômica de espectros estelares, quanto aspectos relativos às representações e manipulações computacionais relativas a esse problema.
+O problema de remoção de ruído telúrico em sinais astronômicos é de natureza interdisciplinar, o que implica na necessidade de compreender tanto aspectos da teoria astronômica de espectros estelares, quanto aspectos relativos às representações e manipulações computacionais relacionadas ao problema.
 Neste capítulo são descritos conceitos básicos em espectroscopia astronômica, principalmente estelar, e algoritmos de processamento de sinais digitais utilizados na pesquisa, que em conjunto caracterizam o problema da contaminação telúrica de espectros estelares e sua possível solução através de técnicas de filtragem.
 
 \section{Espectroscopia Astronômica} \label{astronomic-spectroscopy}
@@ -11,7 +11,7 @@ Neste capítulo são descritos conceitos básicos em espectroscopia astronômica
 Estrelas são corpos celestes que consistem de esferas de gás ionizado que são mantidas íntegras pela sua gravidade. Uma fonte fundamental de energia das estrelas é através de reações nucleares, principalmente a fusão de hidrogênio em hélio. A energia resultante desta fusão nuclear é emitida para o espaço em grande parte como radiação eletromagnética \citep{estrelas-ufrgs}.   
 
 % propagação da radiação e chegada na atmosfera/terra
-A radiação da estrela se propaga pelo meio interestelar como um fluxo de partículas denominadas fótons. Quando no espaço, estes fótons atingem o limite de velocidade universal, a velocidade da luz $\textit{c} \approx 3 \times 10^8$ m/s. Os fótons se aproximam da Terra nesta velocidade, mas assim que entram em contato com a atmosfera terrestre começam a interagir com moléculas como o oxigênio e o vapor de água \citep{wiki:photon}. Estas moléculas de gás podem absorver os fótons do sinal estelar, e consequentemente, \revise{alterar} a quantidade de informação emitida por uma estrela que alcança a superfície terrestre \citep{wiki:telluric-contamination}. \pc{me parece que "alterar" é mais generico do que "diminuir" como estava antes, mas nao é uma correcao critica}
+A radiação da estrela se propaga pelo meio interestelar como um fluxo de partículas denominadas fótons. Quando no espaço, estes fótons atingem o limite de velocidade universal, a velocidade da luz $\textit{c} \approx 3 \times 10^8$ m/s. Os fótons se aproximam da Terra nesta velocidade, mas assim que entram em contato com a atmosfera terrestre começam a interagir com moléculas como o oxigênio e o vapor de água \citep{wiki:photon}. Estas moléculas de gás podem absorver os fótons do sinal estelar, e consequentemente, alterar a quantidade de informação emitida por uma estrela que alcança a superfície terrestre \citep{wiki:telluric-contamination}.
 
 % como a radiação é observada (primeira menção de instrumentos)
 Os fótons que alcançam a superfície terrestre são medidos instrumentalmente, e essa captura de sinal é fundamental para estudos em astronomia observacional. Um dos instrumentos utilizados para fazer observações a partir do solo são os espectrógrafos, presentes em muitos telescópios. 
@@ -23,7 +23,7 @@ Este instrumento tem a capacidade de dividir a radiação eletromagnética de um
 
 % tipos de espectro
 Essa variedade de objetos celestes produz diferentes espectros, que podem ser divididos em três tipos principais: contínuo, de absorção e de emissão. Um espectro contínuo é uma função que tem como domínio todos os comprimentos de ondas do espectro eletromagnético.
-Ele é gerado pela observação de um corpo opaco quente, que seria o equivalente a observar diretamente o núcleo de uma estrela sem intervenção de matéria entre estrela e observador. Um espectro de absorção, ou espectro de linhas escuras, é gerado por um gás transparente em frente ao corpo opaco quente \revise{e mais frio que este,} e está associado à absorção dos fótons da radiação estelar em determinados comprimentos de onda. E por último, o espectro de emissão, ou espectro de linhas brilhantes, é gerado por um gás transparente que foi excitado por uma fonte de energia próxima, o que resulta na emissão de fótons de comprimentos de onda específicos. A figura \ref{fig:spectrum-types} ilustra os três tipos de espectros. 
+Ele é gerado pela observação de um corpo opaco quente, que seria o equivalente a observar diretamente o núcleo de uma estrela sem intervenção de matéria entre estrela e observador. Um espectro de absorção, ou espectro de linhas escuras, é gerado por um gás transparente em frente ao corpo opaco quente e mais frio que este, e está associado à absorção dos fótons da radiação estelar em determinados comprimentos de onda. E por último, o espectro de emissão, ou espectro de linhas brilhantes, é gerado por um gás transparente que foi excitado por uma fonte de energia próxima, o que resulta na emissão de fótons de comprimentos de onda específicos. A figura \ref{fig:spectrum-types} ilustra os três tipos de espectros. 
 
 \begin{figure}[htb]
 \centering
@@ -33,7 +33,7 @@ Ele é gerado pela observação de um corpo opaco quente, que seria o equivalent
 \end{figure}
 
 % espectro estelar
-Dentre esta grande variedade de objetos celestes, as estrelas são especialmente estudadas pelos seus espectros. Por serem objetos quentes, rodeados de gases mais frios \revise{(as chamadas atmosferas estelares)}, estrelas emitem um espectro de linhas de absorção sobreposto a um espectro contínuo. As linhas de absorção têm comprimentos de onda característicos dos elementos químicos que geraram o espectro. A figura~\ref{fig:vega-spectrum} ilustra o espectro da estrela Vega, cujo formato segue o de um espectro contínuo com a sobreposição de linhas de absorção de \revise{diversos elementos químicos.}%hidrogênio, oxigênio e vapor de água.
+Dentre esta grande variedade de objetos celestes, as estrelas são especialmente estudadas pelos seus espectros. Por serem objetos quentes, rodeados de gases mais frios (as chamadas atmosferas estelares), estrelas emitem um espectro de linhas de absorção sobreposto a um espectro contínuo. As linhas de absorção têm comprimentos de onda característicos dos elementos químicos que geraram o espectro. A figura~\ref{fig:vega-spectrum} ilustra o espectro da estrela Vega, cujo formato segue o de um espectro contínuo com a sobreposição de linhas de absorção de diversos elementos químicos.
 
 \begin{figure}[htb]
 \centering
@@ -102,7 +102,7 @@ Estes instrumentos de observação muitas vezes estão munidos de um CCD ou \tex
 Os benefícios de se usar um CCD para capturar imagens celestes é que eles automaticamente fornecem uma imagem digitalizada capaz de ser exibida e processada por um computador. Porém, estes dados brutos contêm uma série de assinaturas instrumentais que devem ser eliminadas antes que o dado possa ser usado para fins científicos \citep{davenhall20012}.  
 
 % redução de dados
-O processo de corrigir as imagens capturadas pelo CCD pelas assinaturas instrumentais é chamado de \textbf{\textit{redução de dados}} pela comunidade astronômica, e consiste de uma série de transformações aplicadas à imagem bruta. No final deste processo é obtida uma imagem científica utilizável e pronta para ser analisada.
+O processo de corrigir as imagens capturadas pelo CCD de suas assinaturas instrumentais é chamado de \textbf{\textit{redução de dados}} pela comunidade astronômica, e consiste de uma série de transformações aplicadas à imagem bruta. No final deste processo é obtida uma imagem científica utilizável e pronta para ser analisada.
 
 % redução de dados no caso estelar
 No caso dos espectros estelares, a redução de dados implica na extração de um espectro unidimensional a partir de uma imagem de CCD da estrela observada, também chamada de estrela de ciência. A figura~\ref{fig:calibration-steps}, ilustra as imagens de CCD antes e depois do processo de redução (painéis à esquerda e ao meio, respectivamente), e as representações dos espectros extraídos (painéis à direita).
@@ -193,13 +193,20 @@ Em termos matemáticos, consideramos os espectros de ciência, telúrico e estel
 \section{Similaridade e alinhamento de sinais}\label{similarity-and-signal-alignment}
 
 % processamento de sinais e similaridade
-O processamento de sinais digitais tem como objetivo extrair informações significativas dos sinais, bem como modificá-los a fim de atingir determinados objetivos. Uma das operações importantes na análise de sinais digitais é a mensuração da similaridade entre dois sinais. Medidas de similaridade possuem diversas aplicações em áreas como reconhecimento de fala, para saber se um sinal de voz corresponde a um determinado texto, ou em economia, para comparar investimentos em períodos diferentes, entre outras aplicações.
+O processamento de sinais digitais tem como foco extrair informações significativas dos sinais, bem como modificá-los a fim de atingir determinados objetivos. Uma das operações importantes na análise de sinais digitais é a mensuração da similaridade entre dois sinais. Medidas de similaridade possuem diversas aplicações em áreas como reconhecimento de fala, para saber se um sinal de voz corresponde a um determinado texto, ou em economia, para comparar investimentos em períodos diferentes, entre outras aplicações.
 
 % possiveis problemas na operacionalização do problema como descrito acima (mencionar os três problemas)
 Como foi mencionado na seção~\ref{telluric-contamination}, é possível assumir que o problema da contaminação telúrica pode ser operacionalizado como uma multiplicação simples partindo do pressuposto de que os sinais se encontram em uma situação ideal. Estabelece-se como uma situação ideal os sinais que: (i) possuem mesma intensidade, ou seja, que foram observados com as mesmas condições atmosféricas (pressão, temperatura, umidade, turbulência etc); (ii) possuem mesma assinatura instrumental; (iii) são amostrados nos mesmos comprimentos de onda, ou seja, estão perfeitamente alinhados pixel a pixel. 
 
 % contexto do desalinhamento nos dados observados XSL
 Nesse trabalho, optamos por estudar a questão do alinhamento do sinal, motivados por uma dificuldade real que foi encontrada por um grupo de pesquisadores envolvidos na \textit{X-Shooter Spectral Library} \citep[][XSL]{Chen2014TheXS}. A XSL é uma coleção de estrelas observada pelo espectrógrafo de resolução média \textit{X-Shooter}\footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/xshooter.html}}, do ESO. Essa biblioteca de estrelas tem diversas aplicações em Astronomia, desde o estudo de abundâncias químicas de estrelas da nossa Galáxia até a modelagem evolutiva de outras galáxias. Pesquisadores que usaram estes dados para suas pesquisas relataram desalinhamentos nos comprimentos de onda dos espectros \citep{unpublished-xshooter-data-release, wavelength-shifts}.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=12cm]{figuras/xsl-wavelength-shifts.png}
+\caption{Desalinhamentos observados nos espectros telúricos do XSL \citep{wavelength-shifts}}
+\label{fig:matlab-dtw}
+\end{figure}
 
 % similaridade no contexto dos espectros estelares
 Diante disso, é possível entender porque o estudo da similaridade entre sinais pode ser útil em espectros estelares: para alinhar regiões de contaminação atmosférica de moléculas específicas em um espectro de ciência com as regiões correspondentes no espectro telúrico. Em teoria, isto melhoraria o resultado da divisão entre o espectro de ciência observado e o telúrico, e consequentemente, a qualidade do espectro estelar sem contaminação.
@@ -224,7 +231,6 @@ A figura~\ref{fig:matlab-dtw} ilustra o alinhamento ótimo encontrado pelo DTW e
 \newcommand{\dist}{\mbox{dist}}
 
 A formulação do problema \citep{salvador2007toward} do DTW é a seguinte: dadas duas sequências $X$ e $Y$, de comprimentos respectivos $n$ e $m$,
-
 \begin{align*}
     X = (x_1, x_2, \cdots, x_n) \\
     Y = (y_1, y_2, \cdots, y_m),
