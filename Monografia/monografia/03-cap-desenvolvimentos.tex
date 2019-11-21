@@ -296,6 +296,7 @@ A aplicação do \textit{Dynamic Time Warping} entre o sinal estelar e o modelo 
 Os experimentos de uso do \textit{Dynamic Time Warping} como ferramenta de realinhamento entre o sinal estelar e o referencial telúrico contribuíram para uma maior familiarização em relação aos dados usados neste trabalho e também introduziram questionamentos sobre o sinal atmosférico obtido do \texttt{Molecfit}.
 
 % como os pesquisadores do xsl resolveram o problema dos desalinhamentos
+Os pesquisadores do XSL, ao identificarem os desalinhamentos nos espectros resolveram o problema dividindo o sinal em sub-espectros, e para cada um destes utilizaram o \texttt{Molecfit} para recomputar o modelo telúrico neste intervalo de comprimento de onda. Esta solução tem o objetivo de empiricamente obter o \textit{shift} único de cada sub-espectro. A partir deste procedimento foi realizada a correção telúrica nos espectros do XSL, como é descrito no artigo de \citet{unpublished-xshooter-data-release}.
 
 % como resgatar atm' e por que
 Com os dados fornecidos dos espectros estelares corrigidos que são considerados como o \textit{ground-truth} neste trabalho, é possível resgatar o espectro telúrico realinhado a partir da divisão do espectro estelar observado pelo espectro estelar corrigido. Desta forma, se temos os vetores $o$ e $c$ que representam a observação contaminada e o espectro final corrigido, teríamos o espectro real de transmitância da atmosfera dado por
