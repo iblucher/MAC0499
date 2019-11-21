@@ -6,10 +6,10 @@
 A Computação é a área do conhecimento que estuda técnicas, metodologias e instrumentos computacionais com o objetivo de automatizar processos e desenvolver soluções para uma variedade de problemas. Um dos grandes usos da Computação atualmente é como ferramenta no avanço de pesquisas científicas em diversas áreas, por exemplo em ciências naturais, nas áreas de física, biologia, geografia e etc.
 
 % computação na astronomia
-A ênfase deste trabalho é na aplicação de métodos computacionais em Astronomia. Com o passar do tempo e com uma constante evolução da tecnologia, as ferramentas astronômicas mudaram, desde como o universo e os objetos celestes são observados até como estes dados observacionais são processados e armazenados. Atualmente existem diversos desafios em astronomia que envolvem áreas da computação como aprendizado de máquina, ciência de dados, processamento de sinais digitais e \textit{Big Data}. 
+A ênfase deste trabalho é na aplicação de métodos computacionais em Astronomia. Com o passar do tempo e com uma constante evolução da tecnologia, as ferramentas astronômicas mudaram, influenciando desde como o universo e os objetos celestes são observados até como estes dados observacionais são processados e armazenados. Atualmente existem diversos desafios em astronomia que envolvem áreas da computação como aprendizado de máquina, ciência de dados, processamento de sinais digitais e \textit{Big Data}. 
 
 % o que este trabalho se propõe em fazer (recorte especifico da aplicacao da comp em astro)
-O recorte específico da computação na astronomia tratado nesta monografia é referente a espectroscopia estelar e remoção de contaminação telúrica nestes dados, ou seja em limpar o sinal estelar de contaminações provenientes da atmosfera terrestre. Apresentamos os métodos usados atualmente para fazer a correção telúrica dos sinais e experimentos que testam métodos de processamento de sinais digitais de forma a melhorar a qualidade desta correção.
+O recorte específico da computação na astronomia tratado nesta monografia é referente à espectroscopia estelar e à remoção de contaminação telúrica nestes dados, ou seja, a limpar o sinal estelar de contaminações provenientes da atmosfera terrestre. Apresentamos os métodos usados atualmente para fazer a correção telúrica dos sinais e experimentos que testam métodos de processamento de sinais digitais de forma a melhorar a qualidade desta correção.
 
 \section{Contextualização}
 
@@ -17,25 +17,26 @@ O recorte específico da computação na astronomia tratado nesta monografia é 
 A astronomia pode ser divida em duas grandes áreas de estudo: a astronomia teórica e a astronomia observacional. Em contraste com a astronomia teórica, que tem como foco a modelagem de fenômenos astronômicos e o cálculo de suas implicações no universo, a astronomia observacional tem como objetivo a observação e o registro de dados sobre o universo observável e o estudo e interpretação destas observações.  
 
 % astronomia observacional e uso de instrumentos
-Dentro do cenário da astronomia observacional, são estudados uma grande variedade de objetos celestes através de suas fontes de informação: a emissão de luz, ou, radiação eletromagnética. Para observar e capturar esta radiação, astrônomos usam uma variedade de instrumentos que possuem a capacidade de transformar um sinal luminoso em informação cientificamente interpretável.
+Dentro do cenário da astronomia observacional, é estudada uma grande variedade de objetos celestes através de suas fontes de informação: a emissão de luz ou radiação eletromagnética. Para observar e capturar esta radiação, astrônomos usam uma variedade de instrumentos que possuem a capacidade de transformar um sinal luminoso em informação radiativa cientificamente interpretável.
 
 % espectros: como são observados e usados em pesquisa
-Um exemplo de instrumento observacional muito usado em pesquisas astronômicas é o espectrógrafo, que transforma uma observação celeste em um espectro, através da divisão da radiação eletromagnética emitida em seus comprimentos de onda. Em termos computacionais, um espectro é um sinal unidimensional que representa o fluxo de energia emitido em função do comprimento de onda. O espectro de um objeto celeste, e no caso deste trabalho, das estrelas, é uma informação muito relevante em pesquisa, pois está relacionado diretamente a diversas características sobre a estrela, como sua composição química, temperatura e luminosidade.
+Um exemplo de instrumento observacional muito usado em pesquisas astronômicas é o espectrógrafo, que transforma uma observação celeste em um espectro, através da separação da radiação eletromagnética emitida em seus diversos comprimentos de onda. Em termos computacionais, um espectro é um sinal unidimensional que representa o fluxo de energia emitido em função do comprimento de onda. O espectro de um objeto celeste, e no caso deste trabalho, das estrelas, é uma informação muito relevante para a astronomia observacional, pois está relacionado diretamente a diversas características sobre a estrela, como sua composição química, temperatura e luminosidade.
 
 % dificuldades nas observações
-No entanto, a observação de espectros estelares não é um processo perfeito e o sinal capturado pode sofrer distorções tanto instrumentais quanto físicas. A radiação eletromagnética emitida por uma estrela, quando entra em contato com a atmosfera terrestre interage com as moléculas nela presentes. Esta interação cria artefatos no espectro capturado da estrela, o que resulta em um espectro contaminado pela atmosfera terrestre. 
+No entanto, a observação de espectros estelares não é um processo perfeito e o sinal capturado pode sofrer distorções tanto instrumentais quanto físicas. A radiação eletromagnética emitida por uma estrela, quando entra em contato com a atmosfera terrestre interage com as moléculas nela presentes, o que resulta em um espectro contaminado pela atmosfera terrestre. Esta interação da atmosfera com a emissão estelar é chamada de contaminação telúrica e é um fenômeno que interfere com todas as observações estelares feitas a partir do solo terrestre.
+
 
 % o que o trabalho quer fazer
-Esta interação da atmosfera com a emissão estelar é chamada de contaminação telúrica e é um fenômeno que interfere com todas as observações estelares feitas a partir do solo terrestre. O objetivo geral deste trabalho consiste em estudar métodos existentes usados por astrônomos para corrigir espectros estelares de contaminação telúrica e investigar métodos computacionais com o potencial de auxiliar este processo de correção .
+O objetivo geral deste trabalho consiste em estudar métodos existentes usados por astrônomos para corrigir espectros estelares de contaminação telúrica e investigar métodos computacionais com o potencial de auxiliar este processo de correção .
 
 
 \section{Estrutura do Trabalho}
 
 % como estão separados os capítulos
-O capítulo~\ref{cap:fundamentacao-teorica} apresenta a base teórica astronômica por trás da espectroscopia estelar e seu sistema de classificação, o processo de captura e redução de dados e a ciência da contaminação telúrica de espectros estelares. Além disso, é apresentado a base computacional da definição do problema de similaridade e alinhamento de sinais digitais e algoritmos usados neste campo.
+O capítulo~\ref{cap:fundamentacao-teorica} apresenta a base teórica astronômica por trás da espectroscopia estelar e seu sistema de classificação, o processo de captura e redução de dados e a ciência da contaminação telúrica de espectros estelares. Além disso, são apresentados conceitos e algoritmos associados a similaridade e alinhamento de sinais digitais usados neste campo.
 
-O capítulo~\ref{cap:desenvolvimentos} apresenta especificações sobre o formato de dados com o qual foi trabalhado, os conjuntos de dados públicos ou fornecidos por comunicação particular e as ferramentas computacionais utilizadas para a leitura e manipulação destes dados. Além disso, são descritos os experimento realizados no desenvolvimento deste trabalho e seus resultados.
+O capítulo~\ref{cap:desenvolvimentos} apresenta especificações sobre o formato de dados utilizado para representar os espectros estelares e as ferramentas computacionais utilizadas para a leitura e manipulação destes dados, bem como os conjuntos de dados públicos ou fornecidos por comunicação particular nos quais se basearam os experimentos. Ainda nesse capítulo são descritos os experimentos realizados durante o desenvolvimento deste trabalho e seus resultados.
 
-O capítulo~\ref{cap:conclusoes} expõe as conclusões finais sobre a pesquisa realizada, menciona as dificuldades encontradas, confronta os resultados com os objetivos iniciais e expõe potenciais desenvolvimentos futuros para este trabalho.
+O capítulo~\ref{cap:conclusoes} traz algumas conclusões sobre a pesquisa realizada e as dificuldades encontradas, confronta os resultados com os objetivos iniciais e expõe potenciais desenvolvimentos futuros para este trabalho.
 
 
