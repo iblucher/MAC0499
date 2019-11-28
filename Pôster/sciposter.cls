@@ -546,7 +546,7 @@
 }{
   \setlength{\titleskip}{0.025\textwidth}
 }
-\setlength{\secskip}{\bigskipamount}
+\setlength{\secskip}{2.1\medskipamount}
 \setlength{\figtopskip}{\secskip}
 \setlength{\figbotskip}{\secskip}
 %%%% Defines default institute
@@ -643,7 +643,7 @@
       \end{minipage}
     }}
   \end{center}
-  \par\vspace{0.375\secskip}
+  \par\vspace{0.3\secskip}
 }
 %
 \newcommand{\sSection}[1]{

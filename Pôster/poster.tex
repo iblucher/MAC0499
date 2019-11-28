@@ -16,6 +16,7 @@
 %\usepackage{fancybullets}
 \usepackage{subfig}
 \usepackage{graphicx}
+\usepackage[round,sort,nonamebreak]{natbib}
 \newtheorem{Def}{Definition}
 
 \newcommand\kcont{\protect\mathpalette{\protect\independenT}{\perp}}
@@ -84,26 +85,24 @@ Coorientador: Prof. Dr. Marcelo Gomes de Queiroz\\}
 \begin{multicols}{2}
 
 %%% Abstract
-\section{Introdução}
+\Section{Introdução}
 
-Estrelas são corpos celestes que emitem energia na forma de radiação eletromagnética. Esta energia alcança a superfície terrestre e interage com moléculas presentes na atmosfera, como oxigênio e vapor de água.\\
+Estrelas emitem energia na forma de radiação eletromagnética. Para capturar este sinal a partir do solo, são utilizados espectrógrafos, instrumentos de observação que produzem espectros: mapas da radiação em função de comprimento de onda.\\
 
-O sinal estelar é capturado a partir do solo por instrumentos denominados espectrógrafos, que dividem a radiação eletromagnética emitida pela estrela em seus comprimentos de onda. Esta captura resulta em um espectro: um mapa de radiação em função do comprimento de onda.\\
-
-A interação da atmosfera com a observação estelar resulta em um espectro distorcido e contaminado, devido à formação de novas linhas espectrais no espectro capturado instrumentalmente, denominadas linhas telúricas.\\
+Antes da captura do espectro, a atmosfera terrestre interage com a radiação da estrela, o que resulta em um espectro observado distorcido e contaminado, devido à formação de novas linhas no espectro, denominadas linhas telúricas.\\
 
 Neste trabalho foram estudados métodos existentes de correção telúrica e potenciais soluções computacionais que sejam capazes de remover ou atenuar a contaminação telúrica de espectros estelares capturados a partir do solo.
 
-\section{Contaminação Telúrica}
+\Section{Contaminação Telúrica}
 
 Em termos matemáticos, o problema da contaminação telúrica pode ser descrito como: consideramos os vetores $o$ (observado), $a$ (atmosfera) e $s$ (estrela), que representam os espectros observado, telúrico e estelar sem contaminação. Podemos representar a contaminação telúrica pela equação
 \begin{equation*}
     o = a \circ s \qquad \left(\mbox{ou equivalentemente:} \qquad o_i = a_i\cdot s_i,\ \forall i\right).
 \end{equation*}
 
-Devido a natureza multiplicativa do problema, a correção telúrica dos espectros observados seria a divisão simples do espectro observado pelo telúrico. Porém, esta formulação do problema pressupõe que as três sequências estão perfeitamente alinhadas, o que não corresponde à realidade.
+Devido à natureza multiplicativa do problema, a correção telúrica dos espectros observados seria a divisão simples do espectro observado pelo telúrico. Porém, esta formulação do problema pressupõe que as três sequências estão perfeitamente alinhadas, o que não corresponde à realidade.
 
-\section{Correção Telúrica}
+\Section{Correção Telúrica}
 
 Foi feito um experimento para testar o método da correção telúrica pela divisão simples dos espectros, de modo a observar que na prática esta solução não é ideal e cria artefatos no espectro estelar observado.
 
@@ -122,14 +121,83 @@ Foi feito um experimento para testar o método da correção telúrica pela divi
 %   \caption{fig}
 \end{figure}
 
-A divisão da estrela X0319 por seu referencial telúrico correspondente ilustra as dificuldades deste método de correção telúrica, são observados picos no sinal que não deveriam existir na situação ideal do problema.
+A divisão da estrela X0319 \cite{Chen2014TheXS} por seu referencial telúrico correspondente ilustra as dificuldades deste método de correção telúrica. São observados picos no sinal que não deveriam existir na situação ideal do problema. Este resultado indica a presença de um desalinhamento entre o espectro estelar e o telúrico \cite{unpublished-xshooter-data-release}.
 
-\section{Aplicação do \textit{Dynamic Time Warping}}
+\Section{Aplicação do \textit{Dynamic Time Warping}}
 
+Uma proposta para melhorar a qualidade da correção telúrica do trabalho foi realinhar o espectro telúrico em relação ao estelar. A abordagem selecionada para isso foi o algoritmo \textit{Dynamic Time Warping}. Este algoritmo encontra uma correspondência entre os índices de dois vetores de modo a minimizar as distâncias entre estes índices.
 
+\begin{figure}
+ \centering
+ \begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=1.1\textwidth]{x0319_v_o_e_tra.png}
+  \caption{Modelo telúrico X0319}
+ \end{subfigure}\hfil
+ \begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=1.1\textwidth]{x0319_v_o_e_aligned.png}
+  \caption{Telúrico realinhado X0319}
+ \end{subfigure}\hfil
+%   \caption{fig}
+\end{figure}
 
-\section{Conclusões}
+A aplicação do DTW como método de realinhamento criou ruídos no dado espectral. Por mais que o espectro telúrico realinhado da estrela X0319 \cite{Chen2014TheXS} tenha o formato geral do modelo do \texttt{Molecfit}, ele possui uma forte distorção em relação às linhas espectrais originais e exibe a formação de ângulos retos que não são característicos deste tipo de dado. \\
 
+Uma hipótese para explicar o baixo desempenho da aplicação do DTW nos espectros completos seriam as grandes diferenças de perfil global que se observam entre eles. O próximo experimento selecionado foi testar o algoritmo de realinhamento em regiões menores do espectro.
+
+\begin{figure}
+ \centering
+ \begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=1.1\textwidth]{x0319_v_o_e_tra_zoom.png}
+  \caption{Zoom modelo telúrico X0319}
+ \end{subfigure}\hfil
+ \begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=1.1\textwidth]{x0319_v_o_e_aligned_zoom.png}
+  \caption{Zoom telúrico realinhado X0319}
+ \end{subfigure}\hfil
+%   \caption{fig}
+\end{figure}
+
+Neste intervalo menor de 9nm do espectro telúrico de X0319 \cite{Chen2014TheXS}, ocorre a mesma formação de ângulos retos nas linhas de absorção. Isto indica que o DTW não produz alinhamentos razoáveis quando aplicado em sinais que não representam a mesma informação.\\
+
+Usando dados de pesquisadores \cite{unpublished-xshooter-data-release} que fizeram correções manuais nos desalinhamentos nos espectros estelares, foi possível reconstruir o espectro telúrico \textit{ground-truth} para este trabalho. Desta forma, se temos os vetores $o$ e $c$ que representam a observação contaminada e o espectro final corrigido, teríamos o espectro real de transmitância da atmosfera dado por
+\begin{equation*}
+    a' = o \oslash c \qquad \left(\mbox{ou equivalentemente:} \qquad a'_{i} = o_i / c_i,\ \forall i\right),
+\end{equation*}
+
+assim é possível compará-lo com o sinal atmosférico obtido com o conjunto de dados do XSL \cite{Chen2014TheXS}.
+
+\begin{figure}
+ \centering
+ \begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=1.1\textwidth]{x0319_v_o_e_tra.png}
+  \caption{Modelo telúrico X0319}
+ \end{subfigure}\hfil
+ \begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=1.1\textwidth]{x0319_v_o_e_tra_gt.png}
+  \caption{Telúrico \textit{ground-truth} X0319}
+ \end{subfigure}\hfil
+%   \caption{fig}
+\end{figure}
+
+Estas figuras ilustram que é possível aplicar o DTW em dados que representam a mesma informação.
+
+\Section{Conclusões}
+
+A abordagem escolhida para melhorar a qualidade da correção telúrica tinha como objetivo explorar as linhas de absorção em comum entre o espectro observado e o espectro telúrico. Os experimentos mostram que este algoritmo não performa idealmente neste caso, visto que ele distorce o espectro telúrico para minimizar a distância à referência estelar observada, o que não corresponde a uma solução generalizável para observações estelares e seus referenciais telúricos. 
+
+% \bibliography{bibliografia}
+%%% References
+
+%% Note: use of BibTeX als works!!
+
+\bibliographystyle{plain}
+\bibliography{bibliografia}
 
 \end{multicols}
 
