@@ -122,7 +122,7 @@ Foi feito um experimento para testar o método da correção telúrica pela divi
 %   \caption{fig}
 \end{figure}
 
-A divisão da estrela X0319 \cite{Chen2014TheXS} por seu referencial telúrico correspondente ilustra as dificuldades deste método de correção telúrica. São observados picos no sinal que não deveriam existir na situação ideal do problema. Este resultado indica a presença de um desalinhamento entre o espectro estelar e o telúrico \cite{unpublished-xshooter-data-release}.
+Na figura acima, a divisão da estrela X0319 \cite{Chen2014TheXS} por seu referencial telúrico correspondente ilustra as dificuldades deste método de correção telúrica. São observados picos no sinal que não deveriam existir na situação ideal do problema. Este resultado indica a presença de um desalinhamento entre o espectro estelar e o telúrico \cite{unpublished-xshooter-data-release}.
 
 \Section{Aplicação do \textit{Dynamic Time Warping}}
 
@@ -143,7 +143,7 @@ Uma proposta para melhorar a qualidade da correção telúrica do trabalho foi r
 %   \caption{fig}
 \end{figure}
 
-A aplicação do DTW como método de realinhamento criou ruídos no dado espectral. Por mais que o espectro telúrico realinhado da estrela X0319 \cite{Chen2014TheXS} tenha grosso modo um perfil compatível com o obtido por simuladores, ele possui uma forte distorção em relação às linhas espectrais originais e exibe a formação de ângulos retos que não são característicos deste tipo de dado. \\
+Na figura acima, a aplicação do DTW como método de realinhamento criou ruídos no dado espectral. Por mais que o espectro telúrico realinhado da estrela X0319 \cite{Chen2014TheXS} tenha grosso modo um perfil compatível com o obtido por simuladores, ele possui uma forte distorção em relação às linhas espectrais originais e exibe a formação de ângulos retos que não são característicos deste tipo de dado. \\
 
 Uma hipótese para explicar o baixo desempenho da aplicação do DTW nos espectros completos seriam as grandes diferenças de perfil global que se observam entre eles. O próximo experimento selecionado foi testar o algoritmo de realinhamento em regiões menores do espectro.
 
@@ -162,7 +162,7 @@ Uma hipótese para explicar o baixo desempenho da aplicação do DTW nos espectr
 %   \caption{fig}
 \end{figure}
 
-Neste intervalo menor de 9nm do espectro telúrico de X0319 \cite{Chen2014TheXS}, ocorre a mesma formação de ângulos retos nas linhas de absorção. Isto indica que o DTW não produz alinhamentos razoáveis quando aplicado em sinais que não representam a mesma informação, ainda que possuam linhas de absorção comuns.\\
+Na figura acima, no intervalo de 9nm do espectro telúrico de X0319 \cite{Chen2014TheXS}, ocorre a mesma formação de ângulos retos nas linhas de absorção. Isto indica que o DTW não produz alinhamentos razoáveis quando aplicado em sinais que não representam a mesma informação, ainda que possuam linhas de absorção comuns.\\
 
 Usando dados de pesquisadores \cite{unpublished-xshooter-data-release} que fizeram correções manuais nos desalinhamentos nos espectros estelares, foi possível reconstruir o espectro telúrico \textit{ground-truth} para este trabalho. Desta forma, se temos os vetores $o$ e $c$ que representam a observação contaminada e o espectro final corrigido, teríamos o espectro real de transmitância da atmosfera dado por
 \begin{equation*}

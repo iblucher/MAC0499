@@ -546,7 +546,7 @@
 }{
   \setlength{\titleskip}{0.025\textwidth}
 }
-\setlength{\secskip}{2.1\medskipamount}
+\setlength{\secskip}{2.05\medskipamount}
 \setlength{\figtopskip}{\secskip}
 \setlength{\figbotskip}{\secskip}
 %%%% Defines default institute
