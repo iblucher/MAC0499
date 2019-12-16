@@ -48,7 +48,7 @@ A linguagem de programação de escolha para a implementação dos experimentos 
 Os experimentos foram implementados em \textit{notebooks} do \textit{Jupyter}\footnote{\url{https://jupyter.org/}} \citep{Kluyver:2016aa}, um projeto de código-aberto com o objetivo de oferecer suporte à ciência de dados e computação científica interativa. Neste ambiente computacional é possível escrever código em células que podem ser executadas de forma independente. Esta interatividade faz com que os \textit{notebooks} sejam ambientes perfeitos para uma programação de natureza exploratória, já que é possível executar experimentos e apresentar resultados e gráficos entre várias células de código.
 
 % pacotes python
-Estabelecidos a linguagem e o ambiente dos experimentos, foram usadas diversas bibliotecas de \textit{Python} para ler, manipular e visualizar os dados estelares. Os pacotes utilizados foram: o \textit{NumPy}\footnote{\url{https://numpy.org/}} \citep{oliphant2006guide}, uma biblioteca fundamental de computação científica performática com suporte para vetores e matrizes grandes e multidimensionais, além de diversas funções matemáticas de alto nível; o \textit{Matplotlib}\footnote{\url{https://matplotlib.org/}} \citep{Hunter:2007}, uma biblioteca gráfica que permite a visualização de dados em diversos tipos de gráficos; e finalmente o \textit{Astropy}\footnote{\url{http://www.astropy.org}} \citep{astropy:2018}, uma biblioteca que é amplamente usado para processar computacionalmente diversos dados astronômicos e tem funcionalidades como leitura de arquivos FITS, conversões de unidades entre quantidades físicas e computações cosmológicas.
+Estabelecidos a linguagem e o ambiente dos experimentos, foram usadas diversas bibliotecas de \textit{Python} para ler, manipular e visualizar os dados estelares. Os pacotes utilizados foram: o \textit{NumPy}\footnote{\url{https://numpy.org/}} \citep{oliphant2006guide}, uma biblioteca eficiente para computação científica com suporte para vetores e matrizes grandes e multidimensionais, além de diversas funções matemáticas de alto nível; o \textit{Matplotlib}\footnote{\url{https://matplotlib.org/}} \citep{Hunter:2007}, uma biblioteca gráfica que permite a visualização de dados em diversos tipos de gráficos; e finalmente o \textit{Astropy}\footnote{\url{http://www.astropy.org}} \citep{astropy:2018}, uma biblioteca que é amplamente usada para processar computacionalmente diversos dados astronômicos, possuindo funcionalidades como leitura de arquivos FITS, conversões de unidades entre quantidades físicas e computações cosmológicas.
 
 \section{Conjuntos de dados}
 
@@ -57,17 +57,17 @@ Para o desenvolvimento dos experimentos destre trabalho, foram obtidos alguns co
 
 % lista dos dados 
 \begin{itemize}
-    \item UVES: dois pares de arquivos FITS contendo observações das estrelas HD110379 e HD110379 e seus respectivos referenciais telúricos. Estes dados foram capturados pelo espectrógrafo UVES \footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/uves.html}} \citep{2000SPIE.4008..534D}, instalado no \textit{Very Large Telescope Array} \footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}}, no Cerro Paranal, Chile. Os dados foram obtidos como parte do \textit{proposal} de observação 087.B-0308(B), PI P. Coelho.
-    \item FTS: uma tabela FITS contendo observações reais do Sol, da estrela Arcturus e um referencial telúrico para ambas \citep{arcturusflux:hinkle00}, observados pelo \textit{Fourier Transform Spectrometer} instalado no telescópio KPNO no National Optical Astronomy Observatory\footnote{\url{https://www.noao.edu/image_gallery/html/im0449.html}}.
-    \item XSL: dados de observações do \textit{X-Shooter} \citep{Chen2014TheXS, unpublished-xshooter-data-release}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. Mais detalhes sobre este conjunto de dados são explicados nesta seção (Anaïs Gonneau, comunicação privada).
-    \item\texttt{Molecfit}: dados telúricos sintéticos gerados com a ferramenta \texttt{Molecfit} \citep{smette2015molecfit} 
+    \item UVES: dois pares de arquivos FITS contendo observações das estrelas HD110379 e HD186791 e seus respectivos referenciais telúricos. Estes dados foram capturados pelo espectrógrafo UVES \footnote{\url{https://www.eso.org/sci/facilities/paranal/instruments/uves.html}} \citep{2000SPIE.4008..534D}, instalado no \textit{Very Large Telescope Array} \footnote{\url{https://www.eso.org/public/brazil/teles-instr/paranal-observatory/vlt/?lang}}, no Cerro Paranal, Chile. Os dados foram obtidos como parte do \textit{proposal} de observação 087.B-0308(B), PI P. Coelho;
+    \item FTS: uma tabela FITS contendo observações reais do Sol, da estrela Arcturus e um referencial telúrico para ambas \citep{arcturusflux:hinkle00}, observados pelo \textit{Fourier Transform Spectrometer} instalado no telescópio KPNO no National Optical Astronomy Observatory\footnote{\url{https://www.noao.edu/image_gallery/html/im0449.html}};
+    \item XSL: dados de observações do \textit{X-Shooter} \citep{Chen2014TheXS, unpublished-xshooter-data-release}, outro espectrógrafo que compõe o \textit{Very Large Telescope Array}. Mais detalhes sobre este conjunto de dados são explicados nesta seção (Anaïs Gonneau, comunicação privada);
+    \item\texttt{Molecfit}: dados telúricos sintéticos gerados com a ferramenta \texttt{Molecfit} \citep{smette2015molecfit}. 
 \end{itemize}
 
 % leitura dos dados
 Antes de qualquer teste foi necessário um processo de ambientação e familiarização com os dados astronômicos. Para a leitura e manipulação de dados no formato FITS foi usada a biblioteca \textit{Astropy}.
 
 % exemplos de estrelas mencionadas acima
-A combinação dos dados com o ferramental adequado, possibilitou analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras~\ref{fig:two-stars-hd110379} e~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol. Além dos espectros completos, a figura~\ref{fig:two-stars-zoom-hd110379} ilustra dois painéis aumentados dos espectros observado e telúrico de HD110379, asim é possível ver as linhas espectrais com mais detalhes e compreender qual informação é perdida para a contaminação telúrica.
+A combinação dos dados com o ferramental adequado, possibilitou analisar e visualizar o espectro de diversas estrelas. Dois exemplos de estrelas de ciência e seus referenciais telúricos estão nas figuras~\ref{fig:two-stars-hd110379} e~\ref{fig:two-stars-sun}, e representam, respectivamente, a estrela HD110379 e o Sol. Além dos espectros completos, a figura~\ref{fig:two-stars-zoom-hd110379} ilustra dois painéis aumentados dos espectros observado e telúrico de HD110379, assim é possível ver as linhas espectrais com mais detalhes e compreender qual informação é perdida para a contaminação telúrica.
 
 % observado e o telurico de cada um (ardata e uves)
 \begin{figure}[!htb]
@@ -100,13 +100,13 @@ A combinação dos dados com o ferramental adequado, possibilitou analisar e vis
 % \mqz{Na figura 3.3 do Sol, o item (a) não é um espectro contaminado? O termo ``estrela de ciência'' é adequado para se referir a esse espectro?}
 
 % seleção do xsl como dataset principal
-Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Neste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
+Além das estrelas acima, como foi mencionado na seção~\ref{similarity-and-signal-alignment}, o principal conjunto de dados utilizado nos experimentos deste trabalho são estrelas do \textit{X-Shooter Spectral Library}. O diferencial deste conjunto de dados é que além das observações estelares e referenciais telúricos, foram fornecidos os espectros resultantes da correção telúrica realizada por especialistas. Desta maneira, foi possível estabelecer um \textit{ground truth} como base de comparação para os resultados dos experimentos. Neste conjunto de dados foram fornecidas quatro estrelas (X0319, X0386, X0538, X0771), com nove arquivos cada, distribuídos da seguinte maneira:
 
 % mais detalhes sobre os dados do xsl (4 estrelas de ciencia, 4 teluricas sinteticas do molecfit e 4 corrigidas, dividas entre as regioes do espectro eletromagnetico infravermelho, visivel, ultravioleta)
 \begin{itemize}
     \item *X\_N\_E.fits ou *X\_O\_E.fits: o espectro da estrela com contaminação telúrica, separado em 3 arquivos que cobrem intervalos de comprimento de ondas diferentes (X no nome do arquivo será U = ultravioleta, V = visível ou N = infravermelho);
     \item *TRA.fits: modelo \texttt{Molecfit} que representa o espectro telúrico correspondente ao dia da observação, também separado em 3 arquivos que cobrem comprimentos de ondas diferentes;
-    \item *TAC.fits ou *TAC\_final.fits: espectros das estrelas corrigidos pelo modelo \texttt{Molecfit} e já considerando que as distorções observadas em comprimento de onda foram corrigidas, também separado em três arquivos.
+    \item *TAC.fits ou *TAC\_final.fits: espectros das estrelas corrigidos pelo modelo \texttt{Molecfit} e já considerando que as distorções observadas em comprimento de onda foram corrigidas, também separados em três arquivos.
 \end{itemize}
 
 % plotar os espectros do xsl nas unidades que vieram e falar das diferenças entre os obs e teluricos (escalase formatos) e diferenca com figuras anteriores
@@ -188,7 +188,7 @@ A figura~\ref{fig:x0319-division} mostra mais um exemplo de correção telúrica
 Os artefatos criados pelas correções telúricas das figuras acima não deveriam existir na situação ideal do problema, onde, elemento a elemento, o fluxo do espectro de ciência deveria ser maior ou igual ao fluxo após a absorção atmosférica representada pelo espectro telúrico. Isto indica a presença de um dos efeitos esperados deste tipo de operação: o desalinhamento entre o espectro estelar e o telúrico. Os resultados das correções telúricas e os seus efeitos resultantes fazem sentido, principalmente no caso da estrela do \textit{X-Shooter}, onde pesquisadores observaram estes mesmos problemas \citep{unpublished-xshooter-data-release, wavelength-shifts}
 
 % passar pra dtw e a tentativa de resolver os desalinhamentos
-Os resultados das divisões nesta seção ilustram as dificuldades conhecidas no processo atual de correção telúrica e deixam explícita a necessidade propor soluções alternativas que melhorariam a qualidade dos dados observados.
+Os resultados das divisões nesta seção ilustram as dificuldades conhecidas no processo atual de correção telúrica e deixam explícita a necessidade de propor soluções alternativas que melhorariam a qualidade dos dados observados.
 
 \section{DTW no sinal estelar}
 
@@ -211,7 +211,7 @@ O primeiro exemplo da aplicação do DTW nos dados da XSL considera todo o inter
 \label{fig:x0319-warp-path}
 \end{figure}
 
-O caminho resultante do algoritmo já indica uma série de regiões problemáticas dos espectros que não puderam ser alinhadas de maneira razoável. Idealmente o caminho deveria se distanciar pouco da diagonal secundária da matriz de similaridade, mas neste caso são claras as regiões onde as sequências simplesmente não são similares, como a linha horizontal que ocupa a maioria do caminho, seguida de um trecho quase vertical.
+O caminho resultante do algoritmo já indica uma série de regiões problemáticas dos espectros que não puderam ser alinhadas de maneira razoável. Idealmente o caminho deveria se distanciar pouco da diagonal da matriz de similaridade, mas neste caso são claras as regiões onde as sequências simplesmente não são similares, como a linha horizontal que ocupa a maioria do caminho, seguida de um trecho quase vertical.
 
 O espectro telúrico original do \texttt{Molecfit} e o realinhado em relação à observação estelar que foi reconstruído a partir do caminho do DTW estão apresentados na figura~\ref{fig:x0319-realigned-telluric}.
 
@@ -230,8 +230,6 @@ O espectro telúrico original do \texttt{Molecfit} e o realinhado em relação �
 % mais um exemplo em outra estrela no espectro completo
 O próximo teste também foi feito em uma estrela do XSL, a estrela X0386, no intervalo visível de comprimento de onda do espectro. A escolha desta região espectral se deve ao fato de que a contaminação telúrica está presente, porém é menos intensa e de mais difícil correção do que na região de comprimento de onda infravermelho. Quanto à região ultravioleta, esta parece ser menos sensível aos efeitos da atmosfera terrestre, como pode ser visualizado na figura \ref{fig:molectfit-telluric-reference}.
 
-% espectro observado, porque não foi mostrado antes
-A figura~\ref{fig:x0386-v-n-e} a seguir ilustra a observação estelar de X0386, para que se possa perceber o formato do espectro contaminado.
 
 \begin{figure}[htb]
 \centering
@@ -240,6 +238,8 @@ A figura~\ref{fig:x0386-v-n-e} a seguir ilustra a observação estelar de X0386,
 \label{fig:x0386-v-n-e}
 \end{figure}
 
+% espectro observado, porque não foi mostrado antes
+A figura~\ref{fig:x0386-v-n-e} a seguir ilustra a observação estelar de X0386, para que se possa perceber o formato do espectro contaminado.
 % comentarios do caminho do DTW
 Nesta observação e no seu referencial telúrico foi aplicado o DTW, e a figura~\ref{fig:x0386-warp-path} contém o caminho resultante do algoritmo. Neste caso também é possível observar que o caminho apresenta uma grande distorção em relação à diagonal ideal, o que significa que o sinal estelar e telúrico não possuem um alinhamento razoável que permitiria a divisão simples dos espectros.
 
@@ -352,13 +352,13 @@ A presença de pequenos desalinhamentos entre os sinais sugere que estes dados s
   \centering
   \subfloat[Caminho do DTW entre espectros telúricos de X0386]{\includegraphics[width=0.5\textwidth]{figuras/x0386_warp_path_gt.png}}
   \hfill
-  \subfloat[Espectro telúrico de X0319 reconstruído a partir do caminho do DTW]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra_dtw.png}}
-  \caption{Caminho do DTW e espectro telúrico reconstruído de X0319}
+  \subfloat[Espectro telúrico de X0386 reconstruído a partir do caminho do DTW]{\includegraphics[width=0.5\textwidth]{figuras/x0386_v_n_e_tra_dtw.png}}
+  \caption{Caminho do DTW e espectro telúrico reconstruído de X0386}
   \label{fig:x0386-dtw-telluric}
 \end{figure}
 
 % resultados dtw
-As figuras~\ref{fig:x0319-dtw-telluric} e~\ref{fig:x0386-dtw-telluric} mostram os caminhos resultantes da aplicação do DTW nos espectros telúricos do \texttt{Molecfit} e nos espectros telúricos \textit{ground-truth} de X0319 e X0386. Diferentemente dos caminhos resultantes do DTW quando aplicados no sinal estelar e telúrico, neste caso quase não existem distorções e o caminho se aproxima do caso ideal. Os pequenos desvios em relação à diagonal no caminho resultante indicam desalinhamentos no sinal estelar que foram manualmente corrigido pelo grupo de pesquisadores responsável pelo espectro final. 
+As figuras~\ref{fig:x0319-dtw-telluric} e~\ref{fig:x0386-dtw-telluric} mostram os caminhos resultantes da aplicação do DTW nos espectros telúricos do \texttt{Molecfit} e nos espectros telúricos \textit{ground-truth} de X0319 e X0386. Diferentemente dos caminhos resultantes do DTW quando aplicados no sinal estelar e telúrico, neste caso quase não existem distorções e o caminho se aproxima do caso ideal. Os pequenos desvios em relação à diagonal no caminho resultante indicam desalinhamentos no sinal estelar que foram manualmente corrigidos pelo grupo de pesquisadores responsável pelo espectro final. 
 % metrica de shift
 Para melhor compreender as regiões do espectro telúrico mais afetadas por desalinhamentos, foi computada uma função \textit{shift} ao longo do caminho do DTW, tal que, para cada par de índices $(i,j)$ desse caminho, o valor do \textit{shift} é representado por $j - i$. Desta forma é possível ver os desalinhamentos em termos de quantidade de índices de desvio entre os respectivos sinais telúricos.
 
